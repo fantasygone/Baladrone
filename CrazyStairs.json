@@ -1,0 +1,14 @@
+{
+	"id": "CrazyStairs",
+	"name": "Crazy Stairs",
+	"display_name": "Crazy Stairs",
+	"author": ["Roloversion"],
+	"description": "New Jokers and new item (Alignments)",
+	"prefix": "cs",
+	"main_file": "CrazyStairs.lua",
+	"priority": -2,
+	"badge_colour": "FFFBBB75",
+	"badge_text_colour": "",
+	"version": "1.0.0",
+	"dependencies": ["Steamodded (>=1.0.0*~)"]
+}
