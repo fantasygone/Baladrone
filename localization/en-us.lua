@@ -31,8 +31,24 @@ return {
 					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
 				}
 			},
+			["j_cs_creator"] = {
+				["name"] = "Creator",
+				["text"] = {
+					"If {C:attention}first hand{} of round,",
+					"creates a {C:attention}basic{} copy of",
+					"the first card played",
+					"increased by {C:attention}#1# rank{}",
+				}
+			},
 		},
 		["Other"] = {
+			["cs_basic"] = {
+				["name"] = "Basic Card",
+				["text"] = {
+					"Won't retain any",
+					"edition and/or enhanchment"
+				}
+			},
 			["cs_patron_aligned"] = {
 				["name"] = "Patron Aligned",
 				["text"] = {
@@ -123,8 +139,11 @@ return {
 		["dictionary"] = {
 			["cs_active"] = "active!",
 			["cs_inactive"] = "inactive",
+			["cs_false"] = "False",
+			["cs_smh"] = "Smh",
 			["cs_flipped"] = "Flipped!",
 			["cs_destroyed"] = "Destroyed!",
+			["cs_created"] = "Created!",
 		},
 	},
 }

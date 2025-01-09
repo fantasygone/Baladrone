@@ -13,6 +13,7 @@ return {
             value = 'Ace'
         },
         mult = 0,
+        triggered = false
     },
     rarity = 1,
     pos = { x = 0, y = 3 },
@@ -36,10 +37,11 @@ return {
     end,
 
     calculate = function (self, card, context)
-        if context.full_hand and context.destroying_card and not context.blueprint then
+        if context.full_hand and context.destroying_card and not context.destroying_card.debuff and not context.blueprint then
             local playcard = context.destroying_card
 
-            if playcard.base.id == (card.ability.below.rank == 14 and 2 or (card.ability.below.rank + 1)) and not playcard.destroyed then
+            if playcard.base.id == (card.ability.below.rank == 14 and 2 or (card.ability.below.rank + 1)) and not card.ability.triggered then
+                card.ability.triggered = true
                 card.ability.mult = card.ability.mult + card.ability.extra
 
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
@@ -59,6 +61,10 @@ return {
                 mult_mod = card.ability.mult,
                 colour = G.C.RED
             }
+        end
+
+        if context.scoring_hand and context.after then
+            card.ability.triggered = false
         end
     end
 }

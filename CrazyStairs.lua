@@ -15,6 +15,7 @@ local joker_files = {
     "broken_drone",
     "flipper",
     "destroyer",
+    "creator",
 }
 
 impostor_warnings = {
@@ -33,6 +34,7 @@ impostor_warnings = {
 local audio_files = {
     "flip",
     "destroy",
+    "create",
 }
 
 -- Load and register Jokers using the utility function
@@ -52,7 +54,7 @@ end
 function SMODS.current_mod.reset_game_globals(run_start)
     if run_start then
         for i = 1, #SMODS.find_card('j_cs_destroyer') do
-            imy_utils.reset_destroyer_card(SMODS.find_card('j_cs_destroyer')[i])
+            cs_utils.reset_destroyer_card(SMODS.find_card('j_cs_destroyer')[i])
         end
     end
 end

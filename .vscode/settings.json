@@ -1,0 +1,7 @@
+{
+    "Lua.diagnostics.globals": [
+        "cs_utils",
+        "inspect",
+        "SMODS"
+    ]
+}

@@ -5,6 +5,20 @@ priority = -1
 
 
 
+
+
+# Add custom sound to eval
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if extra.edition then"
+position = "before"
+payload = "sound = extra.sound or sound"
+match_indent = true
+
+
+
+
 # Add new colors
 [[patches]]
 [patches.pattern]
@@ -56,14 +70,20 @@ match_indent = true
 
 
 
-# Flipper logic
+# Added new context beforeall
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
 pattern = "G.FUNCS.evaluate_play = function(e)"
 position = "after"
 payload = '''
-cs_utils.handle_flipper()
+    for i=1, #G.jokers.cards do
+        --calculate the joker before hand evaulation
+        local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, cs_beforeall = true})
+        if effects.jokers then
+            card_eval_status_text(G.jokers.cards[i], 'jokers', nil, 1.1, nil, effects.jokers)
+        end
+    end
 '''
 match_indent = true
 
