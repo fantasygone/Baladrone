@@ -1,10 +1,5 @@
 local cs_utils = {}
 
--- Helper function to load all Joker files
-function cs_utils.load_joker(filename)
-    return dofile(SMODS.current_mod.path .. "/jokers/" .. filename .. ".lua")
-end
-
 -- how hard is it for lua to give us a contains?
 function cs_utils.contains(table, element)
     for _, value in ipairs(table) do

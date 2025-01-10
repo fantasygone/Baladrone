@@ -1,5 +1,4 @@
-local cs_utils = dofile(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")
-return {
+SMODS.Joker {
     key = "flipper",
     loc_txt = {
         name = "Flipper",

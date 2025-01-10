@@ -1,14 +1,5 @@
 -- Import utility functions
--- cs_utils = dofile(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")
 cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
-
--- local originalCardInit = Card.init
--- function Card:init(X, Y, W, H, card, center, params)
---     originalCardInit(self, X, Y, W, H, card, center, params)
-
---     self.cs_fake = false
--- end
-
 
 local original_set_ability = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
@@ -24,15 +15,6 @@ SMODS.Atlas {
     path = "CsJokers.png",
     px = 71,
     py = 95
-}
-
--- List all Joker files here
-local joker_files = {
-    "broken_drone",
-    "creator",
-    "flipper",
-    "trap",
-    "destroyer",
 }
 
 impostor_warnings = {
@@ -63,10 +45,17 @@ local audio_files = {
     "trap_triggered",
 }
 
--- Load and register Jokers using the utility function
-for _, filename in ipairs(joker_files) do
-    local joker = cs_utils.load_joker(filename)
-    SMODS.Joker(joker)
+-- List all Joker files here
+local joker_files = {
+    "broken_drone",
+    "creator",
+    "flipper",
+    "trap",
+    "destroyer",
+}
+
+for i = 1, #joker_files do
+    NFS.load(SMODS.current_mod.path .. "/jokers/" .. joker_files[i] .. ".lua")()
 end
 
 -- Load and register Sounds

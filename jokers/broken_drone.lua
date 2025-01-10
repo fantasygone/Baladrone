@@ -1,5 +1,4 @@
-local cs_utils = dofile(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")
-return {
+SMODS.Joker {
     key = "broken_drone",
     loc_txt = {
         name = "Broken Drone",
