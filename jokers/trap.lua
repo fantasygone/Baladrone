@@ -16,7 +16,7 @@ return {
     rarity = 1,
     pos = { x = 1, y = 2 },
     atlas = "CrazyStairs_atlas",
-    cost = 6,
+    cost = 4,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -35,7 +35,7 @@ return {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        if not from_debuff and not G.SETTINGS.paused then
+        if not from_debuff and not G.SETTINGS.paused and G.jokers then
             local chosen
             -- local available_cards = cs_utils.shallow_copy{G.playing_cards}
             local available_cards = {}
@@ -69,7 +69,7 @@ return {
     end,
 
     update = function(self, card, dt)
-        if not G.SETTINGS.paused then
+        if not G.SETTINGS.paused and G.jokers then
             card.ability.fake_tally = 0
             for k, v in pairs(G.playing_cards) do
                 if v.ability.cs_fake then card.ability.fake_tally = card.ability.fake_tally + 1 end
