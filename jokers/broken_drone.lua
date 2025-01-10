@@ -43,7 +43,7 @@ return {
             cs_utils.broken_drone_interaction(context.blueprint_card)
         end
 
-        if context.cardarea == G.jokers and not context.before and not context.after and card.ability.Xmult > 1 then
+        if context.joker_main and card.ability.Xmult > 1 then
             return {
                 message = localize{type='variable',key='a_xmult',vars={card.ability.Xmult}},
                 Xmult_mod = card.ability.Xmult

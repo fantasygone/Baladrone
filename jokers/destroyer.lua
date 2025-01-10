@@ -54,7 +54,7 @@ return {
             end
         end
 
-        if context.cardarea == G.jokers and not context.before and not context.after and card.ability.mult > 0 then
+        if context.joker_main and card.ability.mult > 0 then
             return {
                 message = localize{type='variable',key='a_mult',vars={card.ability.mult}},
                 card = self,

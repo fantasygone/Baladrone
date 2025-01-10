@@ -85,7 +85,7 @@ return {
             for i = 1, #context.scoring_hand do
                 local current = context.scoring_hand[i]
 
-                if current.ability.cs_fake then
+                if current.ability.cs_fake and not current.debuff then
                     playedFake = true
                     break
                 end
@@ -113,7 +113,7 @@ return {
         end
 
 
-        if context.cardarea == G.jokers and not context.before and not context.after and card.ability.chips > 0 then
+        if context.joker_main and card.ability.chips > 0 then
             return {
                 message = localize{type='variable',key='a_chips',vars={card.ability.chips}},
                 chip_mod = card.ability.chips,

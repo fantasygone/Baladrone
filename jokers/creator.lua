@@ -38,7 +38,7 @@ return {
             juice_card_until(card, evalJoker, true)
         end
 
-        if context.scoring_hand and context.after and G.GAME.current_round.hands_played == 0 then
+        if context.scoring_hand and not context.scoring_hand[1].debuff and context.after and G.GAME.current_round.hands_played == 0 then
             local copycard = context.scoring_hand[1]
 
             G.E_MANAGER:add_event(Event({
