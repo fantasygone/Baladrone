@@ -58,6 +58,7 @@ return {
 
                 chosen.ability.cs_fake = true
                 -- chosen.ability.bonus = chosen.base.nominal - (chosen.base.nominal*2)
+                chosen:juice_up(1, 1)
             end
 
             delay(0.2)
