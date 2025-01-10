@@ -15,10 +15,10 @@ return {
         mult = 0,
         triggered = false
     },
-    rarity = 1,
+    rarity = 2,
     pos = { x = 0, y = 3 },
     atlas = "CrazyStairs_atlas",
-    cost = 5,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,

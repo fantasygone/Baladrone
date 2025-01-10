@@ -14,11 +14,24 @@ return {
 			["j_cs_flipper"] = {
 				["name"] = "Flipper",
 				["text"] = {
-					"Played {C:attention}6s{} turn",
-					"into {C:attention}9s{} and vice versa",
-					"before scoring",
-					"{C:inactive}(Finds a better hand{}",
-					"{C:inactive}if possible){}",
+					"Before scoring, played {C:attention}6s{}",
+					"turns into {C:attention}9s{} and vice versa",
+					"If both ranks are present,",
+					"turns them into the rank that",
+					"there is more of in play",
+				}
+			},
+			["j_cs_trap"] = {
+				["name"] = "Trap",
+				["text"] = {
+					"When this Joker is obtained,",
+					"{C:attention}#1#{} {C:inactive}[#4#]{} random cards",
+					"in your deck become {C:attention}fake{}",
+					"Gains {C:chips}+#2#{} Chips per",
+					"consecutive hand played",
+					"without {C:attention}fake{} cards",
+					"if there are any",
+					"{C:inactive}(Currently{} {C:chips}+#3#{} {C:inactive}Chips){}",
 				}
 			},
 			["j_cs_destroyer"] = {
@@ -34,7 +47,7 @@ return {
 			["j_cs_creator"] = {
 				["name"] = "Creator",
 				["text"] = {
-					"If {C:attention}first hand{} of round,",
+					"On {C:attention}first hand{} of round,",
 					"creates a {C:attention}basic{} copy of",
 					"the first card played",
 					"increased by {C:attention}#1# rank{}",
@@ -47,6 +60,14 @@ return {
 				["text"] = {
 					"Won't retain any",
 					"edition and/or enhanchment"
+				}
+			},
+			["cs_fake"] = {
+				["name"] = "Fake Card",
+				["text"] = {
+					"Scores negative of",
+					"base Chips value",
+					"Can't be traced"
 				}
 			},
 			["cs_patron_aligned"] = {
@@ -142,6 +163,9 @@ return {
 			["cs_false"] = "False",
 			["cs_smh"] = "Smh",
 			["cs_flipped"] = "Flipped!",
+			["cs_faking_cards"] = "Don't peek!",
+			["cs_fake_played"] = "Hahaha!",
+			["cs_lame"] = "Lame",
 			["cs_destroyed"] = "Destroyed!",
 			["cs_created"] = "Created!",
 		},

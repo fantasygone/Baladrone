@@ -2,6 +2,23 @@
 cs_utils = dofile(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")
 inspect = dofile(SMODS.current_mod.path .. "/inspect.lua")
 
+-- local originalCardInit = Card.init
+-- function Card:init(X, Y, W, H, card, center, params)
+--     originalCardInit(self, X, Y, W, H, card, center, params)
+
+--     self.cs_fake = false
+-- end
+
+
+local original_set_ability = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+    original_set_ability(self, center, initial, delay_sprites)
+
+    if self.ability then
+        self.ability.cs_fake = false
+    end
+end
+
 -- Create an atlas for cards to use
 SMODS.Atlas {
     key = "CrazyStairs_atlas",
@@ -13,9 +30,10 @@ SMODS.Atlas {
 -- List all Joker files here
 local joker_files = {
     "broken_drone",
-    "flipper",
-    "destroyer",
     "creator",
+    "flipper",
+    "trap",
+    "destroyer",
 }
 
 impostor_warnings = {
@@ -30,11 +48,18 @@ impostor_warnings = {
     "I do not speak like that",
 }
 
+-- Adding new custom contexts messes up all other Jokers. had to make specific checks
+beforeall_context = {
+    "j_cs_flipper",
+}
+
 -- List all Joker files here
 local audio_files = {
     "flip",
     "destroy",
     "create",
+    "trap_set",
+    "trap_triggered",
 }
 
 -- Load and register Jokers using the utility function

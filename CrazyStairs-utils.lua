@@ -46,7 +46,7 @@ end
 function cs_utils.unflip_cards_noevent(table, trigger, delay)
     for i=1, #table do
         local percent = 0.85 + (i-0.999)/(#table-0.998)*0.3
-        
+
         table[i]:flip()
         play_sound('tarot2', percent, 0.6)
         table[i]:juice_up(0.3, 0.3)
