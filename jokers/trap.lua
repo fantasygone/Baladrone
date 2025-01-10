@@ -1,5 +1,4 @@
 local cs_utils = dofile(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")
-local inspect = dofile(SMODS.current_mod.path .. "/inspect.lua")
 return {
     key = "trap",
     loc_txt = {

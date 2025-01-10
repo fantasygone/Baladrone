@@ -1,6 +1,6 @@
 -- Import utility functions
-cs_utils = dofile(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")
-inspect = dofile(SMODS.current_mod.path .. "/inspect.lua")
+-- cs_utils = dofile(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")
+cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
 
 -- local originalCardInit = Card.init
 -- function Card:init(X, Y, W, H, card, center, params)
@@ -19,7 +19,6 @@ function Card:set_ability(center, initial, delay_sprites)
     end
 end
 
--- Create an atlas for cards to use
 SMODS.Atlas {
     key = "CrazyStairs_atlas",
     path = "CsJokers.png",
@@ -51,6 +50,8 @@ impostor_warnings = {
 -- Adding new custom contexts messes up all other Jokers. had to make specific checks
 beforeall_context = {
     "j_cs_flipper",
+    "Brainstorm",
+    "Blueprint",
 }
 
 -- List all Joker files here
