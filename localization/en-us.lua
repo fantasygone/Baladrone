@@ -168,6 +168,10 @@ return {
 			["cs_lame"] = "Lame",
 			["cs_destroyed"] = "Destroyed!",
 			["cs_created"] = "Created!",
+			["cs_just_chips"] = "Created!",
+		},
+		["v_dictionary"] = {
+			["cs_just_chips"] = "#1#",
 		},
 	},
 }

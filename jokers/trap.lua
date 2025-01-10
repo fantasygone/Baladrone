@@ -48,8 +48,6 @@ return {
                     chosen = pseudorandom_element(available_cards, pseudoseed('cs_trap'))
                 until not chosen.ability.cs_fake
 
-                print(chosen.base.value)
-
                 -- Remove from list to avoid duplicates
                 for j = 1, #available_cards do
                     if available_cards[j] == chosen then
@@ -65,8 +63,8 @@ return {
             delay(0.2)
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
                 play_sound('cs_trap_set')
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_faking_cards'), colour = G.C.YELLOW})
             return true end }))
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_faking_cards'), colour = G.C.YELLOW})
         end
     end,
 
@@ -94,7 +92,6 @@ return {
 
             if playedFake then
                 card.ability.chips = 0
-
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
                     play_sound('cs_trap_triggered')
                 return true end }))
@@ -103,14 +100,12 @@ return {
                     message = localize('cs_fake_played'),
                     colour = G.C.YELLOW
                 }
-            else
-                if card.ability.fake_tally > 0 then
-                    card.ability.chips = card.ability.chips + card.ability.extra
-                end
+            elseif card.ability.fake_tally > 0 then
+                card.ability.chips = card.ability.chips + card.ability.extra
 
                 return {
                     card = card,
-                    message = localize('cs_lame'),
+                    message = localize('cs_lame') .. ' ' .. localize{type='variable',key='a_chips',vars={card.ability.chips}},
                     colour = G.C.YELLOW
                 }
             end

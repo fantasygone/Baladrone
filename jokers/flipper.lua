@@ -53,6 +53,8 @@ return {
                 end
         
                 cs_utils.flip_cards_noevent(toflip)
+
+                play_sound('cs_flip')
         
                 for i = 1, #toflip do
                     local hooked_card = toflip[i]
@@ -65,8 +67,7 @@ return {
                 return {
                     message = localize('cs_flipped'),
                     colour = G.C.YELLOW,
-                    card = card,
-                    sound = 'cs_flip'
+                    card = card
                 }
             end
         end

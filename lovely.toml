@@ -112,3 +112,19 @@ match_indent = true
 
 
 
+
+# remove "+" when scoring fake cards
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''text = localize{type='variable',key='a_chips',vars={amt}}'''
+position = "after"
+payload = '''
+    if card.ability.cs_fake then
+        text = localize{type='variable',key='cs_just_chips',vars={amt}}
+    end
+'''
+match_indent = true
+
+
+

@@ -7,7 +7,7 @@ return {
         },
     },
     config = {
-        extra = 2,
+        extra = 1,
         below = {
             rank = 14,
             value = 'Ace'
@@ -44,12 +44,12 @@ return {
                 card.ability.triggered = true
                 card.ability.mult = card.ability.mult + card.ability.extra
 
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_destroyed') .. ' ' .. localize{type='variable',key='a_mult',vars={card.ability.mult}}, colour = G.C.RED})
+                cs_utils.reset_destroyer_card(card)
+
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
                     play_sound('cs_destroy')
                 return true end }))
-
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_destroyed'), colour = G.C.RED})
-                cs_utils.reset_destroyer_card(card)
                 return true
             end
         end
