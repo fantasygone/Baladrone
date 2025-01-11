@@ -7,7 +7,7 @@ return {
 				["text"] = {
 					"Destroys Jokers that try",
 					"to {C:attention}copy{} this Joker",
-					"Gain {X:mult,C:white}X#1#{} Mult per card",
+					"Gains {X:mult,C:white}X#1#{} Mult per card",
 					"destroyed this way",
 					"{C:inactive}(Currently {X:mult,C:white}X#2# {C:inactive} Mult)",
 				}
@@ -28,10 +28,9 @@ return {
 					"When this Joker is obtained,",
 					"{C:attention}#1#{} {C:inactive}[#4#]{} random cards",
 					"in your deck become {C:attention}fake{}",
-					"Gains {C:chips}+#2#{} Chips per",
-					"consecutive hand played",
-					"without {C:attention}fake{} cards",
-					"if there are any",
+					"Gains {C:chips}+#2#{} Chips per hand",
+					"played without {C:attention}fake{} cards,",
+					"otherwise {C:attention}halves{} current Chips",
 					"{C:inactive}(Currently{} {C:chips}+#3#{} {C:inactive}Chips){}",
 				}
 			},
@@ -65,6 +64,17 @@ return {
 				}
 			},
 		},
+		["Enhanced"] = {
+			["m_cs_fake"] = {
+				["name"] = "Fake Card",
+				["text"] = {
+					"Scores negative of",
+					"base Chips value",
+					"Can't be traced",
+					"unless triggered",
+				},
+			},
+		},
 		["Other"] = {
 			["cs_lift_seal"] = {
 				["name"] = "Lift Seal",
@@ -81,12 +91,13 @@ return {
 					"edition and/or enhanchment"
 				}
 			},
-			["cs_fake"] = {
+			["cs_fake_card"] = {
 				["name"] = "Fake Card",
 				["text"] = {
 					"Scores negative of",
 					"base Chips value",
-					"Can't be traced"
+					"Can't be traced",
+					"unless triggered",
 				}
 			},
 			["cs_patron_aligned"] = {
@@ -193,6 +204,9 @@ return {
 		},
 		["v_dictionary"] = {
 			["cs_just_chips"] = "#1#",
+		},
+		["labels"] = {
+			["cs_lift_seal"] = "Lift Seal",
 		},
 	},
 }

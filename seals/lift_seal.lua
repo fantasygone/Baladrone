@@ -22,4 +22,8 @@ SMODS.Seal {
             }
         end
     end,
+
+    in_pool = function(self, args)
+        return false, false
+    end
 }

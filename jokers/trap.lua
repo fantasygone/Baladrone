@@ -22,7 +22,7 @@ SMODS.Joker {
 
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {key = 'cs_joker_aligned', set = 'Other'}
-        info_queue[#info_queue + 1] = {key = 'cs_fake', set = 'Other'}
+        info_queue[#info_queue + 1] = {key = 'cs_fake_card', set = 'Other'}
         return {vars = {
             center.ability.fakes,
             center.ability.extra,
@@ -84,18 +84,23 @@ SMODS.Joker {
 
                 if current.ability.cs_fake and not current.debuff then
                     playedFake = true
-                    break
+                    if current.config.center ~= G.P_CENTERS['m_cs_fake'] then
+                        current:set_ability(G.P_CENTERS['m_cs_fake'])
+                        current:juice_up(0.6, 0.6)
+                    end
                 end
             end
 
             if playedFake then
-                card.ability.chips = 0
+                card.ability.chips = card.ability.chips / 2
+                if card.ability.chips < 0 then card.ability.chips = 0 end
+
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
                     play_sound('cs_trap_triggered')
                 return true end }))
                 return {
                     card = card,
-                    message = localize('cs_fake_played'),
+                    message = localize('cs_fake_played') .. ' ' .. localize{type='variable',key='a_chips_minus',vars={card.ability.chips}},
                     colour = G.C.YELLOW
                 }
             elseif card.ability.fake_tally > 0 then

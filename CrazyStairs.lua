@@ -5,9 +5,7 @@ local original_set_ability = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
     original_set_ability(self, center, initial, delay_sprites)
 
-    if self.ability then
-        self.ability.cs_fake = false
-    end
+    self.ability.cs_fake = self.ability and self.ability.cs_fake or false
 end
 
 SMODS.Atlas {
@@ -64,8 +62,14 @@ local joker_files = {
     "strider",
 }
 
+-- List all seals files here
 local seal_files = {
     "lift_seal",
+}
+
+-- List all enchamcnent files here
+local enchamcnemnt_files = {
+    "fake_enh",
 }
 
 for i = 1, #joker_files do
@@ -74,6 +78,10 @@ end
 
 for i = 1, #seal_files do
     NFS.load(SMODS.current_mod.path .. "/seals/" .. seal_files[i] .. ".lua")()
+end
+
+for i = 1, #enchamcnemnt_files do
+    NFS.load(SMODS.current_mod.path .. "/enhancement/" .. enchamcnemnt_files[i] .. ".lua")()
 end
 
 -- Load and register Sounds
