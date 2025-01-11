@@ -35,7 +35,7 @@ payload = '''
         cs_hacker = HEX("febfe9"),
         cs_thief = HEX("0146fe"),
         cs_archon = HEX("23ee9c"),
-        cs_drifter = HEX("b3e87a"),
+        cs_drifter = HEX("6c9648"),
         cs_heretic = HEX("b9a0e6"),
         cs_spectre = HEX("0dfefe"),
         cs_chameleon = HEX("cc03ed"),
@@ -75,18 +75,20 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = "G.FUNCS.evaluate_play = function(e)"
-position = "after"
+pattern = "G.GAME.hands[text].played = G.GAME.hands[text].played + 1"
+position = "before"
 payload = '''
     for i=1, #G.jokers.cards do
         if cs_utils.contains(beforeall_context, G.jokers.cards[i].ability.name) then
             --calculate the joker before hand evaulation
-            local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, cs_beforeall = true})
+            local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, cs_beforeall = true, scoring_hand = scoring_hand})
             if effects.jokers then
                 card_eval_status_text(G.jokers.cards[i], 'jokers', nil, 1.1, nil, effects.jokers)
             end
         end
     end
+
+    text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
 '''
 match_indent = true
 

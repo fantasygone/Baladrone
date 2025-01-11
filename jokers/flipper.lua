@@ -1,11 +1,6 @@
 SMODS.Joker {
     key = "flipper",
-    loc_txt = {
-        name = "Flipper",
-        text = {},
-    },
-    config = {
-    },
+    config = {},
     rarity = 3,
     pos = { x = 0, y = 2 },
     atlas = "CrazyStairs_atlas",
@@ -22,11 +17,11 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.cs_beforeall then
+        if context.cs_beforeall and not context.blueprint then
             local toflip = {}
             local count_6 = 0
             local count_9 = 0
-        
+            
             for i = 1, #G.play.cards do
                 if not G.play.cards[i].debuff then
                     if G.play.cards[i]:get_id() == 6 then

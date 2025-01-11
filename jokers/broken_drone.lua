@@ -1,17 +1,7 @@
 SMODS.Joker {
     key = "broken_drone",
-    loc_txt = {
-        name = "Broken Drone",
-        text = {
-            "Destroys Jokers that try",
-            "to copy this Joker",
-            "Gain {X:mult,C:white}X#1#{} Mult per card",
-            "destroyed this way",
-            "{C:inactive}(Currently {X:mult,C:white}X#2# {C:inactive} Mult)",
-        },
-    },
     config = {
-        extra = 1, 
+        extra = 0.75,
         Xmult = 1.5,
     },
     rarity = 2,

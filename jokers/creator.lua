@@ -1,13 +1,5 @@
 SMODS.Joker {
     key = "creator",
-    loc_txt = {
-        name = "Creator",
-        text = {
-            "If {C:attention}first hand{} of round",
-            "creates a basic copy of", "the first card played",
-            "increased by {C:attention}#1# rank{}",
-        },
-    },
     config = {
         extra = 1,
     },

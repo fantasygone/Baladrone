@@ -17,6 +17,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "CrazyStairsSeals_atlas",
+    path = "CsSeals.png",
+    px = 71,
+    py = 95
+}
+
 impostor_warnings = {
     "Cease this tomfoolery at once",
     "Not funny, didn't laugh",
@@ -32,6 +39,7 @@ impostor_warnings = {
 -- Adding new custom contexts messes up all other Jokers. had to make specific checks
 beforeall_context = {
     "j_cs_flipper",
+    "j_cs_strider",
     "Brainstorm",
     "Blueprint",
 }
@@ -43,6 +51,7 @@ local audio_files = {
     "create",
     "trap_set",
     "trap_triggered",
+    "lift_seal_obtained",
 }
 
 -- List all Joker files here
@@ -52,10 +61,19 @@ local joker_files = {
     "flipper",
     "trap",
     "destroyer",
+    "strider",
+}
+
+local seal_files = {
+    "lift_seal",
 }
 
 for i = 1, #joker_files do
     NFS.load(SMODS.current_mod.path .. "/jokers/" .. joker_files[i] .. ".lua")()
+end
+
+for i = 1, #seal_files do
+    NFS.load(SMODS.current_mod.path .. "/seals/" .. seal_files[i] .. ".lua")()
 end
 
 -- Load and register Sounds

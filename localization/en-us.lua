@@ -3,9 +3,10 @@ return {
 		["Joker"] = {
 			["j_cs_broken_drone"] = {
 				["name"] = "Broken Drone",
+				["label"] = "Artificial",
 				["text"] = {
 					"Destroys Jokers that try",
-					"to copy this Joker",
+					"to {C:attention}copy{} this Joker",
 					"Gain {X:mult,C:white}X#1#{} Mult per card",
 					"destroyed this way",
 					"{C:inactive}(Currently {X:mult,C:white}X#2# {C:inactive} Mult)",
@@ -38,7 +39,7 @@ return {
 				["name"] = "Destroyer",
 				["text"] = {
 					"Destroys first scored",
-					"card directly above {C:attention}#1#{}",
+					"card {C:attention}directly above #1#{}",
 					"and gains {C:mult}+#2#{} Mult",
 					"{s:0.8}Rank changes when triggered",
 					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
@@ -53,8 +54,26 @@ return {
 					"increased by {C:attention}#1# rank{}",
 				}
 			},
+			["j_cs_strider"] = {
+				["name"] = "Strider",
+				["text"] = {
+					"If {C:attention}first hand{} of round",
+					"has only {C:attention}1{} card, add a",
+					"{C:red}Red Seal{} to it or change",
+					"it to a {C:cs_drifter}Lift Seal{} if it does",
+					"already have one",
+				}
+			},
 		},
 		["Other"] = {
+			["cs_lift_seal"] = {
+				["name"] = "Lift Seal",
+				["label"] = "Lift Seal",
+				["text"] = {
+                    "Retrigger this",
+                    "card {C:attention}2{} times",
+				}
+			},
 			["cs_basic"] = {
 				["name"] = "Basic Card",
 				["text"] = {
@@ -168,7 +187,9 @@ return {
 			["cs_lame"] = "Lame",
 			["cs_destroyed"] = "Destroyed!",
 			["cs_created"] = "Created!",
-			["cs_just_chips"] = "Created!",
+			["cs_boosted"] = "Boosted!",
+			["cs_boosted_again"] = "Boosted again!",
+			["cs_lift"] = "Rise!",
 		},
 		["v_dictionary"] = {
 			["cs_just_chips"] = "#1#",

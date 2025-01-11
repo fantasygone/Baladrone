@@ -2,8 +2,7 @@ SMODS.Joker {
     key = "trap",
     loc_txt = {
         name = "Trap",
-        text = {
-        },
+        text = {},
     },
     config = {
         chips = 0,

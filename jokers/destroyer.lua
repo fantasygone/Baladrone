@@ -1,10 +1,5 @@
 SMODS.Joker {
     key = "destroyer",
-    loc_txt = {
-        name = "Destroyer",
-        text = {
-        },
-    },
     config = {
         extra = 1,
         below = {
