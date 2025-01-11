@@ -59,6 +59,7 @@ local joker_files = {
     "flipper",
     "trap",
     "destroyer",
+    "restoration",
     "strider",
 }
 
@@ -81,7 +82,7 @@ for i = 1, #seal_files do
 end
 
 for i = 1, #enchamcnemnt_files do
-    NFS.load(SMODS.current_mod.path .. "/enhancement/" .. enchamcnemnt_files[i] .. ".lua")()
+    NFS.load(SMODS.current_mod.path .. "/enhancements/" .. enchamcnemnt_files[i] .. ".lua")()
 end
 
 -- Load and register Sounds

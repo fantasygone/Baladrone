@@ -44,6 +44,15 @@ return {
 					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
 				}
 			},
+			["j_cs_restoration"] = {
+				["name"] = "Restoration",
+				["text"] = {
+					"Every {C:attention}#1#{} {C:inactive}[#2#]{}", 
+					"scoring cards played",
+					"restore debuffed cards",
+					"{C:inactive}(Includes Joker cards){}"
+				}
+			},
 			["j_cs_creator"] = {
 				["name"] = "Creator",
 				["text"] = {
@@ -201,6 +210,7 @@ return {
 			["cs_boosted"] = "Boosted!",
 			["cs_boosted_again"] = "Boosted again!",
 			["cs_lift"] = "Rise!",
+			["cs_restored"] = "Restored!",
 		},
 		["v_dictionary"] = {
 			["cs_just_chips"] = "#1#",
