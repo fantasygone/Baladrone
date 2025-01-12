@@ -8,6 +8,14 @@ function Card:set_ability(center, initial, delay_sprites)
     self.ability.cs_fake = self.ability and self.ability.cs_fake or false
 end
 
+function SMODS.current_mod.reset_game_globals(run_start)
+    if run_start then
+        for i = 1, #SMODS.find_card('j_cs_destroyer') do
+            cs_utils.reset_destroyer_card(SMODS.find_card('j_cs_destroyer')[i])
+        end
+    end
+end
+
 SMODS.Atlas {
     key = "CrazyStairs_atlas",
     path = "CsJokers.png",
@@ -38,6 +46,7 @@ impostor_warnings = {
 beforeall_context = {
     "j_cs_flipper",
     "j_cs_strider",
+    "j_cs_move_up",
     "Brainstorm",
     "Blueprint",
 }
@@ -49,7 +58,8 @@ local audio_files = {
     "create",
     "trap_set",
     "trap_triggered",
-    "lift_seal_obtained",
+    "seal_lift_obtained",
+    "seal_rank_obtained",
 }
 
 -- List all Joker files here
@@ -60,12 +70,14 @@ local joker_files = {
     "trap",
     "destroyer",
     "restoration",
+    "move_up",
     "strider",
 }
 
 -- List all seals files here
 local seal_files = {
     "lift_seal",
+    "rank_seal",
 }
 
 -- List all enchamcnent files here
@@ -89,17 +101,47 @@ end
 for _, filename in ipairs(audio_files) do
     SMODS.Sound({
         key = filename,
-        path = filename..'.wav',
+        path = filename .. '.wav',
     })
 end
 
-function SMODS.current_mod.reset_game_globals(run_start)
-    if run_start then
-        for i = 1, #SMODS.find_card('j_cs_destroyer') do
-            cs_utils.reset_destroyer_card(SMODS.find_card('j_cs_destroyer')[i])
-        end
-    end
+local music_nums = {
+	balatro = 1,
+	crazystairs = 2
+}
+
+local music_strings = {
+	"balatro",
+	"crazystairs",
+}
+
+G.FUNCS.change_music = function(args)
+	G.ARGS.music_vals = G.ARGS.music_vals or music_strings
+	G.SETTINGS.QUEUED_CHANGE.music_change = G.ARGS.music_vals[args.to_key]
+	G.SETTINGS.music_selection = G.ARGS.music_vals[args.to_key]
 end
+
+setting_tabRef = G.UIDEF.settings_tab
+function G.UIDEF.settings_tab(tab)
+	local setting_tab = setting_tabRef(tab)
+	if tab == 'Audio' then
+		local musicSelector = {n=G.UIT.R, config = {align = 'cm', r = 0}, nodes= {
+			create_option_cycle({ w = 6, scale = 0.8, label = localize('b_music_selector'), options = localize('ml_music_selector_opt'), opt_callback = 'change_music', current_option = ((music_nums)[G.SETTINGS.music_selection] or 1) })
+		}}
+		setting_tab.nodes[#setting_tab.nodes + 1] = musicSelector
+	end
+	return setting_tab
+end
+
+SMODS.Sound({
+	vol = 0.6,
+	pitch = 1,
+	key = "cs_main_music",
+	path = "cs_main_music.wav",
+	select_music_track = function()
+		return (G.SETTINGS.music_selection == "crazystairs") and 10 or false
+	end,
+})
 
 if JokerDisplay then
     SMODS.load_file("joker_display_definitions.lua")()

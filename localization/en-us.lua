@@ -53,6 +53,15 @@ return {
 					"{C:inactive}(Includes Joker cards){}"
 				}
 			},
+			["j_cs_move_up"] = {
+				["name"] = "Keeper's Move Up",
+				["text"] = {
+					"Gives {C:cs_keeper}Rank Seal{} to",
+					"the {C:attention}highest{} scoring cards played",
+					"{C:mult}+#1#{} Mult per scoring {C:attention}Ace{}",
+					"with {C:cs_keeper}Rank Seal{} in played hand",
+				}
+			},
 			["j_cs_creator"] = {
 				["name"] = "Creator",
 				["text"] = {
@@ -85,9 +94,17 @@ return {
 			},
 		},
 		["Other"] = {
+			["cs_rank_seal"] = {
+				["name"] = "Rank Seal",
+				["text"] = {
+                    "When this card",
+                    "is played and scores,",
+                    "increase rank by {C:attention}1{}",
+                    "{C:inactive}(cannot be applied to Aces){}",
+				}
+			},
 			["cs_lift_seal"] = {
 				["name"] = "Lift Seal",
-				["label"] = "Lift Seal",
 				["text"] = {
                     "Retrigger this",
                     "card {C:attention}2{} times",
@@ -211,12 +228,20 @@ return {
 			["cs_boosted_again"] = "Boosted again!",
 			["cs_lift"] = "Rise!",
 			["cs_restored"] = "Restored!",
+			["cs_promoted"] = "Promoted!",
+
+			["b_music_selector"] = "Soundtrack",
+			["ml_music_selector_opt"] = {
+				"Balatro OST by LouisF",
+				"Climbing theme",
+			},
 		},
 		["v_dictionary"] = {
 			["cs_just_chips"] = "#1#",
 		},
 		["labels"] = {
 			["cs_lift_seal"] = "Lift Seal",
+			["cs_rank_seal"] = "Rank Seal",
 		},
 	},
 }

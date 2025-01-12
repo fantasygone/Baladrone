@@ -3,8 +3,8 @@ SMODS.Seal {
     badge_colour = HEX("6c9648"),
     config = {},
     atlas = "CrazyStairsSeals_atlas",
-    pos = {x= 3, y= 5},
-    sound = { sound = 'cs_lift_seal_obtained', per = 1.2, vol = 0.4 },
+    pos = {x= 4, y= 5},
+    sound = { sound = 'cs_seal_lift_obtained', per = 1.2, vol = 0.4 },
 
     loc_vars = function(self, info_queue)
         return { vars = {} }
