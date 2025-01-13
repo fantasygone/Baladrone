@@ -58,9 +58,10 @@ return {
 				["text"] = {
 					"Gives {C:cs_keeper}Rank Seal{} to",
 					"the {C:attention}highest{} scoring cards played",
-					"{C:mult}+#1#{} Mult per scoring {C:attention}Ace{}",
-					"with {C:cs_keeper}Rank Seal{} in played hand",
-				}
+				},
+				["unlock"] = {
+                    "{E:1,s:1.3}?????",
+                },
 			},
 			["j_cs_creator"] = {
 				["name"] = "Creator",
@@ -94,6 +95,15 @@ return {
 			},
 		},
 		["Other"] = {
+			["cs_fake_card"] = {
+				["name"] = "Fake Card",
+				["text"] = {
+					"Scores negative of",
+					"base Chips value",
+					"Can't be traced",
+					"unless triggered",
+				}
+			},
 			["cs_rank_seal"] = {
 				["name"] = "Rank Seal",
 				["text"] = {
@@ -117,15 +127,7 @@ return {
 					"edition and/or enhanchment"
 				}
 			},
-			["cs_fake_card"] = {
-				["name"] = "Fake Card",
-				["text"] = {
-					"Scores negative of",
-					"base Chips value",
-					"Can't be traced",
-					"unless triggered",
-				}
-			},
+
 			["cs_patron_aligned"] = {
 				["name"] = "Patron Aligned",
 				["text"] = {

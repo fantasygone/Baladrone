@@ -8,7 +8,9 @@ SMODS.Joker {
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
+    perishable_compat = true,
     eternal_compat = true,
+    rental_compat = true,
     soul_pos = nil,
 
     loc_vars = function(self, info_queue, center)
@@ -46,23 +48,26 @@ SMODS.Joker {
                     target_rank = toflip[1]:get_id() == 6 and 9 or 6
                 end
         
-                cs_utils.flip_cards_noevent(toflip)
+                cs_utils.flip_cards(toflip)
 
                 play_sound('cs_flip')
-        
-                for i = 1, #toflip do
-                    local hooked_card = toflip[i]
-                    local suit_prefix = string.sub(hooked_card.base.suit, 1, 1)..'_'
-                    hooked_card:set_base(G.P_CARDS[suit_prefix..target_rank])
-                end
+
+                
+                G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
+                    for i = 1, #toflip do
+                        local hooked_card = toflip[i]
+                        local suit_prefix = string.sub(hooked_card.base.suit, 1, 1)..'_'
+                        hooked_card:set_base(G.P_CARDS[suit_prefix..target_rank])
+                    end
+                return true end }))
 
                 delay(0.8)
-                cs_utils.unflip_cards(toflip, 'before', 0.15)
+                cs_utils.unflip_cards(toflip)
                 return {
                     message = localize('cs_flipped'),
                     colour = G.C.YELLOW,
                     card = card
-                }
+                }, context.scoring_hand
             end
         end
     end

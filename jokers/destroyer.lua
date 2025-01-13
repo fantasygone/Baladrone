@@ -16,7 +16,9 @@ SMODS.Joker {
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
+    perishable_compat = false,
     eternal_compat = true,
+    rental_compat = true,
     soul_pos = nil,
 
     loc_vars = function(self, info_queue, center)

@@ -102,6 +102,7 @@ for _, filename in ipairs(audio_files) do
     SMODS.Sound({
         key = filename,
         path = filename .. '.wav',
+        vol = 0.5,
     })
 end
 
