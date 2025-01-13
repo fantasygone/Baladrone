@@ -50,7 +50,8 @@ return {
 					"Every {C:attention}#1#{} {C:inactive}[#2#]{}", 
 					"scoring cards played",
 					"restore debuffed cards",
-					"{C:inactive}(Includes Joker cards){}"
+					"{C:inactive}(includes Joker cards){}",
+					"{C:inactive}(dispels self-debuffs){}"
 				}
 			},
 			["j_cs_move_up"] = {
