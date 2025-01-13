@@ -56,11 +56,7 @@ SMODS.Joker {
 
                         G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0,func = function()
                             for _, c in ipairs(cardsToRestore) do
-                                c.debuff = false
-                                if c.ability and c.ability.perishable then 
-                                    c.ability.perish_tally = 3
-                                end
-                                c:juice_up(0.3, 0.3)
+                                c:undebuff_this()
                             end
 
                             card.ability.played = 0

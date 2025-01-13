@@ -69,7 +69,7 @@ payload = '''
 for i=1, #G.jokers.cards do
     if cs_utils.contains(beforeall_context, G.jokers.cards[i].ability.name) then
         --calculate the joker before hand evaulation
-        local effects, scoring_hand = eval_card(G.jokers.cards[i], {cardarea = G.jokers, cs_beforeall = true, scoring_hand = scoring_hand})
+        local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, cs_beforeall = true, scoring_hand = scoring_hand})
         if effects.jokers then
             card_eval_status_text(G.jokers.cards[i], 'jokers', nil, 1.1, nil, effects.jokers)
         end
@@ -114,7 +114,7 @@ if self.ability.name == 'j_cs_restoration' and self.debuff and context.before an
         end
         self:juice_up(0.3, 0.3)
     return true end }))
-    card_eval_status_text(self, 'extra', nil, nil, nil, {message = 'Can\'t be contained!', colour = G.C.ORANGE})
+    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('cs_restored'), colour = G.C.ORANGE})
 end
 '''
 match_indent = true

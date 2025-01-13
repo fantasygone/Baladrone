@@ -67,7 +67,7 @@ SMODS.Joker {
                     message = localize('cs_flipped'),
                     colour = G.C.YELLOW,
                     card = card
-                }, context.scoring_hand
+                }
             end
         end
     end

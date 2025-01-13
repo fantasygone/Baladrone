@@ -8,6 +8,18 @@ function Card:set_ability(center, initial, delay_sprites)
     self.ability.cs_fake = self.ability and self.ability.cs_fake or false
 end
 
+function Card:undebuff_this()
+    if self.debuff then
+        self:add_to_deck(true)
+        self:juice_up(0.3, 0.3)
+        self.debuff = false
+
+        if self.ability and self.ability.perishable then
+            self.ability.perish_tally = 3
+        end
+    end
+end
+
 function SMODS.current_mod.reset_game_globals(run_start)
     if run_start then
         for i = 1, #SMODS.find_card('j_cs_destroyer') do
