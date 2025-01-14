@@ -22,6 +22,17 @@ jd_def["j_cs_creator"] = {
     end
 }
 
+jd_def["j_cs_strider"] = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "active" },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.active = (G.GAME and G.GAME.current_round.hands_played == 0 and localize("jdis_active") or localize("jdis_inactive"))
+    end
+}
+
 jd_def["j_cs_destroyer"] = {
     text = {
         { text = "Above " },
@@ -50,4 +61,29 @@ jd_def["j_cs_destroyer"] = {
             end
         end
     end,
+}
+
+jd_def["j_cs_restoration"] = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability", ref_value = "played" },
+        { text = "/" },
+        { ref_table = "card.ability", ref_value = "to_play" },
+        { text = ")" },
+    },
+}
+
+jd_def["j_cs_trap"] = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability", ref_value = "chips", retrigger_type = "mult" },
+    },
+    text_config = { colour = G.C.CHIPS },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.ability", ref_value = "fake_tally" },
+        { text = "/" },
+        { ref_table = "card.ability", ref_value = "fakes" },
+        { text = ")" },
+    },
 }
