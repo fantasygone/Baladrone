@@ -69,7 +69,7 @@ SMODS.Joker {
     end,
 
     update = function(self, card, dt)
-        if not G.SETTINGS.paused and G.jokers then
+        if G.STAGE == G.STAGES.RUN then
             card.ability.fake_tally = 0
             for k, v in pairs(G.playing_cards) do
                 if v.ability.cs_fake then card.ability.fake_tally = card.ability.fake_tally + 1 end
@@ -83,10 +83,9 @@ SMODS.Joker {
 
             for i = 1, #context.scoring_hand do
                 local current = context.scoring_hand[i]
-
                 if current.ability.cs_fake and not current.debuff then
                     playedFake = true
-                    if current.ability.effect ~= 'm_cs_fake' then
+                    if current.config.center ~= G.P_CENTERS.m_cs_fake then
                         current:set_ability(G.P_CENTERS['m_cs_fake'])
                         current:juice_up(0.6, 0.6)
                     end
