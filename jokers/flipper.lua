@@ -56,13 +56,16 @@ SMODS.Joker {
 
                 play_sound('cs_flip')
 
-                G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                    for i = 1, #toflip do
-                        local hooked_card = toflip[i]
+                for i = 1, #toflip do
+                    local hooked_card = toflip[i]
+                    hooked_card.base.id = target_rank
+                    hooked_card.base.nominal = target_rank
+                    
+                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
                         local suit_prefix = string.sub(hooked_card.base.suit, 1, 1)..'_'
                         hooked_card:set_base(G.P_CARDS[suit_prefix..target_rank])
-                    end
-                return true end }))
+                    return true end }))
+                end
 
                 delay(0.8)
                 cs_utils.unflip_cards(toflip, 'before', 0.1)

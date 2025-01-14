@@ -128,7 +128,7 @@ function cs_utils.broken_drone_interaction(new_card)
         if #cs_broken_drone >= 2 then
             for i = 1, #cs_broken_drone - 1 do
                 if not new_card.getting_sliced then
-                    cs_broken_drone[i].ability.Xmult = cs_broken_drone[i].ability.Xmult + cs_broken_drone[i].ability.extra
+                    cs_broken_drone[i].ability.x_mult = cs_broken_drone[i].ability.x_mult + cs_broken_drone[i].ability.extra
                     card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = cs_utils.get_random_warning(), colour = G.C.RED})
                     card_eval_status_text(new_card, 'extra', nil, nil, nil, {message = localize('cs_false'), colour = G.C.GREEN})
                     if not new_card.ability.eternal then
@@ -137,9 +137,9 @@ function cs_utils.broken_drone_interaction(new_card)
                             new_card:start_dissolve()
                         return true end }))
 
-                        card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = 'X' .. cs_broken_drone[i].ability.Xmult .. ' Mult', colour = G.C.RED})
+                        card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = 'X' .. cs_broken_drone[i].ability.x_mult .. ' Mult', colour = G.C.RED})
                     else
-                        card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = 'X' .. cs_broken_drone[i].ability.Xmult .. ' Mult', colour = G.C.RED})
+                        card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = 'X' .. cs_broken_drone[i].ability.x_mult .. ' Mult', colour = G.C.RED})
                         delay(0.4)
                         card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = localize('cs_smh'), colour = G.C.RED})
                     end

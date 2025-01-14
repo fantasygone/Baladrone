@@ -1,15 +1,13 @@
 SMODS.Joker {
     key = "destroyer",
     config = {
-        extra = 1,
         below = {
             rank = 14,
             value = 'Ace'
         },
-        mult = 0,
         triggered = false
     },
-    rarity = 2,
+    rarity = 1,
     pos = { x = 0, y = 3 },
     atlas = "CrazyStairs_atlas",
     cost = 6,
@@ -38,9 +36,8 @@ SMODS.Joker {
 
             if playcard.base.id == (card.ability.below.rank == 14 and 2 or (card.ability.below.rank + 1)) and not card.ability.triggered then
                 card.ability.triggered = true
-                card.ability.mult = card.ability.mult + card.ability.extra
 
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_destroyed') .. ' ' .. localize{type='variable',key='a_mult',vars={card.ability.mult}}, colour = G.C.RED})
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_destroyed')})
                 cs_utils.reset_destroyer_card(card)
 
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
@@ -48,15 +45,6 @@ SMODS.Joker {
                 return true end }))
                 return true
             end
-        end
-
-        if context.joker_main and card.ability.mult > 0 then
-            return {
-                message = localize{type='variable',key='a_mult',vars={card.ability.mult}},
-                card = self,
-                mult_mod = card.ability.mult,
-                colour = G.C.RED
-            }
         end
 
         if context.scoring_hand and context.after then

@@ -118,24 +118,3 @@ if self.ability.name == 'j_cs_restoration' and self.debuff and context.before an
 end
 '''
 match_indent = true
-
-
-
-
-# Better visuals for Flipper
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''return self.base.nominal + self.ability.bonus + (self.ability.perma_bonus or 0)'''
-position = "before"
-payload = '''
-if #SMODS.find_card('j_cs_flipper') > 0 and (self.base.nominal == 6 or self.base.nominal == 9) then
-    local target_rank = SMODS.find_card('j_cs_flipper')[1].ability.rank_to_flip
-
-    self.base.nominal = target_rank
-end
-'''
-match_indent = true
-
-
-

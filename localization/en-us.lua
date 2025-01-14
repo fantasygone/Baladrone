@@ -39,9 +39,7 @@ return {
 				["text"] = {
 					"Destroys first scored",
 					"card {C:attention}directly above #1#{}",
-					"and gains {C:mult}+#2#{} Mult",
 					"{s:0.8}Rank changes when triggered",
-					"{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)",
 				}
 			},
 			["j_cs_restoration"] = {
