@@ -48,11 +48,13 @@ SMODS.Joker {
                 for i = 1, card.ability.repeats do
                     if pseudorandom('bugged_trap') < (current_repeats == 0 and G.GAME.probabilities.normal/card.ability.odds or 1/card.ability.odds) then
                         current_repeats = current_repeats + 1
+                    else
+                        break
                     end
                 end
 
                 
-                if G.jokers.cards[self_index - 1] then
+                if G.jokers.cards[self_index - 1] and current_repeats > 0 then
                     for i = 1, #G.jokers.cards do
                         if context.other_card == G.jokers.cards[self_index - 1] then
                             return {
