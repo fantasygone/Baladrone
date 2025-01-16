@@ -34,6 +34,20 @@ return {
 					"{C:inactive}(Currently{} {C:chips}+#3#{} {C:inactive}Chips){}",
 				}
 			},
+			["j_cs_bugged_trap"] = {
+				["name"] = "Bugged Trap",
+				["text"] = {
+					"{C:green}#1# in #2#{} chance for this Joker",
+					"to retrigger the {C:attention}Joker{} to the left",
+					"each time up to {C:attention}#3#{} times",
+					"{C:inactive}(luck-altering Jokers affect{}",
+					"{C:inactive}first retrigger only){}",
+				},
+				["unlock"] = {
+                    "Have the Joker {C:attention}Trap{}",
+                    "repeat {C:attention}1 or more{} times",
+                },
+			},
 			["j_cs_destroyer"] = {
 				["name"] = "Destroyer",
 				["text"] = {
@@ -223,6 +237,7 @@ return {
 			["cs_faking_cards"] = "Don't peek!",
 			["cs_fake_played"] = "Hahaha!",
 			["cs_lame"] = "Lame",
+			["cs_fall_again"] = "Fall again!",
 			["cs_destroyed"] = "Destroyed!",
 			["cs_created"] = "Created!",
 			["cs_boosted"] = "Boosted!",

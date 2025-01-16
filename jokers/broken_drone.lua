@@ -30,13 +30,14 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.before and context.blueprint then
+        if context.after and context.blueprint then
             cs_utils.broken_drone_interaction(context.blueprint_card)
         end
 
         if context.joker_main and card.ability.x_mult > 1 then
             return {
-                Xmult_mod = card.ability.x_mult_mod
+                message = localize{type='variable',key='a_xmult',vars={card.ability.x_mult}},
+                Xmult_mod = card.ability.x_mult,
             }
         end
     end

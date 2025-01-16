@@ -75,16 +75,44 @@ local audio_files = {
 }
 
 -- List all Joker files here
-local joker_files = {
-    "broken_drone",
-    "creator",
-    "flipper",
-    "trap",
-    "destroyer",
-    "restoration",
-    "move_up",
-    "strider",
+ALIGNMENT_JOKERS = {
+    "neutral",
+    "patron",
+    "joker",
+    "wicked",
+    "keeper",
+    "splicer"
 }
+
+JOKER_FILES = {
+    neutral = {
+        "broken_drone",
+    },
+    patron = {
+        "creator",
+    },
+    joker = {
+        "trap",
+        "flipper",
+        "bugged_trap",
+    },
+    wicked = {
+        "destroyer",
+    },
+    keeper = {
+        "restoration",
+        "move_up"
+    },
+    splicer = {
+        "strider",
+    }
+}
+
+for _, alignment in ipairs(ALIGNMENT_JOKERS) do
+    for _, jkr in ipairs(JOKER_FILES[alignment]) do
+        NFS.load(SMODS.current_mod.path .. "/jokers/" .. jkr .. ".lua")()
+    end
+end
 
 -- List all seals files here
 local seal_files = {
@@ -97,9 +125,7 @@ local enchamcnemnt_files = {
     "fake_enh",
 }
 
-for i = 1, #joker_files do
-    NFS.load(SMODS.current_mod.path .. "/jokers/" .. joker_files[i] .. ".lua")()
-end
+
 
 for i = 1, #seal_files do
     NFS.load(SMODS.current_mod.path .. "/seals/" .. seal_files[i] .. ".lua")()

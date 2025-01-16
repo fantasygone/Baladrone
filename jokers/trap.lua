@@ -115,10 +115,11 @@ SMODS.Joker {
             end
         end
 
-
         if context.joker_main and card.ability.chips > 0 then
+            if context.blueprint then
+                check_for_unlock({ type = "repeated" })
+            end
             return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.chips}},
                 chip_mod = card.ability.chips,
             }
         end
