@@ -40,7 +40,7 @@ return {
 					"{C:green}#1# in #2#{} chance for this Joker",
 					"to retrigger the {C:attention}Joker{} to the left",
 					"each time up to {C:attention}#3#{} times",
-					"{C:inactive}(luck-altering Jokers affect{}",
+					"{C:inactive}(Luck-altering Jokers affect{}",
 					"{C:inactive}first retrigger only){}",
 				},
 				["unlock"] = {
@@ -62,8 +62,8 @@ return {
 					"Every {C:attention}#1#{} {C:inactive}[#2#]{}", 
 					"scoring cards played",
 					"restore debuffed cards",
-					"{C:inactive}(includes Joker cards){}",
-					"{C:inactive}(dispels self-debuffs){}"
+					"{C:inactive}(Includes Joker cards){}",
+					"{C:inactive}(Dispels self-debuffs){}"
 				}
 			},
 			["j_cs_move_up"] = {
@@ -123,7 +123,7 @@ return {
                     "When this card",
                     "is played and scores,",
                     "increase rank by {C:attention}1{}",
-                    "{C:inactive}(cannot be applied to Aces){}",
+                    "{C:inactive}(Cannot be applied to Aces){}",
 				}
 			},
 			["cs_lift_seal"] = {
