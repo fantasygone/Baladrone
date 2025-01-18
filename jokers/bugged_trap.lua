@@ -9,7 +9,7 @@ SMODS.Joker {
         odds = 5
     },
     rarity = 2,
-    pos = { x = 2, y = 2 },
+    pos = { x = 2, y = 3 },
     atlas = "CrazyStairs_atlas",
     cost = 6,
     unlocked = false,

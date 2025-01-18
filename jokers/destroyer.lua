@@ -8,7 +8,7 @@ SMODS.Joker {
         triggered = false
     },
     rarity = 1,
-    pos = { x = 0, y = 3 },
+    pos = { x = 0, y = 4 },
     atlas = "CrazyStairs_atlas",
     cost = 6,
     unlocked = true,

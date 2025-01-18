@@ -4,7 +4,7 @@ SMODS.Joker {
         rank_to_flip = 6
     },
     rarity = 3,
-    pos = { x = 0, y = 2 },
+    pos = { x = 0, y = 3 },
     atlas = "CrazyStairs_atlas",
     cost = 8,
     unlocked = true,

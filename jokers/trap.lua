@@ -11,7 +11,7 @@ SMODS.Joker {
         fake_tally = 0,
     },
     rarity = 1,
-    pos = { x = 1, y = 2 },
+    pos = { x = 1, y = 3 },
     atlas = "CrazyStairs_atlas",
     cost = 4,
     unlocked = true,
@@ -78,7 +78,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.scoring_hand and context.before then
+        if context.scoring_hand and context.before and not context.blueprint then
             local playedFake = false
 
             for i = 1, #context.scoring_hand do
@@ -93,7 +93,7 @@ SMODS.Joker {
             end
 
             if playedFake then
-                card.ability.chips = card.ability.chips / 2
+                card.ability.chips = math.floor(card.ability.chips / 2)
                 if card.ability.chips < 0 then card.ability.chips = 0 end
 
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()

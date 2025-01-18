@@ -2,7 +2,7 @@ SMODS.Joker {
     key = "strider",
     config = {},
     rarity = 3,
-    pos = { x = 0, y = 5 },
+    pos = { x = 0, y = 6 },
     atlas = "CrazyStairs_atlas",
     cost = 8,
     unlocked = true,
