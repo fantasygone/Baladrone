@@ -100,7 +100,8 @@ return {
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for this Joker",
 					"to create {C:attention}#3#{} random {C:attention}temporary{}",
-					"{C:attention}#4#{} at the start of the {C:attention}shop{}",
+					"{C:tarot}Tarot{} or {C:spectral}Spectral{} #6#",
+					"at the start of the {C:attention}shop{}",
 					"{C:inactive}(Must have room){}",
 				}
 			},
@@ -245,8 +246,16 @@ return {
 	},
 	["misc"] = {
 		["dictionary"] = {
+			["cs_card"] = "card",
+			["cs_cards"] = "cards",
 			["cs_consumable"] = "consumable",
 			["cs_consumables"] = "consumables",
+			["cs_tarot"] = "Tarot",
+			["cs_tarots"] = "Tarots",
+			["cs_spectral"] = "Spectral",
+			["cs_spectrals"] = "Spectrals",
+			["cs_planet"] = "Planet",
+			["cs_planets"] = "Planets",
 
 			["cs_active"] = "active!",
 			["cs_inactive"] = "inactive",

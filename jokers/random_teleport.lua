@@ -24,7 +24,7 @@ SMODS.Joker {
                 ''..(G.GAME and G.GAME.probabilities.normal or 1),
                 center.ability.odds,
                 center.ability.teleports,
-                center.ability.teleports > 1 and localize('cs_consumables') or localize('cs_consumable'),
+                center.ability.teleports > 1 and localize('cs_cards') or localize('cs_card'),
             }
         }
     end,
