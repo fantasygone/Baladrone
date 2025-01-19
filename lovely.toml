@@ -6,83 +6,6 @@ priority = 1
 
 
 
-# Add new colors
-[[patches]]
-[patches.pattern]
-target = "globals.lua"
-pattern = "RARITY = {"
-position = "before"
-payload = '''
-ALIGNMENT = {
-    cs_patron = HEX("8bfe0f"),
-    cs_joker = HEX("fefe15"),
-    cs_wicked = HEX("f80404"),
-    cs_keeper = HEX("BA4800"),
-    cs_muggle = HEX("cccccc"),
-    cs_hacker = HEX("febfe9"),
-    cs_thief = HEX("0146fe"),
-    cs_archon = HEX("23ee9c"),
-    cs_drifter = HEX("6c9648"),
-    cs_heretic = HEX("b9a0e6"),
-    cs_spectre = HEX("0dfefe"),
-    cs_chameleon = HEX("cc03ed"),
-},
-CS_ORANGE = HEX("b03815"),
-'''
-match_indent = true
-
-
-
-# Add new colors
-[[patches]]
-[patches.pattern]
-target = "functions/misc_functions.lua"
-pattern = "legendary = G.C.RARITY[4],"
-position = "after"
-payload = '''
-cs_patron = G.C.ALIGNMENT["cs_patron"],
-cs_joker = G.C.ALIGNMENT["cs_joker"],
-cs_wicked = G.C.ALIGNMENT["cs_wicked"],
-cs_keeper = G.C.ALIGNMENT["cs_keeper"],
-cs_muggle = G.C.ALIGNMENT["cs_muggle"],
-cs_hacker = G.C.ALIGNMENT["cs_hacker"],
-cs_thief = G.C.ALIGNMENT["cs_thief"],
-cs_archon = G.C.ALIGNMENT["cs_archon"],
-cs_drifter = G.C.ALIGNMENT["cs_drifter"],
-cs_heretic = G.C.ALIGNMENT["cs_heretic"],
-cs_spectre = G.C.ALIGNMENT["cs_spectre"],
-cs_chameleon = G.C.ALIGNMENT["cs_chameleon"],
-cs_orange = G.C.CS_ORANGE,
-'''
-match_indent = true
-
-
-
-
-# Added new context beforeall
-[[patches]]
-[patches.pattern]
-target = "functions/state_events.lua"
-pattern = "G.GAME.hands[text].played = G.GAME.hands[text].played + 1"
-position = "before"
-payload = '''
-for i=1, #G.jokers.cards do
-    if cs_utils.contains(beforeall_context, G.jokers.cards[i].ability.name) then
-        --calculate the joker before hand evaulation
-        local effects = eval_card(G.jokers.cards[i], {cardarea = G.jokers, cs_beforeall = true, scoring_hand = scoring_hand})
-        if effects.jokers then
-            card_eval_status_text(G.jokers.cards[i], 'jokers', nil, 1.1, nil, effects.jokers)
-        end
-    end
-end
-
-text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
-'''
-match_indent = true
-
-
-
-
 # Trap can score negative chips
 [[patches]]
 [patches.pattern]
@@ -116,5 +39,32 @@ if self.ability.name == 'j_cs_restoration' and self.debuff and context.before an
     return true end }))
     card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('cs_restored'), colour = G.C.ORANGE})
 end
+'''
+match_indent = true
+
+
+
+
+# Remove temp cards when leaving shop
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '''
+  G.FUNCS.toggle_shop = function(e)
+    stop_use()
+    G.CONTROLLER.locks.toggle_shop = true
+    if G.shop then
+'''
+position = "after"
+payload = '''
+    for i = 1, #G.consumeables.cards do
+        local current_cons = G.consumeables.cards[i]
+
+        if current_cons.ability.cs_temp.active and current_cons.ability.cs_temp.expiry == 'ending_shop' then
+            G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
+                current_cons:start_dissolve()
+            return true end }))
+        end
+    end
 '''
 match_indent = true

@@ -1,0 +1,57 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+
+
+
+# Add new colors
+[[patches]]
+[patches.pattern]
+target = "globals.lua"
+pattern = "RARITY = {"
+position = "before"
+payload = '''
+ALIGNMENT = {
+    cs_patron = HEX("8bfe0f"),
+    cs_joker = HEX("fefe15"),
+    cs_wicked = HEX("f80404"),
+    cs_keeper = HEX("BA4800"),
+    cs_muggle = HEX("cccccc"),
+    cs_hacker = HEX("febfe9"),
+    cs_thief = HEX("0146fe"),
+    cs_archon = HEX("23ee9c"),
+    cs_drifter = HEX("6c9648"),
+    cs_heretic = HEX("b9a0e6"),
+    cs_spectre = HEX("0dfefe"),
+    cs_chameleon = HEX("cc03ed"),
+},
+CS_ORANGE = HEX("b03815"),
+'''
+match_indent = true
+
+
+
+# Add new colors
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = "legendary = G.C.RARITY[4],"
+position = "after"
+payload = '''
+cs_patron = G.C.ALIGNMENT["cs_patron"],
+cs_joker = G.C.ALIGNMENT["cs_joker"],
+cs_wicked = G.C.ALIGNMENT["cs_wicked"],
+cs_keeper = G.C.ALIGNMENT["cs_keeper"],
+cs_muggle = G.C.ALIGNMENT["cs_muggle"],
+cs_hacker = G.C.ALIGNMENT["cs_hacker"],
+cs_thief = G.C.ALIGNMENT["cs_thief"],
+cs_archon = G.C.ALIGNMENT["cs_archon"],
+cs_drifter = G.C.ALIGNMENT["cs_drifter"],
+cs_heretic = G.C.ALIGNMENT["cs_heretic"],
+cs_spectre = G.C.ALIGNMENT["cs_spectre"],
+cs_chameleon = G.C.ALIGNMENT["cs_chameleon"],
+cs_orange = G.C.CS_ORANGE,
+'''
+match_indent = true

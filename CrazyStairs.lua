@@ -1,11 +1,19 @@
 -- Import utility functions
 cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
 
+local original_get_badge_colour = get_badge_colour
+function get_badge_colour(key)
+    if key == "cs_temporary" then return G.C.ALIGNMENT["cs_spectre"] end
+
+    return original_get_badge_colour(key)
+end
+
 local original_set_ability = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
     original_set_ability(self, center, initial, delay_sprites)
 
     self.ability.cs_fake = self.ability and self.ability.cs_fake or false
+    self.ability.cs_temp = self.ability and self.ability.cs_temp or {active = false, expiry = nil}
 end
 
 function Card:undebuff_this()
@@ -62,6 +70,11 @@ beforeall_context = {
     "Brainstorm",
     "Blueprint",
 }
+startingshop_context = {
+    "j_cs_random_teleport",
+    "Brainstorm",
+    "Blueprint",
+}
 
 -- List all Joker files here
 local audio_files = {
@@ -81,7 +94,8 @@ ALIGNMENT_JOKERS = {
     "joker",
     "wicked",
     "keeper",
-    "splicer"
+    "splicer",
+    "spectre"
 }
 
 JOKER_FILES = {
@@ -105,6 +119,9 @@ JOKER_FILES = {
     },
     splicer = {
         "strider",
+    },
+    spectre = {
+        "random_teleport",
     }
 }
 

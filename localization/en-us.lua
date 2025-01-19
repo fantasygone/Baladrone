@@ -95,6 +95,15 @@ return {
 					"already have one",
 				}
 			},
+			["j_cs_random_teleport"] = {
+				["name"] = "Random Teleport",
+				["text"] = {
+					"{C:green}#1# in #2#{} chance for this Joker",
+					"to create {C:attention}#3#{} random {C:attention}temporary{}",
+					"{C:attention}#4#{} at the start of the {C:attention}shop{}",
+					"{C:inactive}(Must have room){}",
+				}
+			},
 		},
 		["Enhanced"] = {
 			["m_cs_fake"] = {
@@ -140,7 +149,14 @@ return {
 					"edition and/or enhanchment"
 				}
 			},
-
+			["cs_temporary"] = {
+				["name"] = "Temporary Card",
+				["text"] = {
+					"Will {C:red}disappear{} when",
+					"the specified context",
+					"is over",
+				}
+			},
 			["cs_patron_aligned"] = {
 				["name"] = "Patron Aligned",
 				["text"] = {
@@ -229,6 +245,9 @@ return {
 	},
 	["misc"] = {
 		["dictionary"] = {
+			["cs_consumable"] = "consumable",
+			["cs_consumables"] = "consumables",
+
 			["cs_active"] = "active!",
 			["cs_inactive"] = "inactive",
 			["cs_false"] = "False",
@@ -258,6 +277,7 @@ return {
 		["labels"] = {
 			["cs_lift_seal"] = "Lift Seal",
 			["cs_rank_seal"] = "Rank Seal",
+			["cs_temporary"] = "Temporary",
 		},
 	},
 }

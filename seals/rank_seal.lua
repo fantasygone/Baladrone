@@ -3,7 +3,7 @@ SMODS.Seal {
     badge_colour = HEX("BA4800"),
     config = {},
     atlas = "CrazyStairsSeals_atlas",
-    pos = {x= 3, y= 5},
+    pos = {x= 0, y= 2},
     sound = { sound = 'cs_seal_rank_obtained', per = 1.06, vol = 0.4 },
 
     loc_vars = function(self, info_queue)

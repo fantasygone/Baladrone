@@ -1,0 +1,34 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+
+
+
+# Add Temporary badge
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''local badges = {}'''
+position = "after"
+payload = '''
+    if self.ability.cs_temp.active then
+        badges[#badges + 1] = 'cs_temporary'
+    end
+'''
+match_indent = true
+
+
+
+
+# Add Temporary info queue
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''for k, v in ipairs(badges) do'''
+position = "after"
+payload = '''
+    if v == 'cs_temporary' then info_queue[#info_queue + 1] = {key = 'cs_temporary', set = 'Other'} end
+'''
+match_indent = true
