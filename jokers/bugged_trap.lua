@@ -33,20 +33,15 @@ SMODS.Joker {
 
     calculate = function (self, card, context)
         if context.retrigger_joker_check and not context.retrigger_joker then
-            print('entered')
             if #G.jokers.cards > 1 then
-                print('there are jokers')
                 local self_index
                 for i = 1, #G.jokers.cards do
                     if G.jokers.cards[i] == card then self_index = i end
                 end
 
-                print('index is', self_index)
-
                 local current_repeats = 0
 
                 for i = 1, card.ability.repeats do
-                    print('repeat no. ', i)
                     if pseudorandom('bugged_trap') < (current_repeats == 0 and G.GAME.probabilities.normal/card.ability.odds or 1/card.ability.odds) then
                         current_repeats = current_repeats + 1
                     else
@@ -55,7 +50,6 @@ SMODS.Joker {
                 end
 
                 if G.jokers.cards[self_index - 1] and current_repeats > 0 then
-                    print('Checking which joker to repeat')
                     for i = 1, #G.jokers.cards do
                         if context.other_card == G.jokers.cards[self_index - 1] then
                             return {
