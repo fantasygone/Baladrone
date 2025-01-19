@@ -1,6 +1,13 @@
 -- Import utility functions
 cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
 
+-- Retrigger Jokers are somehow an optional feature whyy ç_ç
+SMODS.current_mod.optional_features = function()
+    return {
+        retrigger_joker = true,
+    }
+end
+
 local original_get_badge_colour = get_badge_colour
 function get_badge_colour(key)
     if key == "cs_temporary" then return G.C.ALIGNMENT["cs_spectre"] end
@@ -67,11 +74,15 @@ beforeall_context = {
     "j_cs_flipper",
     "j_cs_strider",
     "j_cs_move_up",
+    -- Jokers that copy
+    "j_cs_bugged_trap",
     "Brainstorm",
     "Blueprint",
 }
 startingshop_context = {
     "j_cs_random_teleport",
+    -- Jokers that copy
+    "j_cs_bugged_trap",
     "Brainstorm",
     "Blueprint",
 }
@@ -190,7 +201,7 @@ function G.UIDEF.settings_tab(tab)
 end
 
 SMODS.Sound({
-	vol = 0.6,
+	volume = 0.5,
 	pitch = 1,
 	key = "cs_main_music",
 	path = "cs_main_music.wav",
