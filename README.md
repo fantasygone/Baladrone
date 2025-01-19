@@ -1,10 +1,11 @@
 Adds Jokers related to the hit roblox game Crazy Stairs (real)
 
-Get a preview:
+**PREVIEW** _(Spoilers)_:
 https://fantasygone.github.io/Baladrone-Preview/
 
-JOKER DISPLAY (shows important Joker info without having to hover): 
+**COMPATIBILITY**:
+**Joker Display** _(shows important Joker info without having to hover)_: 
 https://github.com/nh6574/JokerDisplay
 
-REQUIRED:
+**REQUIRED**:
 https://github.com/Steamodded/smods/wiki
