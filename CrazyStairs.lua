@@ -131,6 +131,7 @@ JOKER_FILES = {
     },
     hacker = {
         "upwards_escalator",
+        "downwards_escalator",
     },
     splicer = {
         "strider",

@@ -68,3 +68,27 @@ payload = '''
     end
 '''
 match_indent = true
+
+
+
+
+# Prevent Ante from increasing after beating a Boss blind
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''delay(0.4); ease_ante(1); delay(0.4); check_for_unlock({type = 'ante_up', ante = G.GAME.round_resets.ante + 1})'''
+position = "at"
+payload = '''
+    if SMODS.find_card('j_cs_downwards_escalator')[1] then
+        local cs_escalator = SMODS.find_card('j_cs_downwards_escalator')[1]
+
+        card_eval_status_text(cs_escalator, 'extra', nil, nil, nil, {message = localize('cs_slowed_down'), colour = G.C.ALIGNMENT["cs_hacker"]})
+
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            cs_escalator:start_dissolve()
+        return true end }))
+    else
+        delay(0.4); ease_ante(1); delay(0.4); check_for_unlock({type = 'ante_up', ante = G.GAME.round_resets.ante + 1})
+    end
+'''
+match_indent = true

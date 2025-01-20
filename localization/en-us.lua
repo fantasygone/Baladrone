@@ -97,10 +97,10 @@ return {
 			["j_cs_downwards_escalator"] = {
 				["name"] = "Downwards Escalator",
 				["text"] = {
-					"{C:mult}#1#{} Mult",
-					"Decreases by {C:attention}#2#{}",
-					"each round. Decremental",
-					"value also decreases by {C:attention}#3#{}",
+					"Prevents {C:attention}Ante{} from",
+					"going up after",
+					"beating a {C:attention}Boss Blind{}",
+					"{S:1.1,C:red,E:2}self destructs{}",
 				}
 			},
 			["j_cs_strider"] = {
@@ -291,6 +291,7 @@ return {
 			["cs_lift"] = "Rise!",
 			["cs_restored"] = "Restored!",
 			["cs_promoted"] = "Promoted!",
+			["cs_slowed_down"] = "Slowed Down!",
 
 			["b_music_selector"] = "Soundtrack",
 			["ml_music_selector_opt"] = {
