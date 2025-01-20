@@ -1,17 +1,22 @@
 SMODS.Joker {
     key = "move_up",
     config = {},
-    rarity = 4,
+    -- Sprite settings
+    atlas = "CrazyStairs_atlas",
     pos = { x = 0, y = 0 },
     soul_pos = { x = 1, y = 7 },
-    atlas = "CrazyStairs_atlas",
-    cost = 20,
+    -- Card info
+    rarity = 4, --LEGENDARY!
+    cost = 20,  --Standard Legendary price
+    -- Player data
     unlocked = false,
     unlock_condition = {type = '', extra = '', hidden = true},
-    blueprint_compat = false,
-    perishable_compat = true,
-    eternal_compat = true,
-    rental_compat = true,
+    discovered = false,
+    -- Compatibility
+    blueprint_compat = false,   -- FALSE for passive Jokers
+    perishable_compat = true,   -- FALSE for scaling Jokers
+    eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
+    rental_compat = true,       -- FALSE for idk??
 
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {key = 'cs_keeper_aligned', set = 'Other'}

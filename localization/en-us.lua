@@ -85,6 +85,24 @@ return {
 					"increased by {C:attention}#1# rank{}",
 				}
 			},
+			["j_cs_upwards_escalator"] = {
+				["name"] = "Upwards Escalator",
+				["text"] = {
+					"Gains {C:mult}+#2#{} Mult or",
+					"{C:mult}+#3#{} Mult at the end",
+					"of every {C:attention}round{}",
+					"{C:inactive}(Currently{} {C:mult}+#1#{} {C:inactive}Mult){}",
+				}
+			},
+			["j_cs_downwards_escalator"] = {
+				["name"] = "Downwards Escalator",
+				["text"] = {
+					"{C:mult}#1#{} Mult",
+					"Decreases by {C:attention}#2#{}",
+					"each round. Decremental",
+					"value also decreases by {C:attention}#3#{}",
+				}
+			},
 			["j_cs_strider"] = {
 				["name"] = "Strider",
 				["text"] = {

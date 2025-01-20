@@ -1,26 +1,26 @@
 SMODS.Joker {
     key = "trap",
-    loc_txt = {
-        name = "Trap",
-        text = {},
-    },
     config = {
         chips = 0,
         extra = 9,
         fakes = 6,
         fake_tally = 0,
     },
-    rarity = 1,
-    pos = { x = 1, y = 3 },
+    -- Sprite settings
     atlas = "CrazyStairs_atlas",
+    pos = { x = 1, y = 3 },
+    soul_pos = nil,
+    -- Card info
+    rarity = 1, --Common
     cost = 4,
+    -- Player data
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
-    perishable_compat = false,
-    eternal_compat = true,
-    rental_compat = true,
-    soul_pos = nil,
+    -- Compatibility
+    blueprint_compat = true,    -- FALSE for passive Jokers
+    perishable_compat = false,  -- FALSE for scaling Jokers
+    eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
+    rental_compat = true,       -- FALSE for idk??
 
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {key = 'cs_joker_aligned', set = 'Other'}
@@ -101,7 +101,7 @@ SMODS.Joker {
                 return true end }))
                 return {
                     card = card,
-                    message = localize('cs_fake_played') .. ' ' .. localize{type='variable',key='a_chips_minus',vars={card.ability.chips}},
+                    message = localize('cs_fake_played'),
                     colour = G.C.YELLOW
                 }
             elseif card.ability.fake_tally > 0 then
@@ -120,6 +120,7 @@ SMODS.Joker {
                 check_for_unlock({ type = "repeated" })
             end
             return {
+                message = localize{type='variable',key='a_chips',vars={card.ability.chips}},
                 chip_mod = card.ability.chips,
             }
         end

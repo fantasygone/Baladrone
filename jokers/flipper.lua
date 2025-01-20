@@ -3,17 +3,21 @@ SMODS.Joker {
     config = {
         rank_to_flip = 6
     },
-    rarity = 3,
-    pos = { x = 0, y = 3 },
+    -- Sprite settings
     atlas = "CrazyStairs_atlas",
+    pos = { x = 0, y = 3 },
+    soul_pos = nil,
+    -- Card info
+    rarity = 3, --Rare
     cost = 8,
+    -- Player data
     unlocked = true,
     discovered = false,
-    blueprint_compat = false,
-    perishable_compat = true,
-    eternal_compat = true,
-    rental_compat = true,
-    soul_pos = nil,
+    -- Compatibility
+    blueprint_compat = false,   -- FALSE for passive Jokers
+    perishable_compat = false,  -- FALSE for scaling Jokers
+    eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
+    rental_compat = true,       -- FALSE for idk??
 
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {key = 'cs_joker_aligned', set = 'Other'}

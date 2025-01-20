@@ -6,15 +6,32 @@ SMODS.Joker {
     },
     rarity = 2,
     pos = { x = 0, y = 8 },
+    soul_pos = nil,
     atlas = "CrazyStairs_atlas",
     cost = 6,
     unlocked = true,
     discovered = false,
+
     blueprint_compat = true,
-    perishable_compat = false,
+    perishable_compat = true,
     eternal_compat = true,
     rental_compat = true,
+
+    -- Sprite settings
+    atlas = "CrazyStairs_atlas",
+    pos = { x = 0, y = 8 },
     soul_pos = nil,
+    -- Card info
+    rarity = 2, --Uncommon
+    cost = 6,
+    -- Player data
+    unlocked = true,
+    discovered = false,
+    -- Compatibility
+    blueprint_compat = true,    -- FALSE for passive Jokers
+    perishable_compat = true,   -- FALSE for scaling Jokers
+    eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
+    rental_compat = true,       -- FALSE for idk??
 
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {key = 'cs_spectre_aligned', set = 'Other'}

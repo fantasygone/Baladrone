@@ -105,6 +105,7 @@ ALIGNMENT_JOKERS = {
     "joker",
     "wicked",
     "keeper",
+    "hacker",
     "splicer",
     "spectre"
 }
@@ -127,6 +128,9 @@ JOKER_FILES = {
     keeper = {
         "restoration",
         "move_up"
+    },
+    hacker = {
+        "upwards_escalator",
     },
     splicer = {
         "strider",
