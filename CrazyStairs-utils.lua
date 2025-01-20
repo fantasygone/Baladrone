@@ -108,6 +108,10 @@ function cs_utils.reset_destroyer_card(card)
     card.ability.below.value = 'Ace'
     card.ability.below.rank = 14
 
+    if not G.playing_cards then
+        return
+    end
+
     local valid_destroyer_ranks = {}
     for k, v in ipairs(G.playing_cards) do
         if v.ability.effect ~= 'Stone Card' then

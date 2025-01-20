@@ -34,6 +34,10 @@ SMODS.Joker {
         }
     end,
 
+    set_ability = function(self, card, initial, delay_sprites)
+        cs_utils.reset_destroyer_card(card)
+    end,
+
     calculate = function (self, card, context)
         if context.full_hand and context.destroying_card and not context.destroying_card.debuff and not context.blueprint then
             local playcard = context.destroying_card

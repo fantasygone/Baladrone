@@ -46,10 +46,10 @@ jd_def["j_cs_destroyer"] = {
 
     calc_function = function(card)
         local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        card.joker_display_values.triggered = localize("jdis_inactive")
 
         if text ~= 'Unknown' then
             local above_rank = card.ability.below.rank == 14 and 2 or (card.ability.below.rank + 1)
-            card.joker_display_values.triggered = localize("jdis_inactive")
 
             for i = 1, #scoring_hand do
                 local actual = scoring_hand[i]
