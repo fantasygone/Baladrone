@@ -70,7 +70,8 @@ return {
 				["name"] = "Keeper's Move Up",
 				["text"] = {
 					"Gives {C:cs_keeper}Rank Seal{} to",
-					"the {C:attention}highest{} scoring cards played",
+					"the {C:attention}highest{}",
+					"scoring cards played",
 				},
 				["unlock"] = {
                     "{E:1,s:1.3}?????",
@@ -97,9 +98,10 @@ return {
 			["j_cs_downwards_escalator"] = {
 				["name"] = "Downwards Escalator",
 				["text"] = {
-					"{C:blue}-#1#{} hands, prevents",
-					"{C:attention}Ante{} from going up",
-					"after beating a {C:attention}Boss Blind{}",
+					"{C:blue}-#1#{} hands each round,",
+					"prevents {C:attention}Ante{} from",
+					"going up after",
+					"beating a {C:attention}Boss Blind{}",
 					"{S:1.1,C:red,E:2}self destructs{}",
 				}
 			},
