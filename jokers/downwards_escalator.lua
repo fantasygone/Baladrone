@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "downwards_escalator",
     config = {
+        h_plays = 1
     },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",
@@ -22,8 +23,17 @@ SMODS.Joker {
         info_queue[#info_queue + 1] = {key = 'cs_hacker_aligned', set = 'Other'}
         return {
             vars = {
+                center.ability.h_plays
             },
         }
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.h_plays
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.h_plays
     end,
 
     calculate = function (self, card, context)

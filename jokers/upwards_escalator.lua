@@ -3,7 +3,7 @@ SMODS.Joker {
     config = {
         mult = 0,
         extra = 1,
-        extra_2 = 2
+        extra_2 = 2,
     },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",

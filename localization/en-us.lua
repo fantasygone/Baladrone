@@ -97,9 +97,9 @@ return {
 			["j_cs_downwards_escalator"] = {
 				["name"] = "Downwards Escalator",
 				["text"] = {
-					"Prevents {C:attention}Ante{} from",
-					"going up after",
-					"beating a {C:attention}Boss Blind{}",
+					"{C:blue}-#1#{} hands, prevents",
+					"{C:attention}Ante{} from going up",
+					"after beating a {C:attention}Boss Blind{}",
 					"{S:1.1,C:red,E:2}self destructs{}",
 				}
 			},
