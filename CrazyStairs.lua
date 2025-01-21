@@ -35,6 +35,20 @@ function Card:undebuff_this()
     end
 end
 
+function Card:is_scaling()
+    -- Most scaling Jokers are not perish compat
+    if not self.config.center.perishable_compat then
+        return true
+    end
+
+    -- And those that are...
+    if self.config.center.key == 'j_yorick' or self.config.center.key == 'j_caino' or self.config.center.key == 'j_egg' or self.config.center.key == 'j_fortune_teller' then
+        return true
+    end
+
+    return false
+end
+
 function SMODS.current_mod.reset_game_globals(run_start)
     if run_start then
         for i = 1, #SMODS.find_card('j_cs_destroyer') do

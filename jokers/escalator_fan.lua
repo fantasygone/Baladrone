@@ -30,12 +30,18 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.other_joker then
-            if not context.other_joker.config.center.perishable_compat or context.other_joker.config.center.key == 'j_yorick' or context.other_joker.config.center.key == 'j_caino' or context.other_joker.config.center.key == 'j_egg' then
-                return {
-                    message = localize{type='variable',key='a_xmult',vars={card.ability.extra}},
-                    Xmult_mod = card.ability.extra
-                }
+        if context.other_joker and context.other_joker:is_scaling() then
+            return {
+                message = localize{type='variable',key='a_xmult',vars={card.ability.extra}},
+                Xmult_mod = card.ability.extra
+            }
+        end
+    end,
+
+    in_pool = function(self, args)
+        for _, v in ipairs(G.jokers.cards) do
+            if v:is_scaling() then
+                return true
             end
         end
     end

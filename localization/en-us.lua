@@ -108,9 +108,8 @@ return {
 			["j_cs_escalator_fan"] = {
 				["name"] = "escalator_fan",
 				["text"] = {
-					"{C:attention}Scaling{} Jokers will",
-					"give {X:mult,C:white}X#1#{} Mult when",
-					"held in hand",
+					"{C:attention}Scaling{} Jokers each",
+					"give {X:mult,C:white}X#1#{} Mult",
 				}
 			},
 			["j_cs_strider"] = {
