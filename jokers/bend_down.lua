@@ -2,7 +2,8 @@ SMODS.Joker {
     key = "bend_down",
     config = {
         extra = 1,
-        blind_size = 0
+        removed = 0,
+        original_size = 0
     },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",
@@ -15,7 +16,7 @@ SMODS.Joker {
     unlocked = true,
     discovered = false,
     -- Compatibility
-    blueprint_compat = true,   -- FALSE for passive Jokers ...I know
+    blueprint_compat = false,  -- FALSE for passive Jokers ...I know
     perishable_compat = true,  -- FALSE for scaling Jokers
     eternal_compat = true,     -- FALSE for Jokers to be sold or that expire by themselves
     rental_compat = true,      -- FALSE for idk??
@@ -31,28 +32,27 @@ SMODS.Joker {
 
     add_to_deck = function(self, card, from_debuff)
         if from_debuff then
-            G.GAME.blind.chips = G.GAME.blind.chips * (1 - (card.ability.blind_size) / 100)
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function()
+                G.GAME.blind.chips = G.GAME.blind.chips - card.ability.removed
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             return true end }))
         end
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.blind.chips = G.GAME.blind.chips * (1 + (card.ability.blind_size) / 100)
-        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function()
-            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            G.GAME.blind.chips = G.GAME.blind.chips + card.ability.removed
+            G.GAME.blind.chip_text = G.GAME.blind.chips
         return true end }))
     end,
 
     calculate = function (self, card, context)
-        if context.setting_blind and not self.getting_sliced then
-            if not context.blueprint then
-                card.ability.blind_size = card.ability.blind_size + G.GAME.current_round.discards_left
-            end
+        if context.setting_blind and not self.getting_sliced and not context.blueprint then
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                card.ability.original_size = G.GAME.blind.chips
+                G.GAME.blind.chips = G.GAME.blind.chips * (1 - (G.GAME.current_round.discards_left) / 100)
+                card.ability.removed = card.ability.original_size - G.GAME.blind.chips
 
-            G.GAME.blind.chips = G.GAME.blind.chips * (1 - (G.GAME.current_round.discards_left) / 100)
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3,func = function()
                 play_sound('cs_bend')
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             return true end }))
@@ -64,11 +64,10 @@ SMODS.Joker {
             }
         end
 
-        if context.pre_discard and not context.blueprint then
-            card.ability.blind_size = card.ability.blind_size - card.ability.extra
-            
-            G.GAME.blind.chips = G.GAME.blind.chips * (1 + (card.ability.extra) / 100)
+        if context.pre_discard and not context.blueprint then            
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                G.GAME.blind.chips = G.GAME.blind.chips + (card.ability.removed / G.GAME.current_round.discards_left)
+                card.ability.removed = card.ability.removed - (card.ability.removed / G.GAME.current_round.discards_left)
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             return true end }))
 
