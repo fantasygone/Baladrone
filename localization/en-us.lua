@@ -59,11 +59,9 @@ return {
 			["j_cs_bend_down"] = {
 				["name"] = "Bend Down",
 				["text"] = {
-					"Decreases Blind {C:attention}size{}",
-					"by {C:attention}#1#%{} per each card",
-					"discarded during the",
-					"{C:attention}first hand{} of round",
-					"{C:inactive}(Once per round){}"
+					"Decreases Blind size",
+					"by {C:attention}% of discards{}",
+					"remaining",
 				}
 			},
 			["j_cs_restoration"] = {
@@ -293,6 +291,7 @@ return {
 			["cs_spectrals"] = "Spectrals",
 			["cs_planet"] = "Planet",
 			["cs_planets"] = "Planets",
+			["cs_blind_size"] = "Blind size",
 
 			["cs_active"] = "active!",
 			["cs_inactive"] = "inactive",
