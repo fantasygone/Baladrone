@@ -135,7 +135,7 @@ return {
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for this Joker",
 					"to create {C:attention}#3#{} random {C:attention}temporary{}",
-					"{C:tarot}Tarot{} or {C:spectral}Spectral{} #6#",
+					"{C:tarot}Tarot{} or {C:spectral}Spectral{} #4#",
 					"at the start of the {C:attention}shop{}",
 					"{C:inactive}(Must have room){}",
 				}

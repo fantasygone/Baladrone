@@ -42,7 +42,9 @@ function Card:is_scaling()
     end
 
     -- And those that are...
-    if self.config.center.key == 'j_yorick' or self.config.center.key == 'j_caino' or self.config.center.key == 'j_egg' or self.config.center.key == 'j_fortune_teller' then
+    if self.config.center.key == 'j_yorick' or self.config.center.key == 'j_caino' or 
+    self.config.center.key == 'j_egg' or self.config.center.key == 'j_fortune_teller' or
+    self.config.center.key == 'j_campfire' then
         return true
     end
 
