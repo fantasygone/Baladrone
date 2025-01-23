@@ -10,6 +10,9 @@
 	"badge_colour": "ef9553",
 	"badge_text_colour": "6429a9",
 	"version": "0.1",
-	"dependencies": ["Steamodded (>=1.0.0~ALPHA-1310*)"],
+	"dependencies": [
+		"Steamodded (>=1.0.0~ALPHA-1310*)",
+		"Lovely (==0.6.0)"
+	],
 	"dump_loc": false
 }

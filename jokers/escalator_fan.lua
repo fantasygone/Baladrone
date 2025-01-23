@@ -39,9 +39,11 @@ SMODS.Joker {
     end,
 
     in_pool = function(self, args)
-        for _, v in ipairs(G.jokers.cards) do
-            if v:is_scaling() then
-                return true
+        if G.STAGE == G.STAGES.RUN then
+            for _, v in ipairs(G.jokers.cards) do
+                if v:is_scaling() then
+                    return true
+                end
             end
         end
     end
