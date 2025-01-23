@@ -71,6 +71,14 @@ SMODS.Atlas {
     py = 95
 }
 
+-- Mod Icon in Mods tab
+SMODS.Atlas({
+	key = "modicon",
+	path = "cs_icon.png",
+	px = 32,
+	py = 32
+})
+
 impostor_warnings = {
     "Cease this tomfoolery at once",
     "Not funny, didn't laugh",
@@ -105,6 +113,7 @@ startingshop_context = {
 local audio_files = {
     "flip",
     "destroy",
+    "bend",
     "create",
     "trap_set",
     "trap_triggered",
@@ -138,6 +147,7 @@ JOKER_FILES = {
     },
     wicked = {
         "destroyer",
+        "bend_down",
     },
     keeper = {
         "restoration",

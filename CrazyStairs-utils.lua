@@ -154,20 +154,18 @@ function cs_utils.broken_drone_interaction(new_card)
 end
 
 -- Create random consumable
-function cs_utils.random_consumable(card, cons_type, expiry)
+function cs_utils.random_consumable(card, args)
     if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.0,
             func = (function()
-                    local card = create_card(cons_type,G.consumeables, nil, nil, nil, nil, nil, 'hal')
-                    card:add_to_deck()
-                    G.consumeables:emplace(card)
+                    local new_card = SMODS.add_card({set = args.set, area = G.consumeables, key_append = args.seed, soulable = args.soul})
                     G.GAME.consumeable_buffer = 0
 
-                    if expiry then
-                        card.ability.cs_temp = {active = true, expiry = expiry}
+                    if args.expiry then
+                        new_card.ability.cs_temp = {active = true, expiry = args.expiry}
                     end
                 return true
             end)}))
@@ -178,7 +176,7 @@ function cs_utils.random_consumable(card, cons_type, expiry)
             nil,
             nil,
             nil,
-            cons_type == 'Spectral' and {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral} or {message = localize('k_plus_tarot'), colour = G.C.PURPLE}
+            args.set == 'Spectral' and {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral} or {message = localize('k_plus_tarot'), colour = G.C.PURPLE}
         )
     end
 end

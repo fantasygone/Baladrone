@@ -56,12 +56,22 @@ return {
 					"{s:0.8}Rank changes when triggered",
 				}
 			},
+			["j_cs_bend_down"] = {
+				["name"] = "Bend Down",
+				["text"] = {
+					"Decreases Blind {C:attention}size{}",
+					"by {C:attention}#1#%{} per each card",
+					"discarded during the",
+					"{C:attention}first hand{} of round",
+					"{C:inactive}(Once per round){}"
+				}
+			},
 			["j_cs_restoration"] = {
 				["name"] = "Restoration",
 				["text"] = {
-					"Every {C:attention}#1#{} {C:inactive}[#2#]{}", 
+					"Restores debuffed",
+					"cards every {C:attention}#1#{} {C:inactive}[#2#]{}",
 					"scoring cards played",
-					"restore debuffed cards",
 					"{C:inactive}(Includes Joker cards){}",
 					"{C:inactive}(Dispels self-debuffs){}"
 				}
@@ -294,6 +304,7 @@ return {
 			["cs_lame"] = "Lame",
 			["cs_fall_again"] = "Fall again!",
 			["cs_destroyed"] = "Destroyed!",
+			["cs_bend"] = "Bend!",
 			["cs_created"] = "Created!",
 			["cs_boosted"] = "Boosted!",
 			["cs_boosted_again"] = "Boosted again!",

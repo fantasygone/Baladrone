@@ -7,8 +7,8 @@
 	"prefix": "cs",
 	"main_file": "CrazyStairs.lua",
 	"priority": -2,
-	"badge_colour": "FFFBBB75",
-	"badge_text_colour": "",
+	"badge_colour": "ef9553",
+	"badge_text_colour": "6429a9",
 	"version": "0.1",
 	"dependencies": ["Steamodded (>=1.0.0~ALPHA-1310*)"],
 	"dump_loc": false
