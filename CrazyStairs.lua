@@ -202,43 +202,33 @@ for _, filename in ipairs(audio_files) do
     })
 end
 
-local music_nums = {
-	balatro = 1,
-	crazystairs = 2
-}
+-- local music_nums = {
+-- 	balatro = 1,
+-- 	crazystairs = 2
+-- }
 
-local music_strings = {
-	"balatro",
-	"crazystairs",
-}
+-- local music_strings = {
+-- 	"balatro",
+-- 	"crazystairs",
+-- }
 
-G.FUNCS.change_music = function(args)
-	G.ARGS.music_vals = G.ARGS.music_vals or music_strings
-	G.SETTINGS.QUEUED_CHANGE.music_change = G.ARGS.music_vals[args.to_key]
-	G.SETTINGS.music_selection = G.ARGS.music_vals[args.to_key]
-end
+-- G.FUNCS.change_music = function(args)
+-- 	G.ARGS.music_vals = G.ARGS.music_vals or music_strings
+-- 	G.SETTINGS.QUEUED_CHANGE.music_change = G.ARGS.music_vals[args.to_key]
+-- 	G.SETTINGS.music_selection = G.ARGS.music_vals[args.to_key]
+-- end
 
-setting_tabRef = G.UIDEF.settings_tab
-function G.UIDEF.settings_tab(tab)
-	local setting_tab = setting_tabRef(tab)
-	if tab == 'Audio' then
-		local musicSelector = {n=G.UIT.R, config = {align = 'cm', r = 0}, nodes= {
-			create_option_cycle({ w = 6, scale = 0.8, label = localize('b_music_selector'), options = localize('ml_music_selector_opt'), opt_callback = 'change_music', current_option = ((music_nums)[G.SETTINGS.music_selection] or 1) })
-		}}
-		setting_tab.nodes[#setting_tab.nodes + 1] = musicSelector
-	end
-	return setting_tab
-end
-
-SMODS.Sound({
-	volume = 0.5,
-	pitch = 1,
-	key = "cs_main_music",
-	path = "cs_main_music.wav",
-	select_music_track = function()
-		return (G.SETTINGS.music_selection == "crazystairs") and 10 or false
-	end,
-})
+-- setting_tabRef = G.UIDEF.settings_tab
+-- function G.UIDEF.settings_tab(tab)
+-- 	local setting_tab = setting_tabRef(tab)
+-- 	if tab == 'Audio' then
+-- 		local musicSelector = {n=G.UIT.R, config = {align = 'cm', r = 0}, nodes= {
+-- 			create_option_cycle({ w = 6, scale = 0.8, label = localize('b_music_selector'), options = localize('ml_music_selector_opt'), opt_callback = 'change_music', current_option = ((music_nums)[G.SETTINGS.music_selection] or 1) })
+-- 		}}
+-- 		setting_tab.nodes[#setting_tab.nodes + 1] = musicSelector
+-- 	end
+-- 	return setting_tab
+-- end
 
 if JokerDisplay then
     SMODS.load_file("joker_display_definitions.lua")()
