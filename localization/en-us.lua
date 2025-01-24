@@ -3,13 +3,12 @@ return {
 		["Joker"] = {
 			["j_cs_broken_drone"] = {
 				["name"] = "Broken Drone",
-				["label"] = "Artificial",
 				["text"] = {
-					"Destroys Jokers that try",
-					"to {C:attention}copy{} this Joker",
-					"Gains {X:mult,C:white}X#1#{} Mult per card",
-					"destroyed this way",
-					"{C:inactive}(Currently {X:mult,C:white}X#2# {C:inactive} Mult)",
+					"If this Joker is {C:attention}copied{},",
+					"it gains {X:mult,C:white}X0.75{} Mult and",
+					"destroys any Joker attempting",
+					"to {C:attention}copy{} it",
+					"{C:inactive}(Currently {X:mult,C:white}X1.5 {C:inactive} Mult)",
 				}
 			},
 			["j_cs_flipper"] = {
