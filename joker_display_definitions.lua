@@ -107,36 +107,17 @@ jd_def["j_cs_bend_down"] = {
 }
 
 jd_def["j_cs_damage"] = {
-    text = {
-        { text = "-", colour = G.C.ALIGNMENT['cs_wicked'] },
-        { ref_table = "card.joker_display_values", ref_value = "count", colour = G.C.ALIGNMENT['cs_wicked'] },
-        { text = " " },
-        { ref_table = "card.joker_display_values", ref_value = "localized_card" },
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "odds" },
+            { text = ")" },
+        }
     },
-    text_config = { scale = 0.35 },
-
-    reminder_text = {
-        { text = "(" },
-        { ref_table = "card.joker_display_values", ref_value = "localized_text", colour = G.C.ORANGE },
-        { text = ")" },
-    },
+    extra_config = { colour = G.C.GREEN, scale = 0.3 },
 
     calc_function = function(card)
-        local text, _, _ = JokerDisplay.evaluate_hand()
-        local is_damage_hand = text == card.ability.poker_hand
-
-        card.joker_display_values.count = 0
-        card.joker_display_values.localized_text = localize(card.ability.poker_hand, 'poker_hands')
-
-        if is_damage_hand then
-            for i = 1, #G.hand.cards do
-                if i % 2 == 0 and not G.hand.cards[i].highlighted then
-                    card.joker_display_values.count = card.joker_display_values.count + 1
-                end
-            end
-        end
-
-        card.joker_display_values.localized_card = (card.joker_display_values.count == 1) and localize('cs_card') or localize('cs_cards')
+        card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.odds } }
     end
 }
 

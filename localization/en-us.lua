@@ -67,10 +67,10 @@ return {
 			["j_cs_damage"] = {
 				["name"] = "Damage",
 				["text"] = {
-					"If {C:attention}poker hand{} is a",
-					"{C:attention}Three of a Kind{},",
-					"destroys every",
-					"{C:attention}other{} card {C:attention}in hand{}",
+					"Every {C:attention}other{} card in",
+					"played hand gives {C:mult}+#1#{} Mult",
+					"and has {C:green}#2# in #3#{} chance",
+					"to be destroyed when scored"
 				}
 			},
 			["j_cs_restoration"] = {
