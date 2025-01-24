@@ -15,7 +15,7 @@ SMODS.Joker {
     discovered = false,
     -- Compatibility
     blueprint_compat = false,   -- FALSE for passive Jokers
-    perishable_compat = false,  -- FALSE for scaling Jokers
+    perishable_compat = true,   -- FALSE for scaling Jokers
     eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
     rental_compat = true,       -- FALSE for idk??
 
