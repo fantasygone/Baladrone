@@ -116,6 +116,7 @@ local audio_files = {
     "flip",
     "destroy",
     "bend",
+    "damage",
     "create",
     "trap_set",
     "trap_triggered",
@@ -150,6 +151,7 @@ JOKER_FILES = {
     wicked = {
         "destroyer",
         "bend_down",
+        "damage",
     },
     keeper = {
         "restoration",

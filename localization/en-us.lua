@@ -64,6 +64,15 @@ return {
 					"remaining",
 				}
 			},
+			["j_cs_damage"] = {
+				["name"] = "Damage",
+				["text"] = {
+					"If {C:attention}poker hand{} is a",
+					"{C:attention}Three of a Kind{},",
+					"destroys every",
+					"{C:attention}other{} card {C:attention}in hand{}",
+				}
+			},
 			["j_cs_restoration"] = {
 				["name"] = "Restoration",
 				["text"] = {
@@ -301,8 +310,9 @@ return {
 			["cs_faking_cards"] = "Don't peek!",
 			["cs_fake_played"] = "Hahaha!",
 			["cs_lame"] = "Lame",
-			["cs_fall_again"] = "Fall again!",
+			["cs_fall_again"] = "Fall Again!",
 			["cs_destroyed"] = "Destroyed!",
+			["cs_damaged"] = "Damaged!",
 			["cs_bend"] = "Bend!",
 			["cs_created"] = "Created!",
 			["cs_boosted"] = "Boosted!",
@@ -311,6 +321,8 @@ return {
 			["cs_restored"] = "Restored!",
 			["cs_promoted"] = "Promoted!",
 			["cs_slowed_down"] = "Slowed Down!",
+
+			["cs_scaling"] = "Scaling",
 
 			["b_music_selector"] = "Soundtrack",
 			["ml_music_selector_opt"] = {
