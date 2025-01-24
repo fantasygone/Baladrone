@@ -46,7 +46,6 @@ SMODS.Joker {
                 card.ability.triggered = true
 
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_destroyed')})
-                cs_utils.reset_destroyer_card(card)
 
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
                     play_sound('cs_destroy')
@@ -57,6 +56,10 @@ SMODS.Joker {
 
         if context.scoring_hand and context.after then
             card.ability.triggered = false
+        end
+
+        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand then
+            cs_utils.reset_destroyer_card(card)
         end
     end
 }

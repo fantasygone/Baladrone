@@ -53,7 +53,7 @@ return {
 				["text"] = {
 					"Destroys first scored",
 					"card {C:attention}directly above #1#{}",
-					"{s:0.8}Rank changes when triggered",
+					"{s:0.8}Rank changes each round{}",
 				}
 			},
 			["j_cs_bend_down"] = {

@@ -52,11 +52,7 @@ function Card:is_scaling()
 end
 
 function SMODS.current_mod.reset_game_globals(run_start)
-    if run_start then
-        for i = 1, #SMODS.find_card('j_cs_destroyer') do
-            cs_utils.reset_destroyer_card(SMODS.find_card('j_cs_destroyer')[i])
-        end
-    end
+
 end
 
 SMODS.Atlas {
