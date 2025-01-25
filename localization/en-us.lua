@@ -86,8 +86,8 @@ return {
 				["name"] = "Keeper's Move Up",
 				["text"] = {
 					"Gives {C:cs_keeper}Rank Seal{} to",
-					"the {C:attention}highest{}",
-					"scoring cards played",
+					"the {C:attention}highest{} scoring",
+					"cards played",
 				},
 				["unlock"] = {
                     "{E:1,s:1.3}?????",
@@ -240,7 +240,7 @@ return {
 				["name"] = "Hacker Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_hacker, C:white}Hacker{}",
+					"morphed into {X:cs_hacker, C:black}Hacker{}",
 				}
 			},
 			["cs_thief_aligned"] = {
