@@ -14,17 +14,17 @@ pattern = "RARITY = {"
 position = "before"
 payload = '''
 ALIGNMENT = {
-    cs_patron = HEX("8bfe0f"),
+    cs_patron = HEX("4cff00"),
     cs_joker = HEX("fefe15"),
-    cs_wicked = HEX("f80404"),
-    cs_keeper = HEX("BA4800"),
+    cs_wicked = HEX("ff0606"),
+    cs_keeper = HEX("ff7400"),
     cs_muggle = HEX("cccccc"),
-    cs_hacker = HEX("febfe9"),
+    cs_hacker = HEX("ffc9c6"),
     cs_thief = HEX("0146fe"),
     cs_archon = HEX("23ee9c"),
-    cs_drifter = HEX("6c9648"),
+    cs_drifter = HEX("95e44a"),
     cs_heretic = HEX("b9a0e6"),
-    cs_spectre = HEX("0dfefe"),
+    cs_spectre = HEX("00ffff"),
     cs_chameleon = HEX("cc03ed"),
 },
 CS_ORANGE = HEX("b03815"),

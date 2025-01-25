@@ -68,8 +68,8 @@ return {
 				["text"] = {
 					"If {C:attention}poker hand{} is a",
 					"{C:attention}Three of a Kind{},",
-					"destroys every",
-					"{C:attention}other{} card {C:attention}in hand{}",
+					"destroys every {C:attention}other{}",
+					"card held {C:attention}in hand{}",
 				}
 			},
 			["j_cs_restoration"] = {
@@ -205,28 +205,28 @@ return {
 				["name"] = "Patron Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_patron, C:cs_patron}Patron",
+					"morphed into {X:cs_patron,C:black}Patron{}",
 				}
 			},
 			["cs_joker_aligned"] = {
 				["name"] = "Joker Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_joker, C:cs_joker}Joker",
+					"morphed into {X:cs_joker,C:black}Joker{}",
 				}
 			},
 			["cs_wicked_aligned"] = {
 				["name"] = "Wicked Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_wicked}Wicked{}",
+					"morphed into {X:cs_wicked,C:white}Wicked{}",
 				}
 			},
 			["cs_keeper_aligned"] = {
 				["name"] = "Keeper Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_keeper}Keeper",
+					"morphed into {X:cs_keeper,C:white}Keeper{}",
 				}
 			},
 			["cs_muggle_aligned"] = {
@@ -240,7 +240,7 @@ return {
 				["name"] = "Hacker Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_hacker, C:cs_hacker}Hacker",
+					"morphed into {X:cs_hacker, C:white}Hacker{}",
 				}
 			},
 			["cs_thief_aligned"] = {
@@ -261,7 +261,7 @@ return {
 				["name"] = "Drifter Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_drifter}Drifter",
+					"morphed into {X:cs_drifter, C:black}Drifter{}",
 				}
 			},
 			["cs_heretic_aligned"] = {
@@ -275,7 +275,7 @@ return {
 				["name"] = "Spectre Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_spectre}Spectre",
+					"morphed into {X:cs_spectre, C:black}Spectre{}",
 				}
 			},
 			["cs_chameleon_aligned"] = {

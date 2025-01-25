@@ -1,6 +1,6 @@
 SMODS.Seal {
     key = "rank",
-    badge_colour = HEX("BA4800"),
+    badge_colour = G.C.ALIGNMENT['cs_keeper'],
     config = {},
     atlas = "CrazyStairsSeals_atlas",
     pos = {x= 0, y= 2},

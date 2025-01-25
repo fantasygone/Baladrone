@@ -1,6 +1,6 @@
 SMODS.Seal {
     key = "lift",
-    badge_colour = HEX("6c9648"),
+    badge_colour = G.C.ALIGNMENT['cs_drifter'],
     config = {},
     atlas = "CrazyStairsSeals_atlas",
     pos = {x= 1, y= 2},
