@@ -136,3 +136,24 @@ end
 
 '''
 match_indent = true
+
+
+
+
+# Prevent drawing from deck if Four Walls is present
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+    G.FUNCS.draw_from_deck_to_hand = function(e)
+'''
+position = "after"
+payload = '''
+local cs_walls = SMODS.find_card('j_cs_four_walls')
+
+if cs_walls[1] and G.GAME.current_round.cs_cards_are_blocked and not cs_walls[1].debuff and G.GAME.blind and G.GAME.blind:get_type() == 'Small' then
+    return
+end
+
+'''
+match_indent = true

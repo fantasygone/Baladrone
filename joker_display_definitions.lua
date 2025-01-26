@@ -135,6 +135,14 @@ jd_def["j_cs_damage"] = {
     end
 }
 
+jd_def["j_cs_four_walls"] = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability", ref_value = "mult", retrigger_type = "mult" }
+    },
+    text_config = { colour = G.C.MULT },
+}
+
 -- Keeper
 
 jd_def["j_cs_restoration"] = {
