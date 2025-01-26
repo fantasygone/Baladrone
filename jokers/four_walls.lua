@@ -15,7 +15,7 @@ SMODS.Joker {
     unlocked = true,
     discovered = false,
     -- Compatibility
-    blueprint_compat = false,  -- FALSE for passive Jokers
+    blueprint_compat = true,  -- FALSE for passive Jokers
     perishable_compat = false, -- FALSE for scaling Jokers
     eternal_compat = true,     -- FALSE for Jokers to be sold or that expire by themselves
     rental_compat = true,      -- FALSE for idk??
@@ -71,7 +71,7 @@ SMODS.Joker {
             }
         end
 
-        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand and G.GAME.blind:get_type() == 'Small' and G.GAME.current_round.cs_cards_are_blocked then
+        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand and G.GAME.blind:get_type() == 'Small' and G.GAME.current_round.cs_cards_are_blocked and not context.blueprint then
             G.GAME.current_round.cs_cards_are_blocked = false
 
             for i = 1, #G.hand.cards do
@@ -82,7 +82,7 @@ SMODS.Joker {
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_freed'), colour = G.C.RED})
         end
 
-        if context.pre_discard and G.GAME.current_round.cs_cards_are_blocked then
+        if context.pre_discard and G.GAME.current_round.cs_cards_are_blocked and not context.blueprint then
             G.GAME.current_round.cs_cards_are_blocked = false
             local discarding = {}
 
