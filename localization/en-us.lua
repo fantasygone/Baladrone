@@ -18,7 +18,7 @@ return {
 					"turns into {C:attention}9s{} and vice versa",
 					"If both ranks are present,",
 					"turns them into the rank that",
-					"there is more of in play",
+					"there is {C:attention}more of{} in play",
 				}
 			},
 			["j_cs_trap"] = {
@@ -70,6 +70,17 @@ return {
 					"{C:attention}Three of a Kind{},",
 					"destroys every {C:attention}other{}",
 					"card held {C:attention}in hand{}",
+				}
+			},
+			["j_cs_four_walls"] = {
+				["name"] = "Four Walls",
+				["text"] = {
+					"When {C:attention}Small Blind{} is selected,",
+					"{C:attention}blocks{} the first cards",
+					"drawn in your hand",
+					"This Joker gains {C:mult}+#2#{} Mult",
+					"when triggered",
+					"{C:inactive}(Currently{} {C:mult}+#1#{} {C:inactive}Mult){}",
 				}
 			},
 			["j_cs_restoration"] = {
@@ -189,8 +200,7 @@ return {
 			["cs_basic"] = {
 				["name"] = "Basic Card",
 				["text"] = {
-					"Won't retain any",
-					"edition and/or enhanchment"
+					"No Enhancements/Editions/Seals"
 				}
 			},
 			["cs_temporary"] = {
@@ -199,6 +209,13 @@ return {
 					"Will {C:red}disappear{} when",
 					"the specified context",
 					"is over",
+				}
+			},
+			["cs_blocked"] = {
+				["name"] = "Blocked Card",
+				["text"] = {
+					"This card is {C:attention}stuck{} in",
+					"its current card area",
 				}
 			},
 			["cs_patron_aligned"] = {
@@ -289,6 +306,7 @@ return {
 	},
 	["misc"] = {
 		["dictionary"] = {
+			-- Terms
 			["cs_card"] = "card",
 			["cs_cards"] = "cards",
 			["cs_consumable"] = "consumable",
@@ -300,29 +318,37 @@ return {
 			["cs_planet"] = "Planet",
 			["cs_planets"] = "Planets",
 			["cs_blind_size"] = "Blind size",
-
 			["cs_active"] = "active!",
 			["cs_inactive"] = "inactive",
+			-- Neutral
 			["cs_false"] = "False",
 			["cs_smh"] = "Smh",
+			-- Joker
 			["cs_flipped"] = "Flipped!",
 			["cs_faking_cards"] = "Don't peek!",
 			["cs_fake_played"] = "Hahaha!",
 			["cs_lame"] = "Lame",
 			["cs_fall_again"] = "Fall Again!",
+			-- Wicked
 			["cs_destroyed"] = "Destroyed!",
 			["cs_damaged"] = "Damaged!",
 			["cs_bend"] = "Bend!",
+			["cs_blocked"] = "Blocked!",
+			["cs_freed"] = "Free!",
+			["cs_nuh_uh"] = "Nuh Uh!",
+			-- Patron
 			["cs_created"] = "Created!",
+			-- Drifter
 			["cs_boosted"] = "Boosted!",
 			["cs_boosted_again"] = "Boosted again!",
 			["cs_lift"] = "Rise!",
+			-- Keeper
 			["cs_restored"] = "Restored!",
 			["cs_promoted"] = "Promoted!",
+			-- Hacker
 			["cs_slowed_down"] = "Slowed Down!",
-
 			["cs_scaling"] = "Scaling",
-
+			-- Music stuff
 			["b_music_selector"] = "Soundtrack",
 			["ml_music_selector_opt"] = {
 				"Balatro OST by LouisF",
@@ -336,6 +362,7 @@ return {
 			["cs_lift_seal"] = "Lift Seal",
 			["cs_rank_seal"] = "Rank Seal",
 			["cs_temporary"] = "Temporary",
+			["cs_blocked"] = "Blocked",
 		},
 	},
 }

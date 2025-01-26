@@ -23,6 +23,14 @@ function Card:set_ability(center, initial, delay_sprites)
     self.ability.cs_temp = self.ability and self.ability.cs_temp or {active = false, expiry = nil}
 end
 
+local igo = Game.init_game_object
+Game.init_game_object = function(self)
+    local ret = igo(self)
+    
+    ret.current_round.cs_cards_are_blocked = false
+    return ret
+end
+
 function Card:undebuff_this()
     if self.debuff then
         self:add_to_deck(true)
@@ -51,9 +59,9 @@ function Card:is_scaling()
     return false
 end
 
-function SMODS.current_mod.reset_game_globals(run_start)
-
-end
+-- Keeping for when I need it :P
+-- function SMODS.current_mod.reset_game_globals(run_start)
+-- end
 
 SMODS.Atlas {
     key = "CrazyStairs_atlas",
@@ -109,13 +117,18 @@ startingshop_context = {
 
 -- List all Joker files here
 local audio_files = {
+    -- Joker
     "flip",
+    "trap_set",
+    "trap_triggered",
+    -- Wicked
     "destroy",
     "bend",
     "damage",
+    "wall",
+    -- Patron
     "create",
-    "trap_set",
-    "trap_triggered",
+    -- Seals
     "seal_lift_obtained",
     "seal_rank_obtained",
 }
@@ -148,6 +161,7 @@ JOKER_FILES = {
         "destroyer",
         "bend_down",
         "damage",
+        "four_walls",
     },
     keeper = {
         "restoration",
@@ -172,6 +186,8 @@ for _, alignment in ipairs(ALIGNMENT_JOKERS) do
     end
 end
 
+
+
 -- List all seals files here
 local seal_files = {
     "lift_seal",
@@ -182,7 +198,6 @@ local seal_files = {
 local enchamcnemnt_files = {
     "fake_enh",
 }
-
 
 
 for i = 1, #seal_files do

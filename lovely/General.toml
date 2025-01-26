@@ -92,3 +92,47 @@ payload = '''
     end
 '''
 match_indent = true
+
+
+
+
+# Return blocked cards to hand after scoring
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+    for k, v in ipairs(G.play.cards) do
+        if (not v.shattered) and (not v.destroyed) then 
+            draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+            it = it + 1
+        end
+    end
+'''
+position = "at"
+payload = '''
+local cs_walls = SMODS.find_card('j_cs_four_walls')
+
+if cs_walls[1] and not cs_walls[1].debuff and G.GAME.blind and G.GAME.blind:get_type() == 'Small' then
+    cs_walls[1].ability.mult = cs_walls[1].ability.mult + cs_walls[1].ability.extra
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+        play_sound('cs_wall')
+    return true end }))
+    card_eval_status_text(cs_walls[1], 'extra', nil, nil, nil, {message = localize('cs_blocked'), colour = G.C.RED})
+
+    for k, v in ipairs(G.play.cards) do
+        if (not v.shattered) and (not v.destroyed) then 
+            draw_card(G.play,G.hand, it*100/play_count,'up', true, v)
+            it = it + 1
+        end
+    end
+else
+    for k, v in ipairs(G.play.cards) do
+        if (not v.shattered) and (not v.destroyed) then 
+            draw_card(G.play,G.discard, it*100/play_count,'down', false, v)
+            it = it + 1
+        end
+    end
+end
+
+'''
+match_indent = true
