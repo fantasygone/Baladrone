@@ -12,6 +12,8 @@ SMODS.Voucher {
     -- Player data
     unlocked = false,
     discovered = false,
+    requires = {'v_cs_bender'},
+
     check_for_unlock = function(self, args)
         if args.type == 'cs_blind_beaten' and args.score <= args.blind_size * 1.04 then
             unlock_card(self)
@@ -30,7 +32,7 @@ SMODS.Voucher {
     calculate = function (self, card, context)
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips * (1 - (card.ability.extra) / 100)
+                G.GAME.blind.chips = math.floor(G.GAME.blind.chips * (1 - (card.ability.extra) / 100))
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             return true end }))
         end
