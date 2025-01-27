@@ -171,6 +171,28 @@ return {
 				},
 			},
 		},
+		["Voucher"] = {
+			["v_cs_bender"] = {
+				["name"] = "Bender",
+				["text"] = {
+					"{C:attention}Permanently{} reduces",
+					"Blind {C:attention}size{} by {C:green}#1#%{}",
+				}
+			},
+			["v_cs_bending_the_rules"] = {
+				["name"] = "Bending the Rules",
+				["text"] = {
+					"{C:attention}Permanently{} reduces",
+					"Blind {C:attention}size{} by {C:green}#1#%{}",
+				},
+				["unlock"] = {
+                    "Win a {C:attention}round{} with",
+					"a score lesser",
+					"than {C:attention}104%{} of",
+					"required chips",
+                },
+			}
+		},
 		["Other"] = {
 			["cs_fake_card"] = {
 				["name"] = "Fake Card",

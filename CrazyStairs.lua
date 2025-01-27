@@ -77,6 +77,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "CrazyStairsVouchers_atlas",
+    path = "CsVouchers.png",
+    px = 71,
+    py = 95
+}
+
 -- Mod Icon in Mods tab
 SMODS.Atlas({
 	key = "modicon",
@@ -159,7 +166,7 @@ JOKER_FILES = {
     },
     wicked = {
         "destroyer",
-        "bend_down",
+        -- "bend_down",
         "damage",
         "four_walls",
     },
@@ -199,6 +206,12 @@ local enchamcnemnt_files = {
     "fake_enh",
 }
 
+-- List all vouchers files here
+local voucher_files = {
+    "bender",
+    "bending_the_rules",
+}
+
 
 for i = 1, #seal_files do
     NFS.load(SMODS.current_mod.path .. "/seals/" .. seal_files[i] .. ".lua")()
@@ -206,6 +219,10 @@ end
 
 for i = 1, #enchamcnemnt_files do
     NFS.load(SMODS.current_mod.path .. "/enhancements/" .. enchamcnemnt_files[i] .. ".lua")()
+end
+
+for i = 1, #voucher_files do
+    NFS.load(SMODS.current_mod.path .. "/vouchers/" .. voucher_files[i] .. ".lua")()
 end
 
 -- Load and register Sounds

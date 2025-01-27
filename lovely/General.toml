@@ -157,3 +157,19 @@ end
 
 '''
 match_indent = true
+
+
+
+
+# Add Bending the Rules unlock condition
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+    check_for_unlock({type = 'round_win'})
+'''
+position = "after"
+payload = '''
+check_for_unlock({type = 'cs_blind_beaten', score = G.GAME.chips, blind_size = G.GAME.blind.chips})
+'''
+match_indent = true
