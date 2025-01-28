@@ -161,7 +161,7 @@ function cs_utils.random_consumable(card, args)
             trigger = 'after',
             delay = 0.0,
             func = (function()
-                    local new_card = SMODS.add_card({set = args.set, area = G.consumeables, key_append = args.seed, soulable = args.soul})
+                    local new_card = SMODS.add_card({set = args.set, area = args.destination, key_append = args.seed, soulable = args.soul})
                     G.GAME.consumeable_buffer = 0
 
                     if args.expiry then
@@ -180,36 +180,5 @@ function cs_utils.random_consumable(card, args)
         )
     end
 end
-
--- Creator logic
--- function cs_utils.handle_creator()
---     local tocopy
-
---     if count_6 > 0 or count_9 > 0 then
---         play_sound('cs_flip')
---         local target_rank
---         if count_6 > count_9 and count_9 ~= 0 then
---             target_rank = 6
---         elseif count_9 > count_6 and count_6 ~= 0 then
---             target_rank = 9
---         elseif count_9 == count_6 then
---             target_rank = toflip[1]:get_id()
---         else
---             target_rank = toflip[1]:get_id() == 6 and 9 or 6
---         end
-
---         cs_utils.flip_cards_noevent(toflip)
-
---         for i = 1, #toflip do
---             local hooked_card = toflip[i]
---             local suit_prefix = string.sub(hooked_card.base.suit, 1, 1)..'_'
---             hooked_card:set_base(G.P_CARDS[suit_prefix..target_rank])
---         end
-
---         card_eval_status_text(SMODS.find_card('j_cs_flipper')[1], 'extra', nil, nil, nil, {message = localize('cs_flipped'), colour = G.C.YELLOW})
---         delay(0.8)
---         cs_utils.unflip_cards(toflip, 'before', 0.15)
---     end
--- end
 
 return cs_utils

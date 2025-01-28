@@ -37,11 +37,14 @@ SMODS.Joker {
         if context.cs_entering_shop then
             if pseudorandom('random_tele'..G.GAME.round_resets.ante) < G.GAME.probabilities.normal/card.ability.odds then
                 for i = 1, card.ability.teleports do
-                    if pseudorandom('random_tele_type'..G.GAME.round_resets.ante) < 0.8 then
-                        cs_utils.random_consumable(context.blueprint_card or card, {set = 'Tarot', expiry = 'ending_shop', seed = 'randomteleport', soulable = false})
-                    else
-                        cs_utils.random_consumable(context.blueprint_card or card, {set = 'Spectral', expiry = 'ending_shop', seed = 'randomteleport', soulable = false})
-                    end
+                    local nc = create_card('Alignment', G.cs_alignments, false, nil, nil, nil, nil, 'test')
+                    nc:add_to_deck()
+                    G.cs_alignments:emplace(nc)
+                    -- if pseudorandom('random_tele_type'..G.GAME.round_resets.ante) < 0.8 then
+                    --     cs_utils.random_consumable(context.blueprint_card or card, {set = 'Tarot', destination = G.alignments, expiry = 'ending_shop', seed = 'randomteleport', soulable = false})
+                    -- else
+                    --     cs_utils.random_consumable(context.blueprint_card or card, {set = 'Spectral', destination = G.alignments, expiry = 'ending_shop', seed = 'randomteleport', soulable = false})
+                    -- end
                 end
             end
         end

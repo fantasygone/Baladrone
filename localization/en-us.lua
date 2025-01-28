@@ -137,7 +137,10 @@ return {
 				["text"] = {
 					"{C:attention}Scaling{} Jokers each",
 					"give {X:mult,C:white}X#1#{} Mult",
-				}
+				},
+				["unlock"] = {
+                    "{E:1,s:1.3}?????",
+                },
 			},
 			["j_cs_strider"] = {
 				["name"] = "Strider",
@@ -158,6 +161,44 @@ return {
 					"at the start of the {C:attention}shop{}",
 					"{C:inactive}(Must have room){}",
 				}
+			},
+		},
+		["Alignment"] = {
+			["ali_cs_patron"] = {
+				["name"] = "Patron Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_patron,C:black}Patron{} aligned",
+					"Jokers",
+				},
+				["unlock"] = {
+                    "Find this Alignment",
+                    "in Morph Packs",
+                },
+			},
+			["ali_cs_wicked"] = {
+				["name"] = "Wicked Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_wicked,C:black}Wicked{} aligned",
+					"Jokers",
+				},
+				["unlock"] = {
+                    "Find this Alignment",
+                    "in Morph Packs",
+                },
+			},
+			["ali_cs_joker"] = {
+				["name"] = "Joker Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_joker,C:black}Joker{} aligned",
+					"Jokers",
+				},
+				["unlock"] = {
+                    "Find this Alignment",
+                    "in Morph Packs",
+                },
 			},
 		},
 		["Enhanced"] = {
@@ -324,10 +365,19 @@ return {
 					"morphed into {C:cs_chameleon}Chameleon",
 				}
 			},
+			["undiscovered_alignment"] = {
+				["name"] = "Undiscovered",
+				["text"] = {
+					"Find this Alignment",
+					"in Morph Packs",
+				},
+			},
 		},
 	},
 	["misc"] = {
 		["dictionary"] = {
+			-- ["b_alignment_cards"] = "Alignment",
+			["k_alignment"] = "Alignments",
 			-- Terms
 			["cs_card"] = "card",
 			["cs_cards"] = "cards",

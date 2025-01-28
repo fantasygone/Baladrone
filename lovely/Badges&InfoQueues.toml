@@ -13,9 +13,9 @@ target = "card.lua"
 pattern = '''local badges = {}'''
 position = "after"
 payload = '''
-    if self.ability.cs_temp.active then
-        badges[#badges + 1] = 'cs_temporary'
-    end
+if self.ability.cs_temp.active then
+    badges[#badges + 1] = 'cs_temporary'
+end
 '''
 match_indent = true
 
@@ -30,5 +30,37 @@ pattern = '''for k, v in ipairs(badges) do'''
 position = "after"
 payload = '''
     if v == 'cs_temporary' then info_queue[#info_queue + 1] = {key = 'cs_temporary', set = 'Other'} end
+'''
+match_indent = true
+
+
+
+
+# Add primary set
+[[patches]]
+[patches.pattern]
+target = "globals.lua"
+pattern = '''
+        SET = {
+'''
+position = "after"
+payload = '''
+            Alignment = HEX('c45023'),
+'''
+match_indent = true
+
+
+
+
+# Add secondary set
+[[patches]]
+[patches.pattern]
+target = "globals.lua"
+pattern = '''
+        SECONDARY_SET = {
+'''
+position = "after"
+payload = '''
+            Alignment = HEX('f5af6f'),
 '''
 match_indent = true

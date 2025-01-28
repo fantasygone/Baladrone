@@ -25,7 +25,7 @@ SMODS.Voucher {
     calculate = function (self, card, context)
         if context.setting_blind then
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                G.GAME.blind.chips = G.GAME.blind.chips * (1 - (card.ability.extra) / 100)
+                G.GAME.blind.chips = math.floor(G.GAME.blind.chips * (1 - (card.ability.extra) / 100))
 
                 play_sound('cs_bend')
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)

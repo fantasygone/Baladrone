@@ -1,0 +1,63 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+
+
+
+# Add Alignment Cardarea
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.SPLASH_BACK = Sprite(-30, -6, G.ROOM.T.w+60, G.ROOM.T.h+12, G.ASSET_ATLAS["ui_1"], {x = 2, y = 0})'''
+position = "before"
+payload = '''
+
+self.cs_alignment_W = 1.2*G.CARD_W
+self.cs_alignment_H = 0.95*G.CARD_H
+
+self.cs_alignments = CardArea(
+    G.consumeables.T.x + 2.25,
+    G.consumeables.T.y + G.consumeables.T.h + 1, 
+    self.cs_alignment_W, 
+    self.cs_alignment_H, 
+    {card_limit = 1, type = 'cs_alignment', highlight_limit = 1})
+'''
+match_indent = true
+
+
+
+
+# adds Alignments to the collection counter
+# set_discover_tallies()
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+pattern = """if v.set and ((v.set == 'Joker') or v.consumeable or (v.set == 'Edition') or (v.set == 'Voucher') or (v.set == 'Back') or (v.set == 'Booster')) then"""
+position = 'before'
+match_indent = true
+payload = """if v.set and v.set == 'Alignment' then
+    G.DISCOVER_TALLIES.total.of = G.DISCOVER_TALLIES.total.of + 1
+    if v.unlocked then 
+        G.DISCOVER_TALLIES.total.tally = G.DISCOVER_TALLIES.total.tally + 1
+    end
+end"""
+
+
+
+
+# adds Alignment set
+# set_discover_tallies()
+[[patches]]
+[patches.pattern]
+target = 'globals.lua'
+pattern = """if v.set and ((v.set == 'Joker') or v.consumeable or (v.set == 'Edition') or (v.set == 'Voucher') or (v.set == 'Back') or (v.set == 'Booster')) then"""
+position = 'before'
+match_indent = true
+payload = """if v.set and v.set == 'Alignment' then
+    G.DISCOVER_TALLIES.total.of = G.DISCOVER_TALLIES.total.of + 1
+    if v.unlocked then 
+        G.DISCOVER_TALLIES.total.tally = G.DISCOVER_TALLIES.total.tally + 1
+    end
+end"""
