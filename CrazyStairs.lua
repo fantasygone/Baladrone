@@ -18,6 +18,42 @@ SMODS.current_mod.optional_features = function()
     }
 end
 
+local old_FUNCS_your_collection = G.FUNCS.your_collection
+function G.FUNCS.your_collection(...)
+    in_collection = true
+    return old_FUNCS_your_collection(...)
+end
+local old_buildAdditionsTab = buildAdditionsTab
+function buildAdditionsTab(...)
+    -- from steamodded
+    in_collection = true
+    return old_buildAdditionsTab(...)
+end
+local old_FUNCS_exit_overlay_menu = G.FUNCS.exit_overlay_menu
+function G.FUNCS.exit_overlay_menu(...)
+    in_collection = false
+    return old_FUNCS_exit_overlay_menu(...)
+end
+local old_FUNCS_mods_button = G.FUNCS.mods_button
+function G.FUNCS.mods_button(...)
+    -- from steamodded
+    in_collection = false
+    return old_FUNCS_mods_button(...)
+end
+
+local old_create_UIBox_card_unlock = create_UIBox_card_unlock
+function create_UIBox_card_unlock(card_center)
+    if card_center.set == "Alignment" and not G.PROFILES[G.SETTINGS.profile].all_unlocked then
+        return create_UIBox_alignment_unlock(card_center)
+    end
+    return old_create_UIBox_card_unlock(card_center)
+end
+
+local old_smods_save_unlocks = SMODS.SAVE_UNLOCKS
+function SMODS.SAVE_UNLOCKS(...)
+    old_smods_save_unlocks(...)
+end
+
 local original_get_badge_colour = get_badge_colour
 function get_badge_colour(key)
     if key == "cs_temporary" then return G.C.ALIGNMENT["cs_spectre"] end
@@ -62,7 +98,27 @@ CrazyStairs.Alignment = SMODS.Center:extend {
 }
 
 function CrazyStairs.Alignment:is_unlocked()
-    return self.unlocked
+    return self.unlocked or G.PROFILES[G.SETTINGS.profile].all_unlocked
+end
+
+function CrazyStairs.Alignment:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI_table)
+    if not self:is_unlocked() then
+        local target = {
+            type = 'descriptions',
+            key = "ali_locked",
+            set = self.set,
+            nodes = desc_nodes,
+            vars = specific_vars or {}
+        }
+        if self.locked_loc_vars and type(self.locked_loc_vars) == 'function' then
+            local res = self:locked_loc_vars(info_queue, card) or {}
+            target.key = res.key or target.key
+            target.vars = res.vars or target.vars
+        end
+        localize(target)
+    else
+        return SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+    end
 end
 
 
@@ -158,6 +214,49 @@ local function clean_alignment_areas()
         end
     end
 end
+
+function create_UIBox_alignment_unlock(alignment_center)
+    local area = CardArea(G.ROOM.T.x - 100, G.ROOM.T.h, 1.2*G.CARD_W, 1.2*G.CARD_H,
+                          {card_limit = 52, type = 'deck', highlight_limit = 0})
+    local card = Card(G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h, G.CARD_W*1.2, G.CARD_H*1.2, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base, {viewed_back = true})
+    card.sprite_facing = 'back'
+    card.facing = 'back'
+    area:emplace(card)
+    local alignment_card = create_alignment_card(area, alignment_center)
+    replace_alignment_sprite(alignment_card, alignment_center, {x=0, y=0.2})
+    area:emplace(alignment_card)
+
+    local alignment_criteria = {}
+    localize{type = 'descriptions', set = "Alignment", key = 'ali_locked', nodes = alignment_criteria, default_col = G.C.WHITE, shadow = true}
+    local alignment_criteria_cols = {}
+    for k, v in ipairs(alignment_criteria) do
+        if k > 1 then alignment_criteria_cols[#alignment_criteria_cols+1] = {n=G.UIT.C, config={align = "cm", padding = 0, minw = 0.1}, nodes={}} end
+        alignment_criteria_cols[#alignment_criteria_cols+1] = {n=G.UIT.C, config={align = "cm", padding = 0}, nodes=v}
+    end
+
+    local alignment_description = {}
+    alignment_center:generate_ui({}, nil, alignment_description, nil, {name = {}})
+    local alignment_description_cols = {}
+    for _, v in ipairs(alignment_description) do
+        alignment_description_cols[#alignment_description_cols + 1] = { n = G.UIT.R, config = { align = "cm"}, nodes = v }
+    end
+
+    local t = create_UIBox_generic_options({ back_label = localize('b_continue'), no_pip = true, snap_back = true, back_func = 'continue_unlock', minw = 7, contents = {
+      {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+        {n=G.UIT.O, config={object = DynaText({string = {{string = localize{type = 'name_text', set = 'Alignment', key = alignment_center.key}, suffix = ' '..localize('k_unlocked_ex'), outer_colour = G.C.UI.TEXT_LIGHT}}, colours = {G.C.BLUE},shadow = true, rotate = true, float = true, scale = 0.7, pop_in = 0.1})}}
+      }},
+      {n=G.UIT.R, config={align = "cm", padding = 0}, nodes=alignment_criteria_cols},
+      {n=G.UIT.R, config={align = "cm", padding = 0.2, colour = G.C.BLACK, r = 0.2}, nodes={
+          {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
+            {n=G.UIT.O, config={object = area}}
+          }},
+          {n=G.UIT.C, config={align = "cm", r = 0.2, colour = G.C.WHITE, emboss = 0.05, padding = 0.2, minw = 4}, nodes={
+            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes=alignment_description_cols}
+          }}
+        }}
+    }})
+    return t
+  end
 
 
 -- -----
@@ -326,29 +425,6 @@ function Card:is_scaling()
     end
 
     return false
-end
-
-local old_FUNCS_your_collection = G.FUNCS.your_collection
-function G.FUNCS.your_collection(...)
-    in_collection = true
-    return old_FUNCS_your_collection(...)
-end
-local old_buildAdditionsTab = buildAdditionsTab
-function buildAdditionsTab(...)
-    -- from steamodded
-    in_collection = true
-    return old_buildAdditionsTab(...)
-end
-local old_FUNCS_exit_overlay_menu = G.FUNCS.exit_overlay_menu
-function G.FUNCS.exit_overlay_menu(...)
-    in_collection = false
-    return old_FUNCS_exit_overlay_menu(...)
-end
-local old_FUNCS_mods_button = G.FUNCS.mods_button
-function G.FUNCS.mods_button(...)
-    -- from steamodded
-    in_collection = false
-    return old_FUNCS_mods_button(...)
 end
 
 -- Keeping for when I need it :P
@@ -594,7 +670,6 @@ SMODS.current_mod.custom_collection_tabs = function()
 end
 
 local function create_UIBox_alignments()
-    print('create_UIBox_alignments')
     generate_alignment_card_areas()
     local alignment_pages = {n=G.UIT.C, config = {padding = 0.15}, nodes ={
         generate_alignment_card_areas_ui(),
@@ -607,7 +682,6 @@ local function create_UIBox_alignments()
   end
 
 G.FUNCS.your_collection_alignments = function()
-    print('your_collection_alignments')
 	G.SETTINGS.paused = true
 	G.FUNCS.overlay_menu{
 	  definition = create_UIBox_alignments(),

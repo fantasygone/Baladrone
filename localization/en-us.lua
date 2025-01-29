@@ -164,6 +164,13 @@ return {
 			},
 		},
 		["Alignment"] = {
+			["ali_locked"] = {
+                ["name"] = "Unknown",
+                ["text"] = {
+                    "Find this Alignment",
+                    "in Morph Packs",
+                }
+			},
 			["ali_cs_patron"] = {
 				["name"] = "Patron Morph",
 				["text"] = {
@@ -171,10 +178,6 @@ return {
 					"{X:cs_patron,C:black}Patron{} aligned",
 					"Jokers",
 				},
-				["unlock"] = {
-                    "Find this Alignment",
-                    "in Morph Packs",
-                },
 			},
 			["ali_cs_wicked"] = {
 				["name"] = "Wicked Morph",
@@ -183,10 +186,6 @@ return {
 					"{X:cs_wicked,C:black}Wicked{} aligned",
 					"Jokers",
 				},
-				["unlock"] = {
-                    "Find this Alignment",
-                    "in Morph Packs",
-                },
 			},
 			["ali_cs_joker"] = {
 				["name"] = "Joker Morph",
@@ -195,10 +194,6 @@ return {
 					"{X:cs_joker,C:black}Joker{} aligned",
 					"Jokers",
 				},
-				["unlock"] = {
-                    "Find this Alignment",
-                    "in Morph Packs",
-                },
 			},
 		},
 		["Enhanced"] = {
