@@ -188,6 +188,14 @@ return {
 					"Jokers",
 				},
 			},
+			["ali_cs_drifter"] = {
+				["name"] = "Drifter Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_drifter,C:black}Drifter{} aligned",
+					"Jokers",
+				},
+			},
 		},
 		["Enhanced"] = {
 			["m_cs_fake"] = {

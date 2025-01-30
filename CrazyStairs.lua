@@ -33,6 +33,15 @@ function Card:set_ability(center, initial, delay_sprites)
     self.ability.cs_temp = self.ability and self.ability.cs_temp or {active = false, expiry = nil}
 end
 
+local original_emplace = CardArea.emplace
+function CardArea:emplace(card, location, stay_flipped)
+    original_emplace(self, card, location, stay_flipped)
+
+    if self == G.cs_alignments and #G.cs_alignments.cards >= 2 then
+        G.cs_alignments.cards[1]:start_dissolve()
+    end 
+end
+
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)
@@ -350,7 +359,8 @@ ALIGNMENT_JOKERS = {
 LESS_ALIGNMENT_JOKERS = {
     "patron",
     "wicked",
-    "joker"
+    "joker",
+    "drifter"
 }
 
 JOKER_FILES = {
