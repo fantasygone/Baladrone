@@ -164,13 +164,6 @@ return {
 			},
 		},
 		["Alignment"] = {
-			["ali_locked"] = {
-                ["name"] = "Unknown",
-                ["text"] = {
-                    "Find this Alignment",
-                    "in Morph Packs",
-                }
-			},
 			["ali_cs_patron"] = {
 				["name"] = "Patron Morph",
 				["text"] = {
@@ -365,6 +358,14 @@ return {
 				["text"] = {
 					"Find this Alignment",
 					"in Morph Packs",
+				},
+			},
+			-- Credits where credits are due!
+			["cs_tdthetv_artist"] = {
+				["name"] = "Art by TDtheTV",
+				["text"] = {
+					"This sprite was",
+					"made by {X:cs_drifter, C:black}TDtheTV{}",
 				},
 			},
 		},

@@ -41,6 +41,17 @@ Game.init_game_object = function(self)
     return ret
 end
 
+-- local original_set_sprites = Card.set_sprites
+-- function Card:set_sprites(_center, _front)
+--     original_set_sprites(self, _center, _front)
+
+--     if _center and _center.set and not self.children.center then
+--         if not self.params.bypass_discovery_center and _center.set == 'Alignment' and not _center.discovered then
+--             self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas or _center.set],(_center.set == 'Alignment' and G.j_undiscovered.pos))
+--         end
+--     end
+-- end
+
 
 
 CrazyStairs.Alignment = SMODS.Center:extend {
@@ -48,6 +59,7 @@ CrazyStairs.Alignment = SMODS.Center:extend {
     discovered = false,
     unlocked = true,
     set = "Alignment",
+    atlas = "CrazyStairsAlignments_atlas",
     config = {},
     required_params = { "key", "atlas", "pos" },
     pre_inject_class = function(self)
@@ -61,27 +73,9 @@ CrazyStairs.Alignment = SMODS.Center:extend {
     end
 }
 
-function CrazyStairs.Alignment:init(_alignment, for_collection)
-    self.key = _alignment
-    local proto = G.P_CENTER_POOLS.Alignment[_alignment] or G.alignment_undiscovered
-    self.config = copy_table(proto.config)
-    self.pos = proto.pos
-    self.name = proto.name
-    self.tally = G.GAME.alignment_tally or 0
-    self.triggered = false
-    self.ability = {}
-    G.GAME.alignment_tally = G.GAME.alignment_tally and (G.GAME.alignment_tally + 1) or 1
-    if not for_collection then self:set_ability() end
-
-    return proto
+function CrazyStairs.Alignment:is_discovered()
+    return self.discovered or G.PROFILES[G.SETTINGS.profile].all_unlocked
 end
-
-function CrazyStairs.Alignment:is_unlocked()
-    return self.unlocked or G.PROFILES[G.SETTINGS.profile].all_unlocked
-end
-
-
-
 
 
 -- -----
@@ -292,6 +286,7 @@ SMODS.Atlas({
 	py = 32
 })
 
+
 impostor_warnings = {
     "Cease this tomfoolery at once",
     "Not funny, didn't laugh",
@@ -442,6 +437,27 @@ for i = 1, #LESS_ALIGNMENT_JOKERS do
     NFS.load(SMODS.current_mod.path .. "/alignments/" .. LESS_ALIGNMENT_JOKERS[i] .. ".lua")()
 end
 
+SMODS.UndiscoveredSprite{
+    key = 'alignment',
+    atlas = "CrazyStairsAlignments_atlas",
+    pos = { x = 1, y = 0 },
+}
+
+-- SMODS.ObjectType {
+--     key = 'Alignment',
+--     -- Pool
+--     cards = {
+--         ["ali_cs_patron"] = true,
+--         ["ali_cs_wicked"] = true,
+--         ["ali_cs_joker"] = true,
+--     },
+--     -- Colors
+--     primary_colour = HEX('ffffff'),
+--     secondary_colour = HEX('ffffff'),
+--     -- Settings
+--     shop_rate = 0,
+-- }
+
 -- Load and register Sounds
 for _, filename in ipairs(audio_files) do
     SMODS.Sound({
@@ -479,124 +495,17 @@ end
 -- 	return setting_tab
 -- end
 
-function create_UIBox_your_collection_alignments()
-	G.E_MANAGER:add_event(Event({
-		func = function()
-			G.FUNCS.your_collection_alignments_page({ cycle_config = {}})
-			return true
-		end
-	}))
-	return {
-		n = G.UIT.O,
-		config = { object = UIBox{
-			definition = create_UIBox_your_collection_alignments_content(),
-			config = { offset = {x=0, y=0}, align = 'cm' }
-		}, id = 'your_collection_alignments_contents', align = 'cm' },
-	}
-end
-
-function create_UIBox_your_collection_alignments_content(page)
-	page = page or 1
-	local alignment_matrix = {}
-	local rows = 2
-	local cols = 4
-	local alignment_tab = G.P_CENTER_POOLS.Alignment
-	for i = 1, math.ceil(rows) do
-		table.insert(alignment_matrix, {})
-	end
-
-	local alignments_to_be_alerted = {}
-	local row, col = 1, 1
-	for k, v in ipairs(alignment_tab) do
-		if k <= cols*rows*(page-1) then elseif k > cols*rows*page then break else
-			local discovered = v.discovered
-			local temp_alignment = CrazyStairs.Alignment(v.key, true)
-			if not v.discovered then temp_alignment.hide_ability = true end
-			local temp_alignment_ui, temp_alignment_sprite = temp_alignment:generate_UI()
-			alignment_matrix[row][col] = {
-				n = G.UIT.C,
-				config = { align = "cm", padding = 0.1 },
-				nodes = {
-					temp_alignment_ui,
-				}
-			}
-			col = col + 1
-			if col > cols then col = 1; row = row + 1 end
-			if discovered and not v.alerted then
-				alignments_to_be_alerted[#alignments_to_be_alerted + 1] = temp_alignment_sprite
-			end
-		end
-	end
-
-	G.E_MANAGER:add_event(Event({
-		trigger = 'immediate',
-		func = (function()
-			for _, v in ipairs(alignments_to_be_alerted) do
-				v.children.alert = UIBox {
-					definition = create_UIBox_card_alert(),
-					config = { align = "tri", offset = { x = 0.1, y = 0.1 }, parent = v }
-				}
-				v.children.alert.states.collide.can = false
-			end
-			return true
-		end)
-	}))
-
-
-	local table_nodes = {}
-	for i = 1, rows do
-		table.insert(table_nodes, { n = G.UIT.R, config = { align = "cm", minh = 1 }, nodes = alignment_matrix[i] })
-	end
-	local page_options = {}
-	for i = 1, math.ceil(#alignment_tab/(rows*cols)) do
-		table.insert(page_options, localize('k_page')..' '..tostring(i)..'/'..tostring(math.ceil(#alignment_tab/(rows*cols))))
-	end
-	local t = create_UIBox_generic_options({
-		back_func = G.ACTIVE_MOD_UI and "openModUI_" .. G.ACTIVE_MOD_UI.id or 'your_collection',
-		contents = {
-			{
-				n = G.UIT.R,
-				config = { align = "cm", r = 0.1, colour = G.C.BLACK, padding = 0.1, emboss = 0.05 },
-				nodes = {
-					{
-						n = G.UIT.C,
-						config = { align = "cm" },
-						nodes = {
-							{ n = G.UIT.R, config = { align = "cm" }, nodes = table_nodes },
-						}
-					},
-				}
-			},
-			{
-				n = G.UIT.R,
-				config = { align = 'cm' },
-				nodes = {
-					create_option_cycle({
-						options = page_options,
-						w = 4.5,
-						cycle_shoulders = true,
-						opt_callback = 'your_collection_alignments_page',
-						focus_args = { snap_to = true, nav = 'wide' },
-						current_option = page,
-						colour = G.C.RED,
-						no_pips = true
-					})
-				}
-			}
-		}
-	})
-	return t
-end
-
-G.FUNCS.your_collection_alignments_page = function(args)
-	local page = args.cycle_config.current_option or 1
-	local t = create_UIBox_your_collection_alignments_content(page)
-	local e = G.OVERLAY_MENU:get_UIE_by_ID('your_collection_alignments_contents')
-	if e.config.object then e.config.object:remove() end
-    e.config.object = UIBox{
-      definition = t,
-      config = {offset = {x=0,y=0}, align = 'cm', parent = e}
-    }
+SMODS.current_mod.custom_collection_tabs = function()
+    local tally = 0
+    for _, v in pairs(G.P_CENTER_POOLS['Alignment']) do
+        if v:is_discovered() then
+            tally = tally + 1
+        end
+    end
+    return { UIBox_button {
+        count = {tally = tally, of = #G.P_CENTER_POOLS['Alignment']},
+        button = 'your_collection_alignments', label = {localize("k_alignment")}, minw = 5, id = 'your_collection_alignments'
+    }}
 end
 
 G.FUNCS.your_collection_alignments = function(e)
@@ -604,6 +513,13 @@ G.FUNCS.your_collection_alignments = function(e)
     G.FUNCS.overlay_menu{
       definition = create_UIBox_your_collection_alignments(),
     }
+end
+
+create_UIBox_your_collection_alignments = function()
+    return SMODS.card_collection_UIBox(G.P_CENTER_POOLS['Alignment'], {5,5}, {
+        no_materialize = false,
+        h_mod = 0.95,
+    })
 end
 
 if JokerDisplay then

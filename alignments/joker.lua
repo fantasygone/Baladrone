@@ -8,11 +8,15 @@ CrazyStairs.Alignment {
     discovered = false,
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = {key = 'cs_tdthetv_artist', set = 'Other'}
         return {
             vars = {}
         }
     end,
 
     calculate = function (self, card, context)
+        if context.setting_blind then
+            print('big if true')
+        end
     end
 }

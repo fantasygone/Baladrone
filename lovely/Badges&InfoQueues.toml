@@ -36,7 +36,7 @@ match_indent = true
 
 
 
-# Add primary set
+# Add primary set for Alignment
 [[patches]]
 [patches.pattern]
 target = "globals.lua"
@@ -52,7 +52,7 @@ match_indent = true
 
 
 
-# Add secondary set
+# Add secondary set for Alignment
 [[patches]]
 [patches.pattern]
 target = "globals.lua"

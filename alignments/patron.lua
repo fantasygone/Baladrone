@@ -8,6 +8,7 @@ CrazyStairs.Alignment {
     discovered = false,
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = {key = 'cs_tdthetv_artist', set = 'Other'}
         return {
             vars = {}
         }
