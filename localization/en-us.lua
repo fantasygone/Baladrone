@@ -372,7 +372,8 @@ return {
 	["misc"] = {
 		["dictionary"] = {
 			-- ["b_alignment_cards"] = "Alignment",
-			["k_alignment"] = "Alignments",
+			["k_alignment"] = "Alignment",
+			["b_alignments"]="Alignments",
 			-- Terms
 			["cs_card"] = "card",
 			["cs_cards"] = "cards",

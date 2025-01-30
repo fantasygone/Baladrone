@@ -18,42 +18,6 @@ SMODS.current_mod.optional_features = function()
     }
 end
 
-local old_FUNCS_your_collection = G.FUNCS.your_collection
-function G.FUNCS.your_collection(...)
-    in_collection = true
-    return old_FUNCS_your_collection(...)
-end
-local old_buildAdditionsTab = buildAdditionsTab
-function buildAdditionsTab(...)
-    -- from steamodded
-    in_collection = true
-    return old_buildAdditionsTab(...)
-end
-local old_FUNCS_exit_overlay_menu = G.FUNCS.exit_overlay_menu
-function G.FUNCS.exit_overlay_menu(...)
-    in_collection = false
-    return old_FUNCS_exit_overlay_menu(...)
-end
-local old_FUNCS_mods_button = G.FUNCS.mods_button
-function G.FUNCS.mods_button(...)
-    -- from steamodded
-    in_collection = false
-    return old_FUNCS_mods_button(...)
-end
-
-local old_create_UIBox_card_unlock = create_UIBox_card_unlock
-function create_UIBox_card_unlock(card_center)
-    if card_center.set == "Alignment" and not G.PROFILES[G.SETTINGS.profile].all_unlocked then
-        return create_UIBox_alignment_unlock(card_center)
-    end
-    return old_create_UIBox_card_unlock(card_center)
-end
-
-local old_smods_save_unlocks = SMODS.SAVE_UNLOCKS
-function SMODS.SAVE_UNLOCKS(...)
-    old_smods_save_unlocks(...)
-end
-
 local original_get_badge_colour = get_badge_colour
 function get_badge_colour(key)
     if key == "cs_temporary" then return G.C.ALIGNMENT["cs_spectre"] end
@@ -97,166 +61,27 @@ CrazyStairs.Alignment = SMODS.Center:extend {
     end
 }
 
+function CrazyStairs.Alignment:init(_alignment, for_collection)
+    self.key = _alignment
+    local proto = G.P_CENTER_POOLS.Alignment[_alignment] or G.alignment_undiscovered
+    self.config = copy_table(proto.config)
+    self.pos = proto.pos
+    self.name = proto.name
+    self.tally = G.GAME.alignment_tally or 0
+    self.triggered = false
+    self.ability = {}
+    G.GAME.alignment_tally = G.GAME.alignment_tally and (G.GAME.alignment_tally + 1) or 1
+    if not for_collection then self:set_ability() end
+
+    return proto
+end
+
 function CrazyStairs.Alignment:is_unlocked()
     return self.unlocked or G.PROFILES[G.SETTINGS.profile].all_unlocked
 end
 
-function CrazyStairs.Alignment:generate_ui(info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    if not self:is_unlocked() then
-        local target = {
-            type = 'descriptions',
-            key = "ali_locked",
-            set = self.set,
-            nodes = desc_nodes,
-            vars = specific_vars or {}
-        }
-        if self.locked_loc_vars and type(self.locked_loc_vars) == 'function' then
-            local res = self:locked_loc_vars(info_queue, card) or {}
-            target.key = res.key or target.key
-            target.vars = res.vars or target.vars
-        end
-        localize(target)
-    else
-        return SMODS.Center.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    end
-end
 
 
-local function create_alignment_card(area, alignment_center)
-    print('create_alignment_card')
-    local new_card = Card(area.T.x, area.T.y, area.T.w + 0.1, area.T.h,
-                          nil, alignment_center or G.P_CENTERS.c_base)
-    return new_card
-end
-
-local function generate_alignment_card_areas()
-    if alignment_card_areas then
-        for i=1, #alignment_card_areas do
-            for j=1, #G.I.CARDAREA do
-                if alignment_card_areas[i] == G.I.CARDAREA[j] then
-                    table.remove(G.I.CARDAREA, j)
-                    alignment_card_areas[i] = nil
-                end
-            end
-        end
-    end
-    alignment_card_areas = {}
-    for i=1, alignment_count_page do
-        alignment_card_areas[i] = CardArea(G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h, 0.95*G.CARD_W, 0.945*G.CARD_H,
-        {card_limit = 5, type = 'title_2', highlight_limit = 0, deck_height = 0.35, thin_draw = 1, index = i})
-    end
-end
-
-local function populate_alignment_card_areas(page)
-    local count = 1 + (page - 1) * alignment_count_page
-    for i=1, alignment_count_page do
-        if count > #G.P_CENTER_POOLS.Alignment then
-            return
-        end
-        local area = alignment_card_areas[i]
-        if not area.cards then
-            area.cards = {}
-        end
-        local card = create_alignment_card(area, G.P_CENTER_POOLS.Alignment[count])
-        card.params["alignment_select"] = i
-        card.alignment_select_position = {page = page, count = i}
-        area:emplace(card)
-        count = count + 1
-    end
-end
-
-local function generate_alignment_card_areas_ui()
-    local deck_ui_element = {}
-    local count = 1
-    for _ = 1, alignment_count_vertical do
-        local row = {n = G.UIT.R, config = {colour = G.C.LIGHT, padding = 0.075}, nodes = {}}  -- padding is this because size of cardareas isn't 100% => same total
-        for _ = 1, alignment_count_horizontal do
-            if count > #G.P_CENTER_POOLS.Alignment then break end
-            table.insert(row.nodes, {n = G.UIT.O, config = {object = alignment_card_areas[count], r = 0.1, id = "alignment_select_"..count}})
-            count = count + 1
-        end
-        table.insert(deck_ui_element, row)
-    end
-
-    populate_alignment_card_areas(1)
-
-    return {n=G.UIT.R, config={align = "cm", minh = 3.3, minw = 5, colour = G.C.BLACK, padding = 0.15, r = 0.1, emboss = 0.05}, nodes=deck_ui_element}
-end
-
-local function create_alignment_page_cycle()
-    local options = {}
-    local cycle
-    if #G.P_CENTER_POOLS.Alignment > alignment_count_page then
-        local total_pages = math.ceil(#G.P_CENTER_POOLS.Alignment / alignment_count_page)
-        for i=1, total_pages do
-            table.insert(options, localize('k_page')..' '..i..' / '..total_pages)
-        end
-        cycle = create_option_cycle({
-            options = options,
-            w = 4.5,
-            cycle_shoulders = true,
-            opt_callback = 'change_alignment_page',
-            focus_args = { snap_to = true, nav = 'wide' },
-            current_option = 1,
-            colour = G.C.RED,
-            no_pips = true
-        })
-    end
-    return {n = G.UIT.R, config = {align = "cm"}, nodes = {cycle}}
-end
-
-local function clean_alignment_areas()
-    if not alignment_card_areas then return end
-    for j = 1, #alignment_card_areas do
-        if alignment_card_areas[j].cards then
-            remove_all(alignment_card_areas[j].cards)
-            alignment_card_areas[j].cards = {}
-        end
-    end
-end
-
-function create_UIBox_alignment_unlock(alignment_center)
-    local area = CardArea(G.ROOM.T.x - 100, G.ROOM.T.h, 1.2*G.CARD_W, 1.2*G.CARD_H,
-                          {card_limit = 52, type = 'deck', highlight_limit = 0})
-    local card = Card(G.ROOM.T.x + 0.2*G.ROOM.T.w/2,G.ROOM.T.h, G.CARD_W*1.2, G.CARD_H*1.2, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base, {viewed_back = true})
-    card.sprite_facing = 'back'
-    card.facing = 'back'
-    area:emplace(card)
-    local alignment_card = create_alignment_card(area, alignment_center)
-    replace_alignment_sprite(alignment_card, alignment_center, {x=0, y=0.2})
-    area:emplace(alignment_card)
-
-    local alignment_criteria = {}
-    localize{type = 'descriptions', set = "Alignment", key = 'ali_locked', nodes = alignment_criteria, default_col = G.C.WHITE, shadow = true}
-    local alignment_criteria_cols = {}
-    for k, v in ipairs(alignment_criteria) do
-        if k > 1 then alignment_criteria_cols[#alignment_criteria_cols+1] = {n=G.UIT.C, config={align = "cm", padding = 0, minw = 0.1}, nodes={}} end
-        alignment_criteria_cols[#alignment_criteria_cols+1] = {n=G.UIT.C, config={align = "cm", padding = 0}, nodes=v}
-    end
-
-    local alignment_description = {}
-    alignment_center:generate_ui({}, nil, alignment_description, nil, {name = {}})
-    local alignment_description_cols = {}
-    for _, v in ipairs(alignment_description) do
-        alignment_description_cols[#alignment_description_cols + 1] = { n = G.UIT.R, config = { align = "cm"}, nodes = v }
-    end
-
-    local t = create_UIBox_generic_options({ back_label = localize('b_continue'), no_pip = true, snap_back = true, back_func = 'continue_unlock', minw = 7, contents = {
-      {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-        {n=G.UIT.O, config={object = DynaText({string = {{string = localize{type = 'name_text', set = 'Alignment', key = alignment_center.key}, suffix = ' '..localize('k_unlocked_ex'), outer_colour = G.C.UI.TEXT_LIGHT}}, colours = {G.C.BLUE},shadow = true, rotate = true, float = true, scale = 0.7, pop_in = 0.1})}}
-      }},
-      {n=G.UIT.R, config={align = "cm", padding = 0}, nodes=alignment_criteria_cols},
-      {n=G.UIT.R, config={align = "cm", padding = 0.2, colour = G.C.BLACK, r = 0.2}, nodes={
-          {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
-            {n=G.UIT.O, config={object = area}}
-          }},
-          {n=G.UIT.C, config={align = "cm", r = 0.2, colour = G.C.WHITE, emboss = 0.05, padding = 0.2, minw = 4}, nodes={
-            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes=alignment_description_cols}
-          }}
-        }}
-    }})
-    return t
-  end
 
 
 -- -----
@@ -654,43 +479,131 @@ end
 -- 	return setting_tab
 -- end
 
--- SMODS UI funcs (additions, config, collection)
-
-SMODS.current_mod.custom_collection_tabs = function()
-    local tally = 0
-    for _, v in pairs(G.P_CENTER_POOLS['Alignment']) do
-        if v:is_unlocked() then
-            tally = tally + 1
-        end
-    end
-    return { UIBox_button {
-        count = {tally = tally, of = #G.P_CENTER_POOLS['Alignment']},
-        button = 'your_collection_alignments', label = {localize("k_alignment")}, minw = 5, id = 'your_collection_alignments'
-    }}
-end
-
-local function create_UIBox_alignments()
-    generate_alignment_card_areas()
-    local alignment_pages = {n=G.UIT.C, config = {padding = 0.15}, nodes ={
-        generate_alignment_card_areas_ui(),
-        create_alignment_page_cycle(),
-    }}
-    return create_UIBox_generic_options{
-        back_func = G.ACTIVE_MOD_UI and "openModUI_"..G.ACTIVE_MOD_UI.id or 'your_collection',
-        contents = {alignment_pages}
-    }
-  end
-
-G.FUNCS.your_collection_alignments = function()
-	G.SETTINGS.paused = true
-	G.FUNCS.overlay_menu{
-	  definition = create_UIBox_alignments(),
+function create_UIBox_your_collection_alignments()
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			G.FUNCS.your_collection_alignments_page({ cycle_config = {}})
+			return true
+		end
+	}))
+	return {
+		n = G.UIT.O,
+		config = { object = UIBox{
+			definition = create_UIBox_your_collection_alignments_content(),
+			config = { offset = {x=0, y=0}, align = 'cm' }
+		}, id = 'your_collection_alignments_contents', align = 'cm' },
 	}
 end
 
-G.FUNCS.change_alignment_page = function(args)
-    clean_alignment_areas()
-    populate_alignment_card_areas(args.cycle_config.current_option)
+function create_UIBox_your_collection_alignments_content(page)
+	page = page or 1
+	local alignment_matrix = {}
+	local rows = 2
+	local cols = 4
+	local alignment_tab = G.P_CENTER_POOLS.Alignment
+	for i = 1, math.ceil(rows) do
+		table.insert(alignment_matrix, {})
+	end
+
+	local alignments_to_be_alerted = {}
+	local row, col = 1, 1
+	for k, v in ipairs(alignment_tab) do
+		if k <= cols*rows*(page-1) then elseif k > cols*rows*page then break else
+			local discovered = v.discovered
+			local temp_alignment = CrazyStairs.Alignment(v.key, true)
+			if not v.discovered then temp_alignment.hide_ability = true end
+			local temp_alignment_ui, temp_alignment_sprite = temp_alignment:generate_UI()
+			alignment_matrix[row][col] = {
+				n = G.UIT.C,
+				config = { align = "cm", padding = 0.1 },
+				nodes = {
+					temp_alignment_ui,
+				}
+			}
+			col = col + 1
+			if col > cols then col = 1; row = row + 1 end
+			if discovered and not v.alerted then
+				alignments_to_be_alerted[#alignments_to_be_alerted + 1] = temp_alignment_sprite
+			end
+		end
+	end
+
+	G.E_MANAGER:add_event(Event({
+		trigger = 'immediate',
+		func = (function()
+			for _, v in ipairs(alignments_to_be_alerted) do
+				v.children.alert = UIBox {
+					definition = create_UIBox_card_alert(),
+					config = { align = "tri", offset = { x = 0.1, y = 0.1 }, parent = v }
+				}
+				v.children.alert.states.collide.can = false
+			end
+			return true
+		end)
+	}))
+
+
+	local table_nodes = {}
+	for i = 1, rows do
+		table.insert(table_nodes, { n = G.UIT.R, config = { align = "cm", minh = 1 }, nodes = alignment_matrix[i] })
+	end
+	local page_options = {}
+	for i = 1, math.ceil(#alignment_tab/(rows*cols)) do
+		table.insert(page_options, localize('k_page')..' '..tostring(i)..'/'..tostring(math.ceil(#alignment_tab/(rows*cols))))
+	end
+	local t = create_UIBox_generic_options({
+		back_func = G.ACTIVE_MOD_UI and "openModUI_" .. G.ACTIVE_MOD_UI.id or 'your_collection',
+		contents = {
+			{
+				n = G.UIT.R,
+				config = { align = "cm", r = 0.1, colour = G.C.BLACK, padding = 0.1, emboss = 0.05 },
+				nodes = {
+					{
+						n = G.UIT.C,
+						config = { align = "cm" },
+						nodes = {
+							{ n = G.UIT.R, config = { align = "cm" }, nodes = table_nodes },
+						}
+					},
+				}
+			},
+			{
+				n = G.UIT.R,
+				config = { align = 'cm' },
+				nodes = {
+					create_option_cycle({
+						options = page_options,
+						w = 4.5,
+						cycle_shoulders = true,
+						opt_callback = 'your_collection_alignments_page',
+						focus_args = { snap_to = true, nav = 'wide' },
+						current_option = page,
+						colour = G.C.RED,
+						no_pips = true
+					})
+				}
+			}
+		}
+	})
+	return t
+end
+
+G.FUNCS.your_collection_alignments_page = function(args)
+	local page = args.cycle_config.current_option or 1
+	local t = create_UIBox_your_collection_alignments_content(page)
+	local e = G.OVERLAY_MENU:get_UIE_by_ID('your_collection_alignments_contents')
+	if e.config.object then e.config.object:remove() end
+    e.config.object = UIBox{
+      definition = t,
+      config = {offset = {x=0,y=0}, align = 'cm', parent = e}
+    }
+end
+
+G.FUNCS.your_collection_alignments = function(e)
+    G.SETTINGS.paused = true
+    G.FUNCS.overlay_menu{
+      definition = create_UIBox_your_collection_alignments(),
+    }
 end
 
 if JokerDisplay then

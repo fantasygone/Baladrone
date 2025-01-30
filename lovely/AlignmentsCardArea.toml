@@ -47,17 +47,12 @@ end"""
 
 
 
-# adds Alignment set
-# set_discover_tallies()
+# create_UIBox_your_collection_alignments()
 [[patches]]
 [patches.pattern]
-target = 'globals.lua'
-pattern = """if v.set and ((v.set == 'Joker') or v.consumeable or (v.set == 'Edition') or (v.set == 'Voucher') or (v.set == 'Back') or (v.set == 'Booster')) then"""
-position = 'before'
+target = "functions/UI_definitions.lua"
+pattern = "UIBox_button({button = 'your_collection_tags', label = {localize('b_tags')}, count = G.DISCOVER_TALLIES.tags, minw = 5, id = 'your_collection_tags'}),"
+position = 'after'
 match_indent = true
-payload = """if v.set and v.set == 'Alignment' then
-    G.DISCOVER_TALLIES.total.of = G.DISCOVER_TALLIES.total.of + 1
-    if v.unlocked then 
-        G.DISCOVER_TALLIES.total.tally = G.DISCOVER_TALLIES.total.tally + 1
-    end
-end"""
+payload = '''
+UIBox_button({button = 'your_collection_alignments', label = {localize('b_alignments')}, count = G.DISCOVER_TALLIES.alignments, minw = 5, id = 'your_collection_alignments'}),'''
