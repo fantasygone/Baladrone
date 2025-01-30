@@ -41,7 +41,7 @@ position = "after"
 payload = '''
                 elseif not self.params.bypass_discovery_center and _center.set == 'Alignment' and not _center.discovered then 
                     self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas or _center.set], 
-                    (_center.set == 'Alignment' and {x=1,y=0}))
+                    (_center.set == 'Alignment' and _center.undisc_pos))
 '''
 match_indent = true
 
