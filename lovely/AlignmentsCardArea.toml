@@ -14,8 +14,8 @@ pattern = '''G.SPLASH_BACK = Sprite(-30, -6, G.ROOM.T.w+60, G.ROOM.T.h+12, G.ASS
 position = "before"
 payload = '''
 
-self.cs_alignment_W = 1.2*G.CARD_W
-self.cs_alignment_H = 0.95*G.CARD_H
+self.cs_alignment_W = 1.1*G.CARD_W
+self.cs_alignment_H = 0.9*G.CARD_H
 
 self.cs_alignments = CardArea(
     G.consumeables.T.x + 2.25,
@@ -39,9 +39,9 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-                elseif not self.params.bypass_discovery_center and _center.set == 'Alignment' and not _center.discovered then 
-                    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas or _center.set], 
-                    (_center.set == 'Alignment' and _center.undisc_pos))
+elseif not self.params.bypass_discovery_center and _center.set == 'Alignment' and not _center.discovered then 
+    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas or _center.set], 
+    (_center.set == 'Alignment' and _center.undisc_pos))
 '''
 match_indent = true
 
@@ -62,13 +62,11 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-    if not self.bypass_lock and self.config.center.unlocked ~= false and
-    self.ability.set == 'Alignment' and
-    not self.config.center.discovered and 
-    ((self.area ~= G.cs_alignments and self.area) or not self.area) then
-        card_type = 'Undiscovered'
-    end    
+if not self.bypass_lock and self.config.center.unlocked ~= false and
+self.ability.set == 'Alignment' and
+not self.config.center.discovered and 
+((self.area ~= G.cs_alignments and self.area) or not self.area) then
+    card_type = 'Undiscovered'
+end    
 '''
 match_indent = true
-
-

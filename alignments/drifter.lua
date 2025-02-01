@@ -2,8 +2,8 @@ CrazyStairs.Alignment {
     key = "drifter",
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
-    pos = { x = 1, y = 2 },
-    undisc_pos = { x = 1, y = 3 },
+    pos = { x = 0, y = 0 },
+    undisc_pos = { x = 0, y = 1 },
     -- Player data
     unlocked = true,
     discovered = false,

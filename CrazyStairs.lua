@@ -2,15 +2,6 @@
 cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
 CrazyStairs = SMODS.current_mod
 
-local in_collection = false
-local is_in_run_info_tab = false
-local game_args = {}
-
-local alignment_count_horizontal = 4
-local alignment_count_vertical = 2
-local alignment_count_page = alignment_count_horizontal * alignment_count_vertical
-local alignment_card_areas = {}
-
 -- Retrigger Jokers are somehow an optional feature whyy ç_ç
 SMODS.current_mod.optional_features = function()
     return {
@@ -35,11 +26,10 @@ end
 
 local original_emplace = CardArea.emplace
 function CardArea:emplace(card, location, stay_flipped)
-    original_emplace(self, card, location, stay_flipped)
-
-    if self == G.cs_alignments and #G.cs_alignments.cards >= 2 then
+    if self == G.cs_alignments and #G.cs_alignments.cards >= 1 then
         G.cs_alignments.cards[1]:start_dissolve()
-    end 
+    end
+    original_emplace(self, card, location, stay_flipped)
 end
 
 local igo = Game.init_game_object
@@ -61,8 +51,6 @@ end
 --     end
 -- end
 
-
-
 CrazyStairs.Alignment = SMODS.Center:extend {
     class_prefix = "ali",
     discovered = false,
@@ -71,6 +59,7 @@ CrazyStairs.Alignment = SMODS.Center:extend {
     atlas = "CrazyStairsAlignments_atlas",
     config = {},
     required_params = { "key", "atlas", "pos" },
+    params = {bypass_discovery_center = false},
     pre_inject_class = function(self)
         G.P_CENTER_POOLS[self.set] = {}
     end,
@@ -168,60 +157,60 @@ do
         return CardArea_can_highlight_ref(self,card)
     end
 
-    local CardArea_add_to_highlight_ref=CardArea.add_to_highlighted
-    -- let Alignment area add highlights like jokers and consumables area
-    function CardArea:add_to_highlighted(card, silent)
-        if self.config.type == 'cs_alignment' then
-            if #self.highlighted >= self.config.highlighted_limit then 
-                self:remove_from_highlighted(self.highlighted[1])
-            end
-            self.highlighted[#self.highlighted+1] = card
-            card:highlight(true)
-            if not silent then play_sound('cardSlide1') end
-            return
-        end
-        CardArea_add_to_highlight_ref(self,card,silent)
-    end
+    -- local CardArea_add_to_highlight_ref=CardArea.add_to_highlighted
+    -- -- let Alignment area add highlights like jokers and consumables area
+    -- function CardArea:add_to_highlighted(card, silent)
+    --     if self.config.type == 'cs_alignment' then
+    --         if #self.highlighted >= self.config.highlighted_limit then 
+    --             self:remove_from_highlighted(self.highlighted[1])
+    --         end
+    --         self.highlighted[#self.highlighted+1] = card
+    --         card:highlight(true)
+    --         if not silent then play_sound('cardSlide1') end
+    --         return
+    --     end
+    --     CardArea_add_to_highlight_ref(self,card,silent)
+    -- end
 
-    local Card_can_sell_card_ref=Card.can_sell_card
-    -- let Abilities always be sellable
-    function Card:can_sell_card(context)
-        if self.ability.set=='Alignment' then
-            return false
-        end
-        return Card_can_sell_card_ref(self,context)
-    end
+    -- local Card_can_sell_card_ref=Card.can_sell_card
+    -- -- let Abilities always be sellable
+    -- function Card:can_sell_card(context)
+    --     if self.ability.set=='Alignment' then
+    --         return false
+    --     end
+    --     return Card_can_sell_card_ref(self,context)
+    -- end
 
-    G.FUNCS.can_move_consumeable = function(e)
-        local card=G.consumeables.highlighted[1]
-        if not (card and (card.ability.set=='Alignment' and G.cs_alignment.config.card_limit>#G.cs_alignment.cards)) then
-            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-            e.config.button = nil
-        else
-            e.config.colour = G.C.ORANGE
-            e.config.button = 'move_consumeable'
-        end
-    end
-    G.FUNCS.move_consumeable = function(e) 
-        local c1 = e.config.ref_table
-        c1.area:remove_from_highlighted(c1)
-        c1.area:remove_card(c1)
-        if c1.ability.set=='Alignment' then
-            G.cs_alignment:emplace(c1)
-        end
-    end
+    -- G.FUNCS.can_move_consumeable = function(e)
+    --     local card=G.consumeables.highlighted[1]
+    --     if not (card and (card.ability.set=='Alignment' and G.cs_alignment.config.card_limit>#G.cs_alignment.cards)) then
+    --         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+    --         e.config.button = nil
+    --     else
+    --         e.config.colour = G.C.ORANGE
+    --         e.config.button = 'move_consumeable'
+    --     end
+    -- end
+    -- G.FUNCS.move_consumeable = function(e) 
+    --     local c1 = e.config.ref_table
+    --     c1.area:remove_from_highlighted(c1)
+    --     c1.area:remove_card(c1)
+    --     if c1.ability.set=='Alignment' then
+    --         G.cs_alignment:emplace(c1)
+    --     end
+    -- end
 
-    local G_FUNCS_check_for_buy_space_ref=G.FUNCS.check_for_buy_space
-    G.FUNCS.check_for_buy_space = function(card)
-        if card.ability.set=='Alignment' then
-            if #G.cs_alignment.cards < G.cs_alignment.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0) then
-                return true
-            else
-                return false
-            end
-        end
-        return G_FUNCS_check_for_buy_space_ref(card)
-    end
+    -- local G_FUNCS_check_for_buy_space_ref=G.FUNCS.check_for_buy_space
+    -- G.FUNCS.check_for_buy_space = function(card)
+    --     if card.ability.set=='Alignment' then
+    --         if #G.cs_alignment.cards < G.cs_alignment.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0) then
+    --             return true
+    --         else
+    --             return false
+    --         end
+    --     end
+    --     return G_FUNCS_check_for_buy_space_ref(card)
+    -- end
 end -- Alignment Area and Alignment Cards preparation
 
 
@@ -283,8 +272,16 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "CrazyStairsAlignments_atlas",
     path = "CsAlignments.png",
-    px = 71,
-    py = 95
+    px = 44,
+    py = 80,
+}
+
+SMODS.UndiscoveredSprite{
+    key = 'Alignment',
+    atlas = "CrazyStairsAlignments_atlas",
+    pos = { x = 0, y = 1 },
+    overlay_pos = { x = 0, y = 2 },
+    no_overlay = true,
 }
 
 -- Mod Icon in Mods tab
@@ -294,7 +291,6 @@ SMODS.Atlas({
 	px = 32,
 	py = 32
 })
-
 
 impostor_warnings = {
     "Cease this tomfoolery at once",
@@ -447,11 +443,7 @@ for i = 1, #LESS_ALIGNMENT_JOKERS do
     NFS.load(SMODS.current_mod.path .. "/alignments/" .. LESS_ALIGNMENT_JOKERS[i] .. ".lua")()
 end
 
-SMODS.UndiscoveredSprite{
-    key = 'alignment',
-    atlas = "CrazyStairsAlignments_atlas",
-    pos = { x = 1, y = 0 },
-}
+
 
 -- SMODS.ObjectType {
 --     key = 'Alignment',

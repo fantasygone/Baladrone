@@ -2,6 +2,7 @@
     "Lua.diagnostics.globals": [
         "cs_utils",
         "inspect",
-        "SMODS"
+        "SMODS",
+        "undiscovered_ali_cs_drifter"
     ]
 }

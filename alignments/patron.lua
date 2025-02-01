@@ -2,8 +2,8 @@ CrazyStairs.Alignment {
     key = "patron",
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
-    pos = { x = 0, y = 2 },
-    undisc_pos = { x = 1, y = 0 },
+    pos = { x = 1, y = 0 },
+    undisc_pos = { x = 1, y = 1 },
     -- Player data
     unlocked = true,
     discovered = false,
