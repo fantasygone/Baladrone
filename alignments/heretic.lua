@@ -1,9 +1,9 @@
 CrazyStairs.Alignment {
-    key = "wicked",
+    key = "heretic",
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
-    pos = { x = 3, y = 0 },
-    undisc_pos = { x = 3, y = 1 },
+    pos = { x = 9, y = 0 },
+    undisc_pos = { x = 9, y = 1 },
     -- Player data
     unlocked = true,
     discovered = false,
@@ -16,7 +16,7 @@ CrazyStairs.Alignment {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.current_alignment = 'wicked'
+        G.GAME.current_alignment = 'heretic'
     end,
 
     calculate = function (self, card, context)

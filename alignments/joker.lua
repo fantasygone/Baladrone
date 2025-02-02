@@ -15,6 +15,10 @@ CrazyStairs.Alignment {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.current_alignment = 'joker'
+    end,
+
     calculate = function (self, card, context)
         if context.setting_blind then
             print('big if true')

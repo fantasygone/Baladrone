@@ -14,4 +14,8 @@ CrazyStairs.Alignment {
             vars = {}
         }
     end,
+
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.current_alignment = "drifter"
+    end,
 }

@@ -15,6 +15,10 @@ CrazyStairs.Alignment {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.current_alignment = 'hacker'
+    end,
+
     calculate = function (self, card, context)
     end
 }

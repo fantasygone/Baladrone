@@ -37,7 +37,15 @@ Game.init_game_object = function(self)
     local ret = igo(self)
 
     ret.current_round.cs_cards_are_blocked = false
+    ret.current_alignment = 'none'
     return ret
+end
+
+local original_start_run = Game.start_run
+Game.start_run = function(args)
+    original_start_run(args)
+
+    SMODS.add_card({set = 'Alignment', area = G.cs_alignments, key = 'ali_cs_none'})
 end
 
 -- local original_set_sprites = Card.set_sprites
@@ -353,6 +361,7 @@ ALIGNMENT_JOKERS = {
 }
 
 LESS_ALIGNMENT_JOKERS = {
+    "none",
     "patron",
     "wicked",
     "joker",
@@ -360,7 +369,9 @@ LESS_ALIGNMENT_JOKERS = {
     "muggle",
     "hacker",
     "thief",
-    "drifter"
+    "archon",
+    "drifter",
+    "heretic",
 }
 
 JOKER_FILES = {
@@ -522,7 +533,7 @@ G.FUNCS.your_collection_alignments = function(e)
 end
 
 create_UIBox_your_collection_alignments = function()
-    return SMODS.card_collection_UIBox(G.P_CENTER_POOLS['Alignment'], {3,5}, {
+    return SMODS.card_collection_UIBox(G.P_CENTER_POOLS['Alignment'], {5,5}, {
         no_materialize = false,
         h_mod = 0.95,
     })

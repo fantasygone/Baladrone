@@ -220,12 +220,35 @@ return {
 					"Jokers",
 				},
 			},
+			["ali_cs_archon"] = {
+				["name"] = "Archon Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_archon,C:black}Archon{} aligned",
+					"Jokers",
+				},
+			},
+			["ali_cs_heretic"] = {
+				["name"] = "Heretic Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_heretic,C:black}Heretic{} aligned",
+					"Jokers",
+				},
+			},
 			["ali_cs_drifter"] = {
 				["name"] = "Drifter Morph",
 				["text"] = {
 					"Allows using",
 					"{X:cs_drifter,C:black}Drifter{} aligned",
 					"Jokers",
+				},
+			},
+			["ali_cs_none"] = {
+				["name"] = "None",
+				["text"] = {
+					"Starting Alignment",
+					"Does nothing",
 				},
 			},
 		},
