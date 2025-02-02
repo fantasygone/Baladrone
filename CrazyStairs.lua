@@ -272,8 +272,8 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "CrazyStairsAlignments_atlas",
     path = "CsAlignments.png",
-    px = 44,
-    py = 80,
+    px = 71,
+    py = 95
 }
 
 SMODS.UndiscoveredSprite{
@@ -356,6 +356,10 @@ LESS_ALIGNMENT_JOKERS = {
     "patron",
     "wicked",
     "joker",
+    "keeper",
+    "muggle",
+    "hacker",
+    "thief",
     "drifter"
 }
 
@@ -518,7 +522,7 @@ G.FUNCS.your_collection_alignments = function(e)
 end
 
 create_UIBox_your_collection_alignments = function()
-    return SMODS.card_collection_UIBox(G.P_CENTER_POOLS['Alignment'], {5,5}, {
+    return SMODS.card_collection_UIBox(G.P_CENTER_POOLS['Alignment'], {3,5}, {
         no_materialize = false,
         h_mod = 0.95,
     })

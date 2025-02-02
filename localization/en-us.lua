@@ -188,6 +188,38 @@ return {
 					"Jokers",
 				},
 			},
+			["ali_cs_keeper"] = {
+				["name"] = "Keeper Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_keeper,C:white}Keeper{} aligned",
+					"Jokers",
+				},
+			},
+			["ali_cs_muggle"] = {
+				["name"] = "Muggle Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_muggle,C:black}Muggle{} aligned",
+					"Jokers",
+				},
+			},
+			["ali_cs_hacker"] = {
+				["name"] = "Hacker Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_hacker,C:black}Hacker{} aligned",
+					"Jokers",
+				},
+			},
+			["ali_cs_thief"] = {
+				["name"] = "Thief Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_thief,C:white}Thief{} aligned",
+					"Jokers",
+				},
+			},
 			["ali_cs_drifter"] = {
 				["name"] = "Drifter Morph",
 				["text"] = {
@@ -368,6 +400,15 @@ return {
 					"in Morph Packs",
 				},
 			},
+			-- Packs
+            ["p_morph_normal_1"]={
+                ["name"] = "Morph Pack",
+                ["text"]={
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:spectral}Alignments{} to",
+                    "morph into",
+                },
+            },
 			-- Credits where credits are due!
 			["cs_tdthetv_artist"] = {
 				["name"] = "Art by TDtheTV",

@@ -1,9 +1,9 @@
 CrazyStairs.Alignment {
-    key = "wicked",
+    key = "muggle",
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
-    pos = { x = 3, y = 0 },
-    undisc_pos = { x = 3, y = 1 },
+    pos = { x = 5, y = 0 },
+    undisc_pos = { x = 5, y = 1 },
     -- Player data
     unlocked = true,
     discovered = false,
