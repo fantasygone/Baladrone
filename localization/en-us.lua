@@ -244,11 +244,27 @@ return {
 					"Jokers",
 				},
 			},
+			["ali_cs_spectre"] = {
+				["name"] = "Spectre Morph",
+				["text"] = {
+					"Allows using",
+					"{X:cs_spectre,C:black}Spectre{} aligned",
+					"Jokers",
+				},
+			},
 			["ali_cs_none"] = {
 				["name"] = "None",
 				["text"] = {
 					"Starting Alignment",
 					"Does nothing",
+				},
+			},
+			["ali_cs_architect"] = {
+				["name"] = "Architect",
+				["text"] = {
+					"Select your own",
+					"{C:attention}Boss Blinds{} from",
+					"the collection",
 				},
 			},
 		},

@@ -38,12 +38,16 @@ Game.init_game_object = function(self)
 
     ret.current_round.cs_cards_are_blocked = false
     ret.current_alignment = 'none'
+
+    ret.shop.voucher_max = 1
+    ret.shop.booster_max = 2
     return ret
 end
 
 local original_start_run = Game.start_run
 Game.start_run = function(args)
     original_start_run(args)
+    G.GAME.shop.booster_max = G.GAME.shop.booster_max + 1
 
     SMODS.add_card({set = 'Alignment', area = G.cs_alignments, key = 'ali_cs_none'})
 end
@@ -361,7 +365,6 @@ ALIGNMENT_JOKERS = {
 }
 
 LESS_ALIGNMENT_JOKERS = {
-    "none",
     "patron",
     "wicked",
     "joker",
@@ -372,6 +375,9 @@ LESS_ALIGNMENT_JOKERS = {
     "archon",
     "drifter",
     "heretic",
+    "spectre",
+    "none",
+    "architect",
 }
 
 JOKER_FILES = {

@@ -1,0 +1,72 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+
+
+
+# Add a loop for custom amount of boosters (hard coded... WHY)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+                                        for i = 1, 2 do
+                                            G.GAME.current_round.used_packs = G.GAME.current_round.used_packs or {}
+'''
+position = "at"
+payload = '''
+                                        for i = 1, G.GAME.shop.booster_max - #G.shop_booster.cards do
+                                            G.GAME.current_round.used_packs = G.GAME.current_round.used_packs or {}
+'''
+match_indent = true
+
+
+
+
+# Add a loop for custom amount of vouchers (again hard coded... WHY)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+                                        if G.GAME.current_round.voucher and G.P_CENTERS[G.GAME.current_round.voucher] then
+                                            local card = Card(G.shop_vouchers.T.x + G.shop_vouchers.T.w/2,
+                                            G.shop_vouchers.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.voucher],{bypass_discovery_center = true, bypass_discovery_ui = true})
+                                            card.shop_voucher = true
+                                            create_shop_card_ui(card, 'Voucher', G.shop_vouchers)
+                                            card:start_materialize()
+                                            G.shop_vouchers:emplace(card)
+                                        end
+'''
+position = "at"
+payload = '''
+                                        for i = 1, G.GAME.shop.voucher_max - #G.shop_vouchers.cards do
+                                            if G.GAME.current_round.voucher and G.P_CENTERS[G.GAME.current_round.voucher] then
+                                                local card = Card(G.shop_vouchers.T.x + G.shop_vouchers.T.w/2,
+                                                G.shop_vouchers.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.voucher],{bypass_discovery_center = true, bypass_discovery_ui = true})
+                                                card.shop_voucher = true
+                                                create_shop_card_ui(card, 'Voucher', G.shop_vouchers)
+                                                card:start_materialize()
+                                                G.shop_vouchers:emplace(card)
+                                            end
+                                        end
+'''
+match_indent = true
+
+
+
+
+# Add dynamic amount of Boosters and Vouchers
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+    local shop_sign = AnimatedSprite(0,0, 4.4, 2.2, G.ANIMATION_ATLAS['shop_sign'])
+'''
+position = "before"
+payload = '''
+G.shop_booster.config.card_limit = G.GAME.shop.booster_max
+G.shop_vouchers.config.card_limit = G.GAME.shop.voucher_max
+
+'''
+match_indent = true

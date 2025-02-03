@@ -1,9 +1,9 @@
 CrazyStairs.Alignment {
-    key = "none",
+    key = "architect",
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
-    pos = { x = 12, y = 0 },
-    undisc_pos = { x = 12, y = 1 },
+    pos = { x = 13, y = 0 },
+    undisc_pos = { x = 13, y = 0 },
     -- Player data
     unlocked = true,
     discovered = true,
@@ -16,7 +16,7 @@ CrazyStairs.Alignment {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.current_alignment = 'none'
+        G.GAME.current_alignment = 'architect'
     end,
 
     calculate = function (self, card, context)
