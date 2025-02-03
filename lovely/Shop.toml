@@ -70,3 +70,25 @@ G.shop_vouchers.config.card_limit = G.GAME.shop.voucher_max
 
 '''
 match_indent = true
+
+
+
+
+# Add dynamic amount of Boosters and Vouchers
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = '''
+elseif card.ability.set == 'Booster' then 
+'''
+position = "before"
+payload = '''
+elseif card.ability.set == 'Alignment' then 
+    card:add_to_deck()
+    G.cs_alignments:emplace(card)
+    play_sound('card1', 0.8, 0.6)
+    play_sound('generic1')
+    dont_dissolve = true
+    delay_fac = 0.2
+'''
+match_indent = true

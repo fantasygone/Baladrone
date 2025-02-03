@@ -203,14 +203,14 @@ do
     --         e.config.button = 'move_consumeable'
     --     end
     -- end
-    -- G.FUNCS.move_consumeable = function(e) 
-    --     local c1 = e.config.ref_table
-    --     c1.area:remove_from_highlighted(c1)
-    --     c1.area:remove_card(c1)
-    --     if c1.ability.set=='Alignment' then
-    --         G.cs_alignment:emplace(c1)
-    --     end
-    -- end
+    G.FUNCS.move_consumeable = function(e) 
+        local c1 = e.config.ref_table
+        c1.area:remove_from_highlighted(c1)
+        c1.area:remove_card(c1)
+        if c1.ability.set=='Alignment' then
+            G.cs_alignment:emplace(c1)
+        end
+    end
 
     -- local G_FUNCS_check_for_buy_space_ref=G.FUNCS.check_for_buy_space
     -- G.FUNCS.check_for_buy_space = function(card)
@@ -284,6 +284,13 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "CrazyStairsAlignments_atlas",
     path = "CsAlignments.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = "CrazyStairsBoosters_atlas",
+    path = "CsBoosters.png",
     px = 71,
     py = 95
 }
@@ -438,6 +445,11 @@ local voucher_files = {
     "bending_the_rules",
 }
 
+-- List all vouchers files here
+local booster_files = {
+    "morph_pack",
+}
+
 -- List all type files here
 -- local type_files = {
 --     "alignment_type",
@@ -454,6 +466,10 @@ end
 
 for i = 1, #voucher_files do
     NFS.load(SMODS.current_mod.path .. "/vouchers/" .. voucher_files[i] .. ".lua")()
+end
+
+for i = 1, #booster_files do
+    NFS.load(SMODS.current_mod.path .. "/boosters/" .. booster_files[i] .. ".lua")()
 end
 
 -- for i = 1, #type_files do

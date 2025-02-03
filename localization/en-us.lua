@@ -439,15 +439,6 @@ return {
 					"in Morph Packs",
 				},
 			},
-			-- Packs
-            ["p_morph_normal_1"]={
-                ["name"] = "Morph Pack",
-                ["text"]={
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:spectral}Alignments{} to",
-                    "morph into",
-                },
-            },
 			-- Credits where credits are due!
 			["cs_tdthetv_artist"] = {
 				["name"] = "Art by TDtheTV",
@@ -456,12 +447,22 @@ return {
 					"made by {X:cs_drifter, C:black}TDtheTV{}",
 				},
 			},
+			-- Packs
+            ["p_cs_morph_normal_1"]={
+                ["name"] = "Morph Pack",
+                ["text"] = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:spectral}Alignments{} to",
+                    "morph into",
+                },
+            },
 		},
 	},
 	["misc"] = {
 		["dictionary"] = {
 			-- ["b_alignment_cards"] = "Alignment",
 			["k_alignment"] = "Alignment",
+			["k_cs_morph_pack"]="Morph Pack",
 			["b_alignments"]="Alignments",
 			-- Terms
 			["cs_card"] = "card",
