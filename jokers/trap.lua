@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "trap",
     config = {
+        alignment = 'joker',
         chips = 0,
         extra = 9,
         fakes = 6,
@@ -124,5 +125,9 @@ SMODS.Joker {
                 chip_mod = card.ability.chips,
             }
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

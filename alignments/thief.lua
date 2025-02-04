@@ -1,5 +1,8 @@
 CrazyStairs.Alignment {
     key = "thief",
+    config = {
+        type = 'thief',
+    },
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
     pos = { x = 7, y = 0 },

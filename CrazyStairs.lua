@@ -10,10 +10,21 @@ SMODS.current_mod.optional_features = function()
 end
 
 local original_get_badge_colour = get_badge_colour
-function get_badge_colour(key)
+function get_badge_colour(self, key)
     if key == "cs_temporary" then return G.C.ALIGNMENT["cs_spectre"] end
 
-    return original_get_badge_colour(key)
+    return original_get_badge_colour(self, key)
+end
+
+local original_get_pack = get_pack
+function get_pack(self, _key, _type)
+    if not G.GAME.first_shop_alignment and not G.GAME.banned_keys['p_cs_morph_normal_1'] then
+        G.GAME.first_shop_alignment = true
+        G.GAME.shop.booster_max = G.GAME.shop.booster_max - 1
+        return G.P_CENTERS['p_cs_morph_normal_1']
+    end
+
+    return original_get_pack(self, _key, _type)
 end
 
 local original_set_ability = Card.set_ability
@@ -30,11 +41,31 @@ function CardArea:emplace(card, location, stay_flipped)
         G.cs_alignments.cards[1]:start_dissolve()
     end
     original_emplace(self, card, location, stay_flipped)
+
+    if self == G.cs_alignments and #G.cs_alignments.cards >= 1 then
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            for i = 1, #G.jokers.cards do
+                local joker_card = G.jokers.cards[i]
+
+                if joker_card.ability.alignment and not cs_utils.is_alignment(joker_card.ability.alignment) then
+                    joker_card:remove_from_deck()
+                    joker_card:start_dissolve()
+                end
+            end
+        return true end }))
+
+        if G.GAME.shop then
+            G.shop:recalculate()
+        end
+    end
 end
 
+-- Game hooks
 local igo = Game.init_game_object
 Game.init_game_object = function(self)
     local ret = igo(self)
+
+    ret.first_shop_alignment = false
 
     ret.current_round.cs_cards_are_blocked = false
     ret.current_alignment = 'none'
@@ -45,12 +76,18 @@ Game.init_game_object = function(self)
 end
 
 local original_start_run = Game.start_run
-Game.start_run = function(args)
-    original_start_run(args)
-    G.GAME.shop.booster_max = G.GAME.shop.booster_max + 1
+Game.start_run = function(self, args)
+    original_start_run(self, args)
 
-    SMODS.add_card({set = 'Alignment', area = G.cs_alignments, key = 'ali_cs_none'})
+    if not args.savetext then
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            G.GAME.shop.booster_max = G.GAME.shop.booster_max + 1
+
+            SMODS.add_card({set = 'Alignment', area = G.cs_alignments, key = 'ali_cs_none'})
+        return true end }))
+    end
 end
+--
 
 -- local original_set_sprites = Card.set_sprites
 -- function Card:set_sprites(_center, _front)
@@ -333,6 +370,7 @@ beforeall_context = {
     "Brainstorm",
     "Blueprint",
 }
+
 startingshop_context = {
     "j_cs_random_teleport",
     -- Jokers that copy
@@ -383,6 +421,7 @@ LESS_ALIGNMENT_JOKERS = {
     "drifter",
     "heretic",
     "spectre",
+    "chameleon",
     "none",
     "architect",
 }

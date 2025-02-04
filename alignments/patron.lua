@@ -1,5 +1,8 @@
 CrazyStairs.Alignment {
     key = "patron",
+    config = {
+        type = 'patron',
+    },
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
     pos = { x = 1, y = 0 },

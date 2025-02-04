@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "bugged_trap",
     config = {
+        alignment = 'joker',
         repeats = 3,
         odds = 5
     },
@@ -67,5 +68,9 @@ SMODS.Joker {
                 end
             end
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

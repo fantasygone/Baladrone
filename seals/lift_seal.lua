@@ -1,7 +1,9 @@
 SMODS.Seal {
     key = "lift",
     badge_colour = G.C.ALIGNMENT['cs_drifter'],
-    config = {},
+    config = {
+        alignment = 'drifter'
+    },
     atlas = "CrazyStairsSeals_atlas",
     pos = {x= 1, y= 2},
     sound = { sound = 'cs_seal_lift_obtained', per = 1.2, vol = 0.4 },
@@ -24,6 +26,6 @@ SMODS.Seal {
     end,
 
     in_pool = function(self, args)
-        return false, false
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

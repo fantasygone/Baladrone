@@ -1,5 +1,8 @@
 CrazyStairs.Alignment {
     key = "drifter",
+    config = {
+        type = 'drifter',
+    },
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
     pos = { x = 0, y = 0 },

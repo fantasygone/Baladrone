@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "restoration",
     config = {
+        alignment = 'keeper',
         to_play = 10,
         played = 0,
     },
@@ -71,5 +72,9 @@ SMODS.Joker {
                 end
             end
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

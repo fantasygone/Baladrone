@@ -1,6 +1,7 @@
 SMODS.Voucher {
     key = "bending_the_rules",
     config = {
+        alignment = 'wicked',
         extra = 6
     },
     -- Sprite settings
@@ -36,5 +37,9 @@ SMODS.Voucher {
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
             return true end }))
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

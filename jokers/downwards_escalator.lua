@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "downwards_escalator",
     config = {
+        alignment = 'hacker',
         h_plays = 1
     },
     -- Sprite settings
@@ -37,5 +38,9 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

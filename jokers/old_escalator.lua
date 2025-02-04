@@ -100,5 +100,9 @@ SMODS.Joker {
 
             -- cs_utils.unflip_cards({card}, "after", 0.15)
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment('ali_cs_' .. self.cs_alignment)
     end
 }

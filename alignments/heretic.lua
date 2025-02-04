@@ -1,5 +1,8 @@
 CrazyStairs.Alignment {
     key = "heretic",
+    config = {
+        type = 'heretic',
+    },
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
     pos = { x = 9, y = 0 },

@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "random_teleport",
     config = {
+        alignment = 'spectre',
         odds = 2,
         teleports = 1,
     },
@@ -48,5 +49,9 @@ SMODS.Joker {
                 end
             end
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

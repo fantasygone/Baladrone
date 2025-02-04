@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "damage",
     config = {
+        alignment = 'wicked',
         poker_hand = 'Three of a Kind',
         active = false
     },
@@ -54,5 +55,9 @@ SMODS.Joker {
         if context.scoring_hand and context.after then
             card.ability.active = false
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

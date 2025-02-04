@@ -1,6 +1,8 @@
 SMODS.Joker {
     key = "strider",
-    config = {},
+    config = {
+        alignment = 'drifter',
+    },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",
     pos = { x = 0, y = 6 },
@@ -57,5 +59,9 @@ SMODS.Joker {
                 }
             )
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

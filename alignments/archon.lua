@@ -1,5 +1,8 @@
 CrazyStairs.Alignment {
     key = "archon",
+    config = {
+        type = 'archon',
+    },
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
     pos = { x = 8, y = 0 },

@@ -1,7 +1,9 @@
 SMODS.Seal {
     key = "rank",
     badge_colour = G.C.ALIGNMENT['cs_keeper'],
-    config = {},
+    config = {
+        alignment = 'keeper'
+    },
     atlas = "CrazyStairsSeals_atlas",
     pos = {x= 0, y= 2},
     sound = { sound = 'cs_seal_rank_obtained', per = 1.06, vol = 0.4 },
@@ -39,6 +41,6 @@ SMODS.Seal {
     end,
 
     in_pool = function(self, args)
-        return false, false
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

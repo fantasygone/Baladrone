@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "escalator_fan",
     config = {
+        alignment = 'hacker',
         extra = 2,
     },
     -- Sprite settings
@@ -42,7 +43,7 @@ SMODS.Joker {
         if G.STAGE == G.STAGES.RUN then
             for _, v in ipairs(G.jokers.cards) do
                 if v:is_scaling() then
-                    return true
+                    return cs_utils.is_alignment(self.config.alignment)
                 end
             end
         end

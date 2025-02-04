@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "four_walls",
     config = {
+        alignment = 'wicked',
         mult = 0,
         extra = 1
     },
@@ -109,5 +110,9 @@ SMODS.Joker {
                 end
             return true end }))
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

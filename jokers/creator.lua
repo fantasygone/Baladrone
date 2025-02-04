@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "creator",
     config = {
+        alignment = 'patron',
         extra = 1,
     },
     -- Sprite settings
@@ -63,5 +64,9 @@ SMODS.Joker {
                 sound = 'cs_create'
             }
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

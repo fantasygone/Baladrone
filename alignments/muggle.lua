@@ -1,5 +1,8 @@
 CrazyStairs.Alignment {
     key = "muggle",
+    config = {
+        type = 'muggle',
+    },
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
     pos = { x = 5, y = 0 },

@@ -1,6 +1,8 @@
 SMODS.Joker {
     key = "move_up",
-    config = {},
+    config = {
+        alignment = 'keeper',
+    },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",
     pos = { x = 0, y = 0 },
@@ -77,5 +79,9 @@ SMODS.Joker {
         --         return { mult = card.ability.mult * card.ability.count}
         --     end
         -- end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

@@ -181,4 +181,35 @@ function cs_utils.random_consumable(card, args)
     end
 end
 
+function cs_utils.random_alignment(chameleonable, architectable)
+    local card_type = pseudorandom(pseudoseed('alignment'))
+
+    if card_type > .98 and architectable then
+        return SMODS.create_card({
+            set = 'Alignment',
+            key = 'ali_cs_architect',
+            no_edition = true
+        })
+    elseif card_type > .95 and chameleonable then
+        return SMODS.create_card({
+            set = 'Alignment',
+            key = 'ali_cs_chameleon',
+            no_edition = true
+        })
+    else
+        return SMODS.create_card({
+            set = 'Alignment',
+            no_edition = true
+        })
+    end
+end
+
+function cs_utils.is_alignment(alignment)
+    if G.cs_alignments.cards[1].ability.type == 'chameleon' then
+        return true
+    else
+        return alignment == G.cs_alignments.cards[1].ability.type
+    end
+end
+
 return cs_utils

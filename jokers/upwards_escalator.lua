@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "upwards_escalator",
     config = {
+        alignment = 'hacker',
         mult = 0,
         extra = 1,
         extra_2 = 2,
@@ -53,5 +54,9 @@ SMODS.Joker {
                 colour = G.C.ALIGNMENT["cs_hacker"]
             }
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

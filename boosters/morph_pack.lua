@@ -9,7 +9,7 @@ SMODS.Booster {
         extra = 2,
         choose = 1
     },
-    weight = 10,
+    weight = 0.3,
     -- Sprite
 	atlas = "CrazyStairsBoosters_atlas",
     pos = { x = 0, y = 1 },
@@ -26,10 +26,6 @@ SMODS.Booster {
     end,
 
     create_card = function(self, card, i)
-        return SMODS.create_card({
-            set = 'Alignment',
-            soulable = true,
-            no_edition = true
-        })
+        return cs_utils.random_alignment(true, false)
     end,
 }

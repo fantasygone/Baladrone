@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "flipper",
     config = {
+        alignment = 'joker',
         rank_to_flip = 6
     },
     -- Sprite settings
@@ -80,5 +81,9 @@ SMODS.Joker {
                 }
             end
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

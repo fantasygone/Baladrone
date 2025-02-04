@@ -252,6 +252,14 @@ return {
 					"Jokers",
 				},
 			},
+			["ali_cs_chameleon"] = {
+				["name"] = "Chameleon Morph",
+				["text"] = {
+					"Allows using",
+					"any aligned Joker",
+					"plus its own"
+				},
+			},
 			["ali_cs_none"] = {
 				["name"] = "None",
 				["text"] = {

@@ -1,6 +1,7 @@
 SMODS.Joker {
     key = "destroyer",
     config = {
+        alignment = 'wicked',
         below = {
             rank = 14,
             value = 'Ace'
@@ -61,5 +62,9 @@ SMODS.Joker {
         if context.end_of_round and not context.game_over and context.cardarea ~= G.hand then
             cs_utils.reset_destroyer_card(card)
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }
