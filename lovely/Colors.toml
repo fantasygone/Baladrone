@@ -28,6 +28,7 @@ ALIGNMENT = {
     cs_chameleon = HEX("cc03ed"),
 },
 CS_ORANGE = HEX("b03815"),
+CS_ALIGNMENT = HEX("f5af6f"),
 '''
 match_indent = true
 
@@ -53,5 +54,6 @@ cs_heretic = G.C.ALIGNMENT["cs_heretic"],
 cs_spectre = G.C.ALIGNMENT["cs_spectre"],
 cs_chameleon = G.C.ALIGNMENT["cs_chameleon"],
 cs_orange = G.C.CS_ORANGE,
+cs_alignment = G.C.CS_ALIGNMENT,
 '''
 match_indent = true

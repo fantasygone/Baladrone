@@ -443,8 +443,9 @@ return {
 			["undiscovered_alignment"] = {
 				["name"] = "Undiscovered",
 				["text"] = {
-					"Find this Alignment",
-					"in Morph Packs",
+					"Morph into this",
+					"{C:cs_alignment}Alignment{} to find out",
+					"what it does",
 				},
 			},
 			-- Credits where credits are due!
@@ -460,7 +461,7 @@ return {
                 ["name"] = "Morph Pack",
                 ["text"] = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{} {C:spectral}Alignments{} to",
+                    "{C:attention}#2#{} {C:cs_alignment}Alignments{} to",
                     "morph into",
                 },
             },
@@ -472,6 +473,7 @@ return {
 			["k_alignment"] = "Alignment",
 			["k_cs_morph_pack"]="Morph Pack",
 			["b_alignments"]="Alignments",
+			["b_morph"]="MORPH INTO",
 			-- Terms
 			["cs_card"] = "card",
 			["cs_cards"] = "cards",
@@ -520,6 +522,12 @@ return {
 				"Balatro OST by LouisF",
 				"Climbing theme",
 			},
+			-- Config
+			["start_with_chameleon"] = "Start with Chameleon",
+			["start_with_chameleon_desc"] = {
+				"Chameleon will show up",
+				"in the first Morph Pack",
+			}
 		},
 		["v_dictionary"] = {
 			["cs_just_chips"] = "#1#",

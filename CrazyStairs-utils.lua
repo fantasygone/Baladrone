@@ -184,6 +184,16 @@ end
 function cs_utils.random_alignment(chameleonable, architectable)
     local card_type = pseudorandom(pseudoseed('alignment'))
 
+    if not G.GAME.first_shop_chameleon then
+        G.GAME.first_shop_chameleon = true
+
+        return SMODS.create_card({
+            set = 'Alignment',
+            key = 'ali_cs_chameleon',
+            no_edition = true
+        })
+    end
+
     if card_type > .98 and architectable then
         return SMODS.create_card({
             set = 'Alignment',
@@ -205,6 +215,11 @@ function cs_utils.random_alignment(chameleonable, architectable)
 end
 
 function cs_utils.is_alignment(alignment)
+    if not G.cs_alignments then
+        return false
+    end
+
+
     if G.cs_alignments.cards[1].ability.type == 'chameleon' then
         return true
     else
