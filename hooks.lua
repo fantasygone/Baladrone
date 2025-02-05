@@ -21,13 +21,25 @@ Game.start_run = function(self, args)
     original_start_run(self, args)
 
     if not args.savetext then
-        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
             G.GAME.shop.booster_max = G.GAME.shop.booster_max + 1
 
             SMODS.add_card({set = 'Alignment', area = G.cs_alignments, key = 'ali_cs_none'})
         return true end }))
     end
 end
+
+-- local original_update_shop = Game.update_shop
+-- Game.update_shop = function(self, dt)
+--     if not G.STATE_COMPLETE then
+--         for i = 1, #G.jokers.cards do
+--             if cs_utils.contains(startingshop_context, G.jokers.cards[i].ability.name) then
+--                 G.jokers.cards[i]:calculate_joker({cs_entering_shop = true})
+--             end
+--         end
+--     end
+--     original_update_shop(self, dt)
+-- end
 --
 
 local original_use_and_sell_buttons = G.UIDEF.use_and_sell_buttons
