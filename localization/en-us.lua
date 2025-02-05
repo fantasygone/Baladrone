@@ -117,7 +117,7 @@ return {
 				["name"] = "Link",
 				["text"] = {
 					"If played hand scores",
-					"{C:attention}below{} average, adjusts",
+					"{C:attention}below{} average, adjusts score",
 					"to average once {C:attention}per round{}",
 					"{C:inactive}(Current average score:{} {C:blue}#1#{}{C:inactive}){}"
 				}
