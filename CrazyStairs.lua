@@ -205,6 +205,7 @@ JOKER_FILES = {
     },
     patron = {
         "creator",
+        "link",
     },
     joker = {
         "trap",

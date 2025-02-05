@@ -113,6 +113,15 @@ return {
 					"increased by {C:attention}#1# rank{}",
 				}
 			},
+			["j_cs_link"] = {
+				["name"] = "Link",
+				["text"] = {
+					"If played hand scores",
+					"{C:attention}below{} average, adjusts",
+					"to average once {C:attention}per round{}",
+					"{C:inactive}(Current average score:{} {C:blue}#1#{}{C:inactive}){}"
+				}
+			},
 			["j_cs_upwards_escalator"] = {
 				["name"] = "Upwards Escalator",
 				["text"] = {
@@ -506,6 +515,7 @@ return {
 			["cs_nuh_uh"] = "Nuh Uh!",
 			-- Patron
 			["cs_created"] = "Created!",
+			["cs_averaged"] = "Average!",
 			-- Drifter
 			["cs_boosted"] = "Boosted!",
 			["cs_boosted_again"] = "Boosted again!",
