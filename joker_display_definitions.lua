@@ -26,6 +26,21 @@ jd_def["j_cs_creator"] = {
     end
 }
 
+jd_def["j_cs_link"] = {
+    extra = {
+        {
+            { text = "(" },
+            { ref_table = "card.joker_display_values", ref_value = "average" },
+            { text = ")" },
+        }
+    },
+    extra_config = { colour = G.C.BLUE, scale = 0.3 },
+
+    calc_function = function(card)
+        card.joker_display_values.average = card.ability.count > 0 and (math.floor(card.ability.chips_total / card.ability.count) * math.floor(card.ability.mult_total / card.ability.count)) or 0
+    end
+}
+
 -- Joker
 
 jd_def["j_cs_trap"] = {
