@@ -83,6 +83,13 @@ return {
 					"{C:inactive}(Currently{} {C:mult}+#1#{} {C:inactive}Mult){}",
 				}
 			},
+			["j_cs_vicious_joker"] = {
+				["name"] = "Vicious Joker",
+				["text"] = {
+					"Destroys scoring {C:attention}enhanced{}",
+					"cards and earn {C:money}$#1#{}",
+				}
+			},
 			["j_cs_restoration"] = {
 				["name"] = "Restoration",
 				["text"] = {
@@ -397,14 +404,14 @@ return {
 				["name"] = "Muggle Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_muggle, C:cs_muggle}Muggle",
+					"morphed into {X:cs_muggle,C:black}Muggle",
 				}
 			},
 			["cs_hacker_aligned"] = {
 				["name"] = "Hacker Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_hacker, C:black}Hacker{}",
+					"morphed into {X:cs_hacker,C:black}Hacker{}",
 				}
 			},
 			["cs_thief_aligned"] = {
@@ -463,6 +470,13 @@ return {
 				["text"] = {
 					"This sprite was",
 					"made by {X:cs_drifter, C:black}TDtheTV{}",
+				},
+			},
+			["cs_duskilion_concept"] = {
+				["name"] = "Concept by Duskilion",
+				["text"] = {
+					"This Joker concept was",
+					"made by {X:cs_muggle,C:black}Duskilion{}",
 				},
 			},
 			-- Packs

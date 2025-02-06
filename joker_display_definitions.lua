@@ -158,6 +158,31 @@ jd_def["j_cs_four_walls"] = {
     text_config = { colour = G.C.MULT },
 }
 
+jd_def["j_cs_vicious_joker"] = {
+    text = {
+        { text = "+$" },
+        { ref_table = "card.joker_display_values", ref_value = "dollars"},
+    },
+    text_config = { colour = G.C.MONEY },
+
+    reminder_text = {
+        { text = "(Enhancements)" },
+    },
+
+    calc_function = function(card)
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        card.joker_display_values.dollars = 0
+
+        for i = 1, #scoring_hand do
+            local currentcard = scoring_hand[i]
+
+            if currentcard.highlighted and currentcard.config.center.set == 'Enhanced' then
+                card.joker_display_values.dollars = card.joker_display_values.dollars + card.ability.payout
+            end
+        end
+    end,
+}
+
 -- Keeper
 
 jd_def["j_cs_restoration"] = {

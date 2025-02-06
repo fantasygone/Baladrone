@@ -133,25 +133,6 @@ impostor_warnings = {
     "I do not speak like that",
 }
 
--- Adding new custom contexts messes up all other Jokers. had to make specific checks
-beforeall_context = {
-    "j_cs_flipper",
-    "j_cs_strider",
-    "j_cs_move_up",
-    -- Jokers that copy
-    "j_cs_bugged_trap",
-    "Brainstorm",
-    "Blueprint",
-}
-
-startingshop_context = {
-    "j_cs_random_teleport",
-    -- Jokers that copy
-    "j_cs_bugged_trap",
-    "Brainstorm",
-    "Blueprint",
-}
-
 -- List all Joker files here
 local audio_files = {
     -- Joker
@@ -217,6 +198,7 @@ JOKER_FILES = {
         -- "bend_down",
         "damage",
         "four_walls",
+        "vicious_joker",
     },
     keeper = {
         "restoration",

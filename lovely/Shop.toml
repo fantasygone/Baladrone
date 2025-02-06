@@ -74,7 +74,7 @@ match_indent = true
 
 
 
-# Add dynamic amount of Boosters and Vouchers
+# Emplace alignments in their own area
 [[patches]]
 [patches.pattern]
 target = "functions/button_callbacks.lua"
