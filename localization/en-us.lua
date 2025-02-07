@@ -87,7 +87,7 @@ return {
 				["name"] = "Vicious Joker",
 				["text"] = {
 					"Destroys scoring {C:attention}enhanced{}",
-					"cards and earn {C:money}$#1#{}",
+					"cards and earn {C:money}$#1#{} for each",
 				}
 			},
 			["j_cs_restoration"] = {
@@ -127,6 +127,16 @@ return {
 					"{C:attention}below{} average, adjusts score",
 					"to average once {C:attention}per round{}",
 					"{C:inactive}(Current average score:{} {C:blue}#1#{}{C:inactive}){}"
+				}
+			},
+			["j_cs_portal"] = {
+				["name"] = "Portal",
+				["text"] = {
+					"Selects cards {C:attention}adjacent{} to",
+					"{C:attention}rightmost{} and {C:attention}leftmost{}",
+					"highlighted cards when",
+					"playing or discarding",
+					"{C:inactive}(Exceeds card selection limit){}",
 				}
 			},
 			["j_cs_upwards_escalator"] = {

@@ -66,6 +66,33 @@ function Card:is_scaling()
     return false
 end
 
+function CardArea:forcefully_add_to_highlighted(card, silent)
+    if self.config.type == 'shop' then
+        if self.highlighted[1] then
+            self:remove_from_highlighted(self.highlighted[1])
+        end
+        --if not G.FUNCS.check_for_buy_space(card) then return false end
+        self.highlighted[#self.highlighted+1] = card
+        card:highlight(true)
+        if not silent then play_sound('cardSlide1') end
+    elseif self.config.type == 'joker' or self.config.type == 'consumeable' then
+        if #self.highlighted >= self.config.highlighted_limit then 
+            self:remove_from_highlighted(self.highlighted[1])
+        end
+        self.highlighted[#self.highlighted+1] = card
+        card:highlight(true)
+        if not silent then play_sound('cardSlide1') end
+    else
+        -- self.highlighted[#self.highlighted+1] = card
+        card:highlight(true)
+        if not silent then play_sound('cardSlide1') end
+
+        if self == G.hand and G.STATE == G.STATES.SELECTING_HAND then
+            self:parse_highlighted()
+        end
+    end
+end
+
 -- Keeping for when I need it :P
 -- function SMODS.current_mod.reset_game_globals(run_start)
 -- end
@@ -187,6 +214,7 @@ JOKER_FILES = {
     patron = {
         "creator",
         "link",
+        "portal",
     },
     joker = {
         "trap",

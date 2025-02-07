@@ -107,6 +107,20 @@ function CardArea:emplace(card, location, stay_flipped)
     end
 end
 
+local original_discard_cards_from_highlighted = G.FUNCS.discard_cards_from_highlighted
+G.FUNCS.discard_cards_from_highlighted = function(e, hook)
+    SMODS.calculate_context({cs_click_discard = true})
+
+    original_discard_cards_from_highlighted(e, hook)
+end
+
+local original_play_cards_from_highlighted = G.FUNCS.play_cards_from_highlighted
+G.FUNCS.play_cards_from_highlighted = function(e)
+    SMODS.calculate_context({cs_click_play = true})
+
+    original_play_cards_from_highlighted(e)
+end
+
 -- ALIGNMENT CARD AREA HOOKS
 do
     local CardArea_draw_ref=CardArea.draw
