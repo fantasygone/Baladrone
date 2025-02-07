@@ -26,6 +26,14 @@ SMODS.Joker {
         }
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        G.hand.config.highlighted_limit = G.hand.config.highlighted_limit - 2
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand.config.highlighted_limit = G.hand.config.highlighted_limit + 2
+    end,
+
     calculate = function (self, card, context)
         if context.cs_click_discard or context.cs_click_play and not context.blueprint then
             local first = G.hand.highlighted[1]

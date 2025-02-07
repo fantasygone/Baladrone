@@ -132,6 +132,8 @@ return {
 			["j_cs_portal"] = {
 				["name"] = "Portal",
 				["text"] = {
+					"{C:blue}-2{} card selection",
+					"limit each round",
 					"Selects cards {C:attention}adjacent{} to",
 					"{C:attention}rightmost{} and {C:attention}leftmost{}",
 					"highlighted cards when",
