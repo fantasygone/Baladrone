@@ -540,6 +540,7 @@ return {
 			-- Patron
 			["cs_created"] = "Created!",
 			["cs_averaged"] = "Average!",
+			["cs_together"] = "Together!",
 			-- Drifter
 			["cs_boosted"] = "Boosted!",
 			["cs_boosted_again"] = "Boosted again!",

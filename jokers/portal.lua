@@ -27,7 +27,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.cs_click_discard or context.cs_click_play then
+        if context.cs_click_discard or context.cs_click_play and not context.blueprint then
             local first = G.hand.highlighted[1]
             local last = G.hand.highlighted[#G.hand.highlighted]
             local first_hand_index
@@ -49,7 +49,6 @@ SMODS.Joker {
                     portaled = portaled + 1
 
                     G.hand.highlighted[#G.hand.highlighted+1] = curcard
-                    curcard.highlighted = true
                     G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
                         G.hand:forcefully_add_to_highlighted(curcard)
                     return true end }))
@@ -59,7 +58,7 @@ SMODS.Joker {
 
             if portaled > 0 then
                 return {
-                    message = 'Together!',
+                    message = localize('cs_together'),
                     card = card,
                     colour = G.C.ALIGNMENT['cs_patron']
                 }
