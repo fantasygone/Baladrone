@@ -29,11 +29,11 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.scoring_hand and context.cs_beforeall then
+        if context.cs_scoring_hand and context.cs_beforeall then
             local highest = 2
 
-            for i = 1, #context.scoring_hand do
-                local current = context.scoring_hand[i]
+            for i = 1, #context.cs_scoring_hand do
+                local current = context.cs_scoring_hand[i]
 
                 if current.base.id > highest then
                     highest = current.base.id
@@ -41,8 +41,8 @@ SMODS.Joker {
             end
 
             if highest < 14 then
-                for i = 1, #context.scoring_hand do
-                    local current = context.scoring_hand[i]
+                for i = 1, #context.cs_scoring_hand do
+                    local current = context.cs_scoring_hand[i]
 
                     if current.base.id == highest and not current.debuff then
                         if not current.seal then
@@ -67,8 +67,8 @@ SMODS.Joker {
         end
 
         -- if context.joker_main then
-        --     for i = 1, #context.scoring_hand do
-        --         local current = context.scoring_hand[i]
+        --     for i = 1, #context.cs_scoring_hand do
+        --         local current = context.cs_scoring_hand[i]
 
         --         if current.base.id == 14 and current.seal == 'cs_rank' then
         --             card.ability.count = card.ability.count + 1

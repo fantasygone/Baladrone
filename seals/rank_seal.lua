@@ -16,7 +16,7 @@ SMODS.Seal {
     -- card - card this seal is applied to
     calculate = function(self, card, context)
         -- repetition_only context is used for red seal retriggers
-        if context.cardarea == G.play and context.scoring_hand and context.after and card.base.id ~= 14 then
+        if context.cardarea == G.play and context.scoring_hand and context.after and card.base.id ~= 14 and not card.getting_sliced and not card.destroyed then
             cs_utils.flip_cards({card})
 
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
