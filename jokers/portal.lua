@@ -8,8 +8,8 @@ SMODS.Joker {
     pos = { x = 2, y = 5 },
     soul_pos = nil,
     -- Card info
-    rarity = 1, --Common
-    cost = 4,
+    rarity = 2, --Uncommon
+    cost = 6,
     -- Player data
     unlocked = true,
     discovered = false,
