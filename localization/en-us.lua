@@ -111,6 +111,16 @@ return {
                     "{E:1,s:1.3}?????",
                 },
 			},
+			["j_cs_random_move"] = {
+				["name"] = "Random Move",
+				["text"] = {
+					"If {C:attention}poker hand{} is a",
+					"{C:attention}High Card{}, either",
+					"{C:attention}increases/decreases{} the",
+					"rank or turns it into",
+					"the {C:attention}next/previous{} suit",
+				},
+			},
 			["j_cs_creator"] = {
 				["name"] = "Creator",
 				["text"] = {
@@ -526,6 +536,10 @@ return {
 			-- Neutral
 			["cs_false"] = "False",
 			["cs_smh"] = "Smh",
+			["cs_rank_up"] = "Rank Up!",
+			["cs_rank_down"] = "Rank Down!",
+			["cs_suit_up"] = "Next Suit!",
+			["cs_suit_down"] = "Previous Suit!",
 			-- Joker
 			["cs_flipped"] = "Flipped!",
 			["cs_faking_cards"] = "Don't peek!",

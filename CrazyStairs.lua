@@ -2,12 +2,18 @@
 cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
 assert(SMODS.load_file('hooks.lua'))()
 CrazyStairs = SMODS.current_mod
+CrazyStairs.SUIT_ORDER = {}
 
 -- Retrigger Jokers are somehow an optional feature whyy ç_ç
 SMODS.current_mod.optional_features = function()
     return {
         retrigger_joker = true,
     }
+end
+
+-- Build suit order mapping
+for i = #SMODS.Suit.obj_buffer, 1, -1 do
+    CrazyStairs.SUIT_ORDER[SMODS.Suit.obj_buffer[i]] = i
 end
 
 CrazyStairs.Alignment = SMODS.Center:extend {
@@ -218,19 +224,20 @@ JOKER_FILES = {
     },
     joker = {
         "trap",
-        "flipper",
         "bugged_trap",
+        "flipper",
     },
     wicked = {
         "destroyer",
         -- "bend_down",
         "damage",
-        "four_walls",
         "vicious_joker",
+        "four_walls",
     },
     keeper = {
         "restoration",
-        "move_up"
+        "random_move",
+        "move_up",
     },
     hacker = {
         "upwards_escalator",

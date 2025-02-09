@@ -88,19 +88,69 @@ function cs_utils.get_next_rank_value(current)
     return prev
 end
 
-function cs_utils.handle_remove_playcard(table)
-    for i = 1, #table do
-        table[i]:remove_from_deck(false)
-        table[i]:start_dissolve()
+function cs_utils.decrease_rank(card)
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.1, func = function()
+        local suit_prefix = string.sub(card.base.suit, 1, 1)..'_'
+        local rank_suffix = card.base.id == 2 and 14 or math.max(card.base.id - 1, 2)
+        if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
+        elseif rank_suffix == 10 then rank_suffix = 'T'
+        elseif rank_suffix == 11 then rank_suffix = 'J'
+        elseif rank_suffix == 12 then rank_suffix = 'Q'
+        elseif rank_suffix == 13 then rank_suffix = 'K'
+        elseif rank_suffix == 14 then rank_suffix = 'A'
+        end
+        card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
+        return true
+    end}))
+end
+
+function cs_utils.increase_rank(card)
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.1, func = function()
+        local suit_prefix = string.sub(card.base.suit, 1, 1)..'_'
+        local rank_suffix = card.base.id == 14 and 2 or math.min(card.base.id+1, 14)
+        if rank_suffix < 10 then rank_suffix = tostring(rank_suffix)
+        elseif rank_suffix == 10 then rank_suffix = 'T'
+        elseif rank_suffix == 11 then rank_suffix = 'J'
+        elseif rank_suffix == 12 then rank_suffix = 'Q'
+        elseif rank_suffix == 13 then rank_suffix = 'K'
+        elseif rank_suffix == 14 then rank_suffix = 'A'
+        end
+        card:set_base(G.P_CARDS[suit_prefix..rank_suffix])
+    return true end }))
+end
+
+function cs_utils.decrease_suit(card)
+    local suit_order = CrazyStairs.SUIT_ORDER
+    local target_suit
+
+    -- Get the current suit
+    local current_index = suit_order[card.base.suit]
+
+    -- Find the next suit (wrap around if needed)
+    if current_index and current_index < #SMODS.Suit.obj_buffer then
+        target_suit = SMODS.Suit.obj_buffer[current_index + 1]
+    else
+        target_suit = SMODS.Suit.obj_buffer[1] -- Wrap to first suit
     end
 
-    for j = 1, #G.jokers.cards do
-        eval_card(G.jokers.cards[j], {
-            cardarea = G.jokers,
-            remove_playing_cards = true,
-            removed = table
-        })
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() card:change_suit(target_suit);return true end }))
+end
+
+function cs_utils.increase_suit(card)
+    local suit_order = CrazyStairs.SUIT_ORDER
+    local target_suit
+
+    -- Get the current suit
+    local current_index = suit_order[card.base.suit]
+
+    -- Find the previous suit (wrap around if needed)
+    if current_index and current_index > 1 then
+        target_suit = SMODS.Suit.obj_buffer[current_index - 1]
+    else
+        target_suit = SMODS.Suit.obj_buffer[#SMODS.Suit.obj_buffer] -- Wrap to last suit
     end
+
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() card:change_suit(target_suit);return true end }))
 end
 
 -- Resets Destroyer card (the name of the function says that)
@@ -181,6 +231,7 @@ function cs_utils.random_consumable(card, args)
     end
 end
 
+-- Alignment functions
 function cs_utils.random_alignment(chameleonable, architectable)
     local card_type = pseudorandom(pseudoseed('alignment'))
 
@@ -226,5 +277,6 @@ function cs_utils.is_alignment(alignment)
         return alignment == G.cs_alignments.cards[1].ability.type
     end
 end
+--
 
 return cs_utils
