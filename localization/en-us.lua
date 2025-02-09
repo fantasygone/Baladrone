@@ -135,7 +135,7 @@ return {
 				["text"] = {
 					"If played hand scores",
 					"{C:attention}below{} average, adjusts score",
-					"to average once {C:attention}per round{}",
+					"to average once {C:attention}per ante{}",
 					"{C:inactive}(Current average score:{} {C:blue}#1#{}{C:inactive}){}"
 				}
 			},

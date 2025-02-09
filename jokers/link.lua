@@ -5,7 +5,7 @@ SMODS.Joker {
         chips_total = 0,
         mult_total = 0,
         count = 0,
-        active = false
+        active = false,
     },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",
@@ -32,13 +32,14 @@ SMODS.Joker {
         }
     end,
 
-    calculate = function (self, card, context)
-        if context.first_hand_drawn and not context.blueprint then
-            card.ability.active = true
-            local evalJoker = function(joker) return (card.ability.active) end
-            juice_card_until(card, evalJoker, true)
-        end
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.active = true
 
+        local evalJoker = function(joker) return (card.ability.active) end
+        juice_card_until(card, evalJoker, true)
+    end,
+
+    calculate = function (self, card, context)
         if context.scoring_hand and context.after and not context.blueprint then
             card.ability.chips_total = card.ability.chips_total + hand_chips
             card.ability.mult_total = card.ability.mult_total + mult
@@ -52,6 +53,11 @@ SMODS.Joker {
                 local h_chips = math.floor((card.ability.chips_total / card.ability.count))
                 local h_mult = math.floor((card.ability.mult_total / card.ability.count))
                 update_hand_text({delay = 0}, {mult = h_mult, chips = h_chips})
+
+                -- Add original mult and chips to nerf current average
+                card.ability.chips_total = card.ability.chips_total + hand_chips
+                card.ability.mult_total = card.ability.mult_total + mult
+                card.ability.count = card.ability.count + 1
         
                 G.E_MANAGER:add_event(Event({
                     func = (function()
@@ -99,8 +105,13 @@ SMODS.Joker {
             end
         end
 
-        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand and not context.blueprint then
-            card.ability.active = false
+        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand and G.GAME.blind.boss and not context.blueprint then
+            if not card.ability.active then
+                card.ability.active = true
+
+                local evalJoker = function(joker) return (card.ability.active) end
+                juice_card_until(card, evalJoker, true)
+            end
         end
     end,
 
