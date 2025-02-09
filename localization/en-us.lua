@@ -114,8 +114,8 @@ return {
 			["j_cs_random_move"] = {
 				["name"] = "Random Move",
 				["text"] = {
-					"If {C:attention}poker hand{} is a",
-					"{C:attention}High Card{}, either",
+					"If played hand has",
+					"only {C:attention}1{} card, either",
 					"{C:attention}increases/decreases{} the",
 					"rank or turns it into",
 					"the {C:attention}next/previous{} suit",
