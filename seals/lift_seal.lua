@@ -4,9 +4,13 @@ SMODS.Seal {
     config = {
         alignment = 'drifter'
     },
+    -- Seal Info
     atlas = "CrazyStairsSeals_atlas",
     pos = {x= 1, y= 2},
     sound = { sound = 'cs_seal_lift_obtained', per = 1.2, vol = 0.4 },
+    -- Player Data
+    unlocked = true,
+    discovered = false,
 
     loc_vars = function(self, info_queue)
         return { vars = {} }

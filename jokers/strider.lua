@@ -34,7 +34,7 @@ SMODS.Joker {
             juice_card_until(card, evalJoker, true)
         end
 
-        if context.cs_scoring_hand and #context.cs_scoring_hand == 1 and not context.cs_scoring_hand[1].debuff and context.cs_beforeall and G.GAME.current_round.hands_played == 0 then
+        if context.cs_scoring_hand and #G.play.cards == 1 and not G.play.cards[1].debuff and context.cs_beforeall and G.GAME.current_round.hands_played == 0 then
             local target = context.cs_scoring_hand[1]
             local target_seal
 

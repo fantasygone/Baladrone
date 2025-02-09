@@ -254,7 +254,7 @@ JOKER_FILES = {
 
 for _, alignment in ipairs(ALIGNMENT_JOKERS) do
     for _, jkr in ipairs(JOKER_FILES[alignment]) do
-        NFS.load(SMODS.current_mod.path .. "/jokers/" .. jkr .. ".lua")()
+        if jkr then assert(SMODS.load_file('jokers/'.. jkr ..'.lua'))() end
     end
 end
 
@@ -287,27 +287,27 @@ local booster_files = {
 
 
 for i = 1, #seal_files do
-    NFS.load(SMODS.current_mod.path .. "/seals/" .. seal_files[i] .. ".lua")()
+    if seal_files[i] then assert(SMODS.load_file('seals/'.. seal_files[i] ..'.lua'))() end
 end
 
 for i = 1, #enchamcnemnt_files do
-    NFS.load(SMODS.current_mod.path .. "/enhancements/" .. enchamcnemnt_files[i] .. ".lua")()
+    if enchamcnemnt_files[i] then assert(SMODS.load_file('enhancements/'.. enchamcnemnt_files[i] ..'.lua'))() end
 end
 
 for i = 1, #voucher_files do
-    NFS.load(SMODS.current_mod.path .. "/vouchers/" .. voucher_files[i] .. ".lua")()
+    if voucher_files[i] then assert(SMODS.load_file('vouchers/'.. voucher_files[i] ..'.lua'))() end
 end
 
 for i = 1, #booster_files do
-    NFS.load(SMODS.current_mod.path .. "/boosters/" .. booster_files[i] .. ".lua")()
+    if booster_files[i] then assert(SMODS.load_file('boosters/'.. booster_files[i] ..'.lua'))() end
 end
 
 -- for i = 1, #type_files do
---     NFS.load(SMODS.current_mod.path .. "/types/" .. type_files[i] .. ".lua")()
+--     SMODS.load_file(SMODS.current_mod.path .. "/types/" .. type_files[i] .. ".lua")()
 -- end
 
 for i = 1, #LESS_ALIGNMENT_JOKERS do
-    NFS.load(SMODS.current_mod.path .. "/alignments/" .. LESS_ALIGNMENT_JOKERS[i] .. ".lua")()
+    if LESS_ALIGNMENT_JOKERS[i] then assert(SMODS.load_file('alignments/'.. LESS_ALIGNMENT_JOKERS[i] ..'.lua'))() end
 end
 
 -- Load and register Sounds

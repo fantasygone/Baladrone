@@ -27,7 +27,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.scoring_hand and #context.scoring_hand == 1 and not context.scoring_hand[1].debuff and context.after then
+        if context.scoring_hand and #G.play.cards == 1 and not G.play.cards[1].debuff and context.after then
             local target = context.scoring_hand[1]
             local final_msg
 
