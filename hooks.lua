@@ -74,6 +74,15 @@ function get_pack(self, _key, _type)
     return original_get_pack(self, _key, _type)
 end
 
+local original_draw_card = draw_card
+function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
+    if card and card.cs_stolen then
+        return original_draw_card(from, G.cs_stack, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
+    end
+
+    return original_draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
+end
+
 local original_set_ability = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
     if self.config.center.set == 'Alignment' then
@@ -83,6 +92,7 @@ function Card:set_ability(center, initial, delay_sprites)
     original_set_ability(self, center, initial, delay_sprites)
 
     self.ability.cs_fake = self.ability and self.ability.cs_fake or false
+    self.ability.cs_stolen = self.ability and self.ability.cs_stolen or false
     self.ability.cs_temp = self.ability and self.ability.cs_temp or {active = false, expiry = nil}
 end
 
@@ -127,7 +137,7 @@ do
     -- enable Alignments area to draw alignments in it
     function CardArea:draw()
         CardArea_draw_ref(self) -- this should be called before drawing cards inside it otherwise the area will block the cards and you can't hover on them
-        if self.config.type == 'cs_alignment' then 
+        if self.config.type == 'cs_alignment' or self.config.type == 'cs_stack' then 
             for i = 1, #self.cards do
                 if self.cards[i] ~= G.CONTROLLER.focused.target then
                     if not self.cards[i].highlighted then
@@ -165,7 +175,7 @@ do
     local CardArea_align_cards_ref=CardArea.align_cards
     -- enable Alignment area to align cards in its border.
     function CardArea:align_cards()
-        if self.config.type == 'cs_alignment' then
+        if self.config.type == 'cs_alignment' or self.config.type == 'cs_stack' then
             -- self.T.y=self.T.y-0.04 -- dunno why abilities are slightly lower than upper border. move them up a bit
             cardarea_align(self)
             -- self.T.y=self.T.y+0.04
@@ -176,7 +186,7 @@ do
     local CardArea_can_highlight_ref=CardArea.can_highlight
     -- enable cards in Alignment area to be highlighted (clicked)
     function CardArea:can_highlight(card)
-        if self.config.type == 'cs_alignment' then
+        if self.config.type == 'cs_alignment' or self.config.type == 'cs_stack' then
             return false
         end
         return CardArea_can_highlight_ref(self,card)
@@ -225,15 +235,15 @@ do
         end
     end
 
-    -- local G_FUNCS_check_for_buy_space_ref=G.FUNCS.check_for_buy_space
-    -- G.FUNCS.check_for_buy_space = function(card)
-    --     if card.ability.set=='Alignment' then
-    --         if #G.cs_alignment.cards < G.cs_alignment.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0) then
-    --             return true
-    --         else
-    --             return false
-    --         end
-    --     end
-    --     return G_FUNCS_check_for_buy_space_ref(card)
-    -- end
+    local G_FUNCS_check_for_buy_space_ref=G.FUNCS.check_for_buy_space
+    G.FUNCS.check_for_buy_space = function(card, forstack)
+        if card.ability.set=='Enhanced' or card.ability.set=='Default' and forstack then
+            if #G.cs_stack.cards < G.cs_stack.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0) then
+                return true
+            else
+                return false
+            end
+        end
+        return G_FUNCS_check_for_buy_space_ref(card)
+    end
 end -- Alignment Area and Alignment Cards preparation

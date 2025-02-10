@@ -1,0 +1,28 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+
+
+
+# Add off-screen Stack area
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.SPLASH_BACK = Sprite(-30, -6, G.ROOM.T.w+60, G.ROOM.T.h+12, G.ASSET_ATLAS["ui_1"], {x = 2, y = 0})'''
+position = "before"
+payload = '''
+
+self.cs_stack_W = 4.9*G.CARD_W
+self.cs_stack_H = 0.95*G.CARD_H
+
+self.cs_stack = CardArea(
+    G.jokers.T.x,
+    G.jokers.T.y - (G.jokers.T.h*2), 
+    self.cs_stack_W, 
+    self.cs_stack_H, 
+    {card_limit = 5, type = 'cs_stack', highlight_limit = 0}
+)
+'''
+match_indent = true

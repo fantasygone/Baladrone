@@ -22,7 +22,8 @@ self.cs_alignments = CardArea(
     G.consumeables.T.y + G.consumeables.T.h + 1, 
     self.cs_alignment_W, 
     self.cs_alignment_H, 
-    {card_limit = 1, type = 'cs_alignment', highlight_limit = 1})
+    {card_limit = 1, type = 'cs_alignment', highlight_limit = 0}
+)
 '''
 match_indent = true
 

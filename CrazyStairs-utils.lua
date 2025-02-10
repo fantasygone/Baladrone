@@ -277,6 +277,15 @@ function cs_utils.is_alignment(alignment)
         return alignment == G.cs_alignments.cards[1].ability.type
     end
 end
+
+function cs_utils.remove_from_playing_cards(card)
+    for i = #G.playing_cards, 1, -1 do
+        if G.playing_cards[i] == card then
+            table.remove(G.playing_cards, i)
+            break
+        end
+    end
+end
 --
 
 return cs_utils
