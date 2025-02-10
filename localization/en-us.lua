@@ -510,6 +510,14 @@ return {
                     "morph into",
                 },
             },
+			-- Alignment abilities
+            ["cs_thief_start_ab"]={
+                ["name"] = "Starting ability",
+                ["text"] = {
+                    "Creates a {C:attention}Stack{} area",
+                    "for stolen cards",
+                },
+            },
 		},
 	},
 	["misc"] = {

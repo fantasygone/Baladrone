@@ -14,8 +14,8 @@ pattern = '''G.SPLASH_BACK = Sprite(-30, -6, G.ROOM.T.w+60, G.ROOM.T.h+12, G.ASS
 position = "before"
 payload = '''
 
-self.cs_alignment_W = 1.1*G.CARD_W
-self.cs_alignment_H = 0.9*G.CARD_H
+self.cs_alignment_W = G.CARD_W*1.1
+self.cs_alignment_H = 0.95*G.CARD_H
 
 self.cs_alignments = CardArea(
     G.consumeables.T.x + 2.25,

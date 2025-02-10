@@ -145,49 +145,30 @@ do
         end
     end
 
-    local function cardarea_align(self,direction)
-        local alignd='x'  -- align dimension
-        local alignp='w'  -- align parameter (card.w)
-        local alignp2='card_w' -- align parameter2 (self.card_w)
-        local otherd='y'
-        local otherp='h'
-        if direction=='vertical' then
-            alignd='y'
-            alignp='h'
-            alignp2='card_h'
-            self.card_h=self.card_h or self.config.card_h or G.CARD_H
-            -- self.T[alignp]-self[alignp2] determines the length of range of cards distributed inside. I set shop_ability.config.card_h to 0.1 to increase the range.
-            otherd='x'
-            otherp='w'
-        end
+    local function cardarea_align(self)
         for k, card in ipairs(self.cards) do
             if not card.states.drag.is then 
-                card.T.r = 0.1*(-#self.cards/2 - 0.5 + k)/(#self.cards)+ (G.SETTINGS.reduced_motion and 0 or 1)*0.02*math.sin(2*G.TIMERS.REAL+card.T[alignd])
-                local max_cards = math.max(#self.cards, self.config.temp_limit)
-                card.T[alignd] = self.T[alignd] + (self.T[alignp]-self[alignp2])*((k-1)/math.max(max_cards-1, 1) - 0.5*(#self.cards-max_cards)/math.max(max_cards-1, 1)) + 0.5*(self[alignp2] - card.T[alignp])
-                if #self.cards > 2 or (#self.cards > 1 and self == G.consumeables) or (#self.cards > 1 and self.config.spread) then
-                    card.T[alignd] = self.T[alignd] + (self.T[alignp]-self[alignp2])*((k-1)/(#self.cards-1)) + 0.5*(self[alignp2] - card.T[alignp])
-                elseif #self.cards > 1 and self ~= G.consumeables then
-                    card.T[alignd] = self.T[alignd] + (self.T[alignp]-self[alignp2])*((k - 0.5)/(#self.cards)) + 0.5*(self[alignp2] - card.T[alignp])
+                if #self.cards > 1 then
+                    card.T.x = (self.T.x + (self.T.w-self.card_w)*((k-1)/(#self.cards-1)) + 0.5*(self.card_w - card.T.w)) - 0.09
                 else
-                    card.T[alignd] = self.T[alignd] + self.T[alignp]/2 - self[alignp2]/2 + 0.5*(self[alignp2] - card.T[alignp])
+                    card.T.x = (self.T.x + self.T.w/2 - self.card_w/2 + 0.5*(self.card_w - card.T.w)) - 0.09
                 end
-                local highlight_height = G.HIGHLIGHT_H/2
+                local highlight_height = G.HIGHLIGHT_H
                 if not card.highlighted then highlight_height = 0 end
-                card.T[otherd] = self.T[otherd] + self.T[otherp]/2 - card.T[otherp]/2 - highlight_height+ (G.SETTINGS.reduced_motion and 0 or 1)*0.03*math.sin(0.666*G.TIMERS.REAL+card.T[alignd])
-                card.T[alignd] = card.T[alignd] + card.shadow_parrallax.x/30
+                card.T.y = self.T.y + self.T.h/2 - card.T.h/2 - highlight_height + (not card.highlighted and (G.SETTINGS.reduced_motion and 0 or 1)*0.05*math.sin(2*1.666*G.TIMERS.REAL+card.T.x) or 0)
+                card.T.x = card.T.x + card.shadow_parrallax.x/30
             end
         end
-        if not G.GAME.modifiers.cry_conveyor then table.sort(self.cards, function (a, b) return a.T[alignd] + a.T[alignp]/2 - 100*(a.pinned and a.sort_id or 0) < b.T[alignd] + b.T[alignp]/2 - 100*(b.pinned and b.sort_id or 0) end) end
+        table.sort(self.cards, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
     end
 
     local CardArea_align_cards_ref=CardArea.align_cards
     -- enable Alignment area to align cards in its border.
     function CardArea:align_cards()
         if self.config.type == 'cs_alignment' then
-            self.T.y=self.T.y-0.04 -- dunno why abilities are slightly lower than upper border. move them up a bit
+            -- self.T.y=self.T.y-0.04 -- dunno why abilities are slightly lower than upper border. move them up a bit
             cardarea_align(self)
-            self.T.y=self.T.y+0.04
+            -- self.T.y=self.T.y+0.04
         end
         CardArea_align_cards_ref(self)
     end
