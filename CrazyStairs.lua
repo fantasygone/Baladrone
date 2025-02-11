@@ -2,6 +2,7 @@
 cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
 assert(SMODS.load_file('hooks.lua'))()
 CrazyStairs = SMODS.current_mod
+
 CrazyStairs.SUIT_ORDER = {}
 CrazyStairs.BUTTONS_CREATED = false
 
@@ -156,7 +157,7 @@ end
 
 CrazyStairs.create_thief_buttons = function()
     CrazyStairs.BUTTONS_CREATED = true
-    
+
     G.GAME.alignment_buttons = UIBox {
         definition = {
             n = G.UIT.ROOT,

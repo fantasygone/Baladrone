@@ -590,6 +590,7 @@ return {
 			--Thief
 			["b_cs_stack"] = "Stash",
 			["cs_stolen"] = "Stolen!",
+			["cs_borrowed"] = "Borrowed...",
 			-- Music stuff
 			["b_music_selector"] = "Soundtrack",
 			["ml_music_selector_opt"] = {

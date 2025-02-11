@@ -2,6 +2,7 @@ SMODS.Joker {
     key = "card_thief",
     config = {
         alignment = 'thief',
+        can_steal = true,
         stolen_chips = 0
     },
     -- Sprite settings

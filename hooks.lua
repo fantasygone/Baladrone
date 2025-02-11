@@ -16,6 +16,39 @@ Game.init_game_object = function(self)
     return ret
 end
 
+local original_update_selecting_hand = Game.update_selecting_hand
+Game.update_selecting_hand = function(self, dt)
+    if #G.hand.cards < 1 and #G.deck.cards < 1 and #G.play.cards < 1 and #G.cs_stack.cards > 0 then
+        local thief_ali = G.cs_alignments.cards[1]
+        G.cs_alignments:remove_card(thief_ali)
+        G.hand:emplace(thief_ali)
+        delay(0.3)
+        card_eval_status_text(thief_ali, 'extra', nil, nil, nil, {message = localize('cs_borrowed'), colour = G.C.ALIGNMENT['cs_thief']})
+        for i = 1, #G.cs_stack.cards do
+            local stocard = G.cs_stack.cards[i]
+
+            stocard.cs_stolen = false
+            draw_card(G.cs_stack,G.hand, i*100/#G.cs_stack.cards,'down', true, stocard)
+        end
+
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            G.hand:remove_card(thief_ali)
+            G.cs_alignments:emplace(thief_ali)
+
+            for i = 1, #G.jokers.cards do
+                local joker_card = G.jokers.cards[i]
+
+                if cs_utils.is_alignment(joker_card.ability.alignment) and joker_card.ability.can_steal then
+                    SMODS.debuff_card(joker_card, true, 'stop_stealing')
+                    joker_card:juice_up(0.4, 0,4)
+                end
+            end
+        return true end }))
+    else
+        original_update_selecting_hand(self, dt)
+    end
+end
+
 local original_start_run = Game.start_run
 Game.start_run = function(self, args)
     original_start_run(self, args)

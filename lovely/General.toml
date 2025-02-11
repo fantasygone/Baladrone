@@ -149,12 +149,11 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-local cs_walls = SMODS.find_card('j_cs_four_walls')
+    local cs_walls = SMODS.find_card('j_cs_four_walls')
 
-if cs_walls[1] and G.GAME.current_round.cs_cards_are_blocked and not cs_walls[1].debuff and G.GAME.blind and G.GAME.blind:get_type() == 'Small' then
-    return
-end
-
+    if cs_walls[1] and G.GAME.current_round.cs_cards_are_blocked and not cs_walls[1].debuff and G.GAME.blind and G.GAME.blind:get_type() == 'Small' then
+        return
+    end
 '''
 match_indent = true
 
@@ -171,5 +170,21 @@ pattern = '''
 position = "after"
 payload = '''
 check_for_unlock({type = 'cs_blind_beaten', score = G.GAME.chips, blind_size = G.GAME.blind.chips})
+'''
+match_indent = true
+
+
+
+
+# Uhhhh patching SMODS? wish me luck...
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+-- TARGET: add your own CardAreas for joker evaluation
+'''
+position = "after"
+payload = '''
+table.insert(t, G.cs_alignments)
 '''
 match_indent = true
