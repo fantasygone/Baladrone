@@ -3,6 +3,7 @@ cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
 assert(SMODS.load_file('hooks.lua'))()
 CrazyStairs = SMODS.current_mod
 CrazyStairs.SUIT_ORDER = {}
+CrazyStairs.BUTTONS_CREATED = false
 
 -- Retrigger Jokers are somehow an optional feature whyy ç_ç
 SMODS.current_mod.optional_features = function()
@@ -42,6 +43,170 @@ CrazyStairs.Alignment = SMODS.Center:extend {
 
 function CrazyStairs.Alignment:is_discovered()
     return self.discovered or G.PROFILES[G.SETTINGS.profile].all_unlocked
+end
+
+-- Ty JoyousSpring for this function!
+CrazyStairs.create_overlay_stack = function()
+    CrazyStairs.stack_area = {}
+
+    CrazyStairs.stack_area[1] = CardArea(
+        G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2,
+        G.ROOM.T.h,
+        6.5 * G.CARD_W,
+        0.6 * G.CARD_H,
+        {
+            card_limit = G.cs_stack.config.card_limit,
+            type = 'title',
+            highlight_limit = 0,
+            card_w = G.CARD_W * 0.7,
+            draw_layers = { 'card' },
+        }
+    )
+
+    for i = 1, #G.cs_stack.cards do
+        local added_card = copy_card(G.cs_stack.cards[i])
+        CrazyStairs.stack_area[1]:emplace(added_card)
+    end
+
+    G.FUNCS.overlay_menu({
+        definition = create_UIBox_generic_options({
+            contents = {
+                {
+                    n = G.UIT.R,
+                    config = {
+                        align = "cm",
+                        padding = 0.05,
+                        minw = 7
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.O,
+                            config = {
+                                object = DynaText({
+                                    string = { localize('b_cs_stack') },
+                                    colours = { G.C.UI.TEXT_LIGHT },
+                                    bump = true,
+                                    silent = true,
+                                    pop_in = 0,
+                                    pop_in_rate = 4,
+                                    minw = 10,
+                                    shadow = true,
+                                    y_offset = -0.6,
+                                    scale = 0.9
+                                })
+                            }
+                        }
+                    }
+                },
+                {
+                    n = G.UIT.R,
+                    config = {
+                        align = "cm",
+                        padding = 0.2,
+                        minw = 7
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            config = {
+                                r = 0.1,
+                                minw = 7,
+                                minh = 5,
+                                align = "cm",
+                                padding = 1,
+                                colour = G.C.BLACK
+                            },
+                            nodes = {
+                                {
+                                    n = G.UIT.C,
+                                    config = {
+                                        align = "cm",
+                                        padding = 0.07,
+                                        no_fill = true,
+                                        scale = 1
+                                    },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.R,
+                                            config = {
+                                                align = "cm",
+                                                padding = 0.07,
+                                                no_fill = true,
+                                                scale = 1
+                                            },
+                                            nodes = {
+                                                {
+                                                    n = G.UIT.O,
+                                                    config = {
+                                                        object = CrazyStairs.stack_area[1]
+                                                    }
+                                                },
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    })
+end
+
+CrazyStairs.create_thief_buttons = function()
+    CrazyStairs.BUTTONS_CREATED = true
+    
+    G.GAME.alignment_buttons = UIBox {
+        definition = {
+            n = G.UIT.ROOT,
+            config = {
+                align = "cm",
+                minw = 1,
+                minh = 0.3,
+                padding = 0.15,
+                r = 0.1,
+                colour = G.C.CLEAR
+            },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = {
+                        align = "tm",
+                        minw = 2,
+                        padding = 0.1,
+                        r = 0.1,
+                        hover = true,
+                        colour = G.C.ALIGNMENT['cs_thief'],
+                        shadow = true,
+                        button = "cs_access_stack"
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.R,
+                            config = { align = "bcm", padding = 0 },
+                            nodes = {
+                                {
+                                    n = G.UIT.T,
+                                    config = {
+                                        text = localize('b_cs_stack'),
+                                        scale = 0.35,
+                                        colour = G.C.UI.TEXT_LIGHT
+                                    }
+                                }
+                            }
+                        },
+                    }
+                },
+            }
+        },
+        config = {
+            align = "tr",
+            offset = { x = -11, y = 0 },
+            major = G.consumeables,
+            bond = 'Weak'
+        }
+    }
 end
 
 function Card:undebuff_this()
@@ -192,6 +357,7 @@ ALIGNMENT_JOKERS = {
     "wicked",
     "keeper",
     "hacker",
+    "thief",
     "splicer",
     "spectre"
 }
@@ -243,6 +409,9 @@ JOKER_FILES = {
         "upwards_escalator",
         "downwards_escalator",
         "escalator_fan",
+    },
+    thief = {
+        "card_thief"
     },
     splicer = {
         "strider",
@@ -380,6 +549,10 @@ create_UIBox_your_collection_alignments = function()
         no_materialize = false,
         h_mod = 0.95,
     })
+end
+
+G.FUNCS.cs_access_stack = function(e)
+    CrazyStairs.create_overlay_stack()
 end
 
 if JokerDisplay then

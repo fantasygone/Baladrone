@@ -51,6 +51,8 @@ SMODS.Joker {
                     return true
                 end
             end
+
+
         end
         if context.scoring_hand and context.after then
             card.ability.active = false

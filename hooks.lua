@@ -26,6 +26,10 @@ Game.start_run = function(self, args)
 
             SMODS.add_card({set = 'Alignment', area = G.cs_alignments, key = 'ali_cs_none'})
         return true end }))
+    else
+        if cs_utils.is_alignment('thief') then
+            CrazyStairs.create_thief_buttons()
+        end
     end
 end
 
@@ -98,18 +102,15 @@ end
 
 local original_emplace = CardArea.emplace
 function CardArea:emplace(card, location, stay_flipped)
-    if self == G.cs_alignments and #G.cs_alignments.cards >= 1 then
-        G.cs_alignments.cards[1]:start_dissolve()
-    end
     original_emplace(self, card, location, stay_flipped)
 
-    if self == G.cs_alignments and #G.cs_alignments.cards >= 1 then
+    if self == G.cs_alignments and #G.cs_alignments.cards > G.cs_alignments.config.card_limit then
+        G.cs_alignments.cards[1]:start_dissolve()
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             for i = 1, #G.jokers.cards do
                 local joker_card = G.jokers.cards[i]
 
                 if joker_card.ability.alignment and not cs_utils.is_alignment(joker_card.ability.alignment) then
-                    joker_card:remove_from_deck()
                     joker_card:start_dissolve()
                 end
             end

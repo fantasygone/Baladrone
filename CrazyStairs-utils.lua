@@ -266,15 +266,10 @@ function cs_utils.random_alignment(chameleonable, architectable)
 end
 
 function cs_utils.is_alignment(alignment)
-    if not G.cs_alignments then
-        return false
-    end
-
-
-    if G.cs_alignments.cards[1].ability.type == 'chameleon' then
+    if G.GAME.current_alignment == 'chameleon' then
         return true
     else
-        return alignment == G.cs_alignments.cards[1].ability.type
+        return alignment == G.GAME.current_alignment
     end
 end
 

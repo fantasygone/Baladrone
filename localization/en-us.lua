@@ -180,6 +180,16 @@ return {
                     "{E:1,s:1.3}?????",
                 },
 			},
+			["j_cs_card_thief"] = {
+				["name"] = "Card Thief",
+				["text"] = {
+					"{C:attention}Steals{} scoring hand",
+					"if it's the {C:attention}most played{}",
+					"Gains stolen cards'",
+					"{C:chips}rank{} as Chips",
+					"{C:inactive}(Currently{} {C:chips}+#1#{} {C:inactive}Chips){}",
+				},
+			},
 			["j_cs_strider"] = {
 				["name"] = "Strider",
 				["text"] = {
@@ -512,10 +522,11 @@ return {
             },
 			-- Alignment abilities
             ["cs_thief_start_ab"]={
-                ["name"] = "Starting ability",
+                ["name"] = "Starting Ability",
                 ["text"] = {
-                    "Creates a {C:attention}Stack{} area",
+                    "Creates a {C:attention}Stash{} area",
                     "for stolen cards",
+                    "{C:inactive}(5 card limit){}",
                 },
             },
 		},
@@ -575,6 +586,9 @@ return {
 			-- Hacker
 			["cs_slowed_down"] = "Slowed Down!",
 			["cs_scaling"] = "Scaling",
+			--Thief
+			["b_cs_stack"] = "Stash",
+			["cs_stolen"] = "Stolen!",
 			-- Music stuff
 			["b_music_selector"] = "Soundtrack",
 			["ml_music_selector_opt"] = {

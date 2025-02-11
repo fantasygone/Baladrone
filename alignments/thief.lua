@@ -21,6 +21,21 @@ CrazyStairs.Alignment {
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.current_alignment = 'thief'
+
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            if not CrazyStairs.BUTTONS_CREATED then
+                CrazyStairs.create_thief_buttons()
+            end
+        return true end }))
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            if CrazyStairs.BUTTONS_CREATED and not cs_utils.is_alignment(card.ability.type) then
+                G.GAME.alignment_buttons:remove()
+                CrazyStairs.BUTTONS_CREATED = false
+            end
+        return true end }))
     end,
 
     calculate = function (self, card, context)
