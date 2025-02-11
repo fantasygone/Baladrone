@@ -39,13 +39,5 @@ CrazyStairs.Alignment {
     end,
 
     calculate = function (self, card, context)
-        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand then
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i].debuff and G.jokers.cards[i].ability.can_steal then
-                    SMODS.debuff_card(G.jokers.cards[i], false, 'stop_stealing')
-                    G.jokers.cards[i]:juice_up(0.4, 0,4)
-                end
-            end
-        end
     end,
 }
