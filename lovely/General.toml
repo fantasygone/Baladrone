@@ -179,7 +179,7 @@ match_indent = true
 # Uhhhh patching SMODS? wish me luck...
 [[patches]]
 [patches.pattern]
-target = "functions/state_events.lua"
+target = '''=[SMODS _ "src/utils.lua"]'''
 pattern = '''
 -- TARGET: add your own CardAreas for joker evaluation
 '''
