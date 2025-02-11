@@ -9,7 +9,7 @@
 	"priority": -2,
 	"badge_colour": "ef9553",
 	"badge_text_colour": "6429a9",
-	"version": "0.1.4(Random Move)",
+	"version": "0.1.5(Card Thief)",
 	"dependencies": [
 		"Steamodded (>=1.0.0~ALPHA-1310*)"
 	],
