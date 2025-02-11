@@ -188,6 +188,7 @@ return {
 					"Gains stolen cards'",
 					"{C:chips}rank{} as Chips",
 					"{C:inactive}(Currently{} {C:chips}+#1#{} {C:inactive}Chips){}",
+					"{C:inactive}(Must have room){}",
 				},
 			},
 			["j_cs_strider"] = {

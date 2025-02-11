@@ -21,6 +21,7 @@ Game.start_run = function(self, args)
     original_start_run(self, args)
 
     if not args.savetext then
+        CrazyStairs.BUTTONS_CREATED = false
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
             G.GAME.shop.booster_max = G.GAME.shop.booster_max + 1
 
