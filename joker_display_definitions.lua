@@ -230,6 +230,22 @@ jd_def["j_cs_escalator_fan"] = {
     end
 }
 
+-- Thief
+jd_def["j_cs_card_thief"] = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability", ref_value = "stolen_chips", retrigger_type = "mult" },
+    },
+
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children[1] and text.children[2] then
+            text.children[1].config.colour = cs_utils.is_alignment('thief') and G.C.CHIPS or G.C.UI.TEXT_INACTIVE
+            text.children[2].config.colour = cs_utils.is_alignment('thief') and G.C.CHIPS or G.C.UI.TEXT_INACTIVE
+        end
+        return false
+    end
+}
+
 -- Drifter
 
 jd_def["j_cs_strider"] = {
