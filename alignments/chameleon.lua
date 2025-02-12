@@ -33,6 +33,8 @@ CrazyStairs.Alignment {
             if CrazyStairs.BUTTONS_CREATED and not cs_utils.is_alignment(card.ability.type) and not cs_utils.is_alignment('thief') then
                 G.GAME.alignment_buttons:remove()
                 CrazyStairs.BUTTONS_CREATED = false
+
+                cs_utils.return_stolen_cards(G.deck)
             end
         return true end }))
     end,

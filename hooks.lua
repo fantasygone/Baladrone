@@ -20,29 +20,17 @@ local original_update_selecting_hand = Game.update_selecting_hand
 Game.update_selecting_hand = function(self, dt)
     if #G.hand.cards < 1 and #G.deck.cards < 1 and #G.play.cards < 1 and #G.cs_stack.cards > 0 then
         local thief_ali = G.cs_alignments.cards[1]
-        G.cs_alignments:remove_card(thief_ali)
-        G.hand:emplace(thief_ali)
-        delay(0.3)
-        card_eval_status_text(thief_ali, 'extra', nil, nil, nil, {message = localize('cs_borrowed'), colour = G.C.ALIGNMENT['cs_thief']})
-        for i = 1, #G.cs_stack.cards do
-            local stocard = G.cs_stack.cards[i]
+        cs_utils.move_cards(G.cs_alignments, G.hand, {thief_ali})
 
-            stocard.cs_stolen = false
-            draw_card(G.cs_stack,G.hand, i*100/#G.cs_stack.cards,'down', true, stocard)
-        end
+        delay(0.3)
+
+        card_eval_status_text(thief_ali, 'extra', nil, nil, nil, {message = localize('cs_borrowed'), colour = G.C.ALIGNMENT['cs_thief']})
+
+        cs_utils.return_stolen_cards(G.hand)
 
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            G.hand:remove_card(thief_ali)
-            G.cs_alignments:emplace(thief_ali)
-
-            for i = 1, #G.jokers.cards do
-                local joker_card = G.jokers.cards[i]
-
-                if cs_utils.is_alignment(joker_card.ability.alignment) and joker_card.ability.can_steal then
-                    SMODS.debuff_card(joker_card, true, 'stop_stealing')
-                    joker_card:juice_up(0.4, 0,4)
-                end
-            end
+            draw_card(G.hand,G.cs_alignments, 90,'up', nil, thief_ali)
+            cs_utils.stop_stealing()
         return true end }))
     else
         original_update_selecting_hand(self, dt)
@@ -140,15 +128,15 @@ function CardArea:emplace(card, location, stay_flipped)
 
     if self == G.cs_alignments and #G.cs_alignments.cards > G.cs_alignments.config.card_limit then
         G.cs_alignments.cards[1]:start_dissolve()
-        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            for i = 1, #G.jokers.cards do
-                local joker_card = G.jokers.cards[i]
+        -- G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+        --     for i = 1, #G.jokers.cards do
+        --         local joker_card = G.jokers.cards[i]
 
-                if joker_card.ability.alignment and not cs_utils.is_alignment(joker_card.ability.alignment) then
-                    joker_card:start_dissolve()
-                end
-            end
-        return true end }))
+        --         if joker_card.ability.alignment and not cs_utils.is_alignment(joker_card.ability.alignment) then
+        --             joker_card:start_dissolve()
+        --         end
+        --     end
+        -- return true end }))
     end
 end
 

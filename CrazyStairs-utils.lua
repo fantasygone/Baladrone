@@ -1,6 +1,6 @@
 local cs_utils = {}
 
--- how hard is it for lua to give us a contains?
+-- BASIC UTILITY
 function cs_utils.contains(table, element)
     for _, value in ipairs(table) do
         if value == element then
@@ -10,7 +10,7 @@ function cs_utils.contains(table, element)
     return false
 end
 
--- Uses game Flip Cards logic
+-- GAME UTILITY
 function cs_utils.flip_cards(table, trigger, delay)
     for i=1, #table do
         local percent = 1.15 - (i-0.999)/(#table-0.998)*0.3
@@ -18,7 +18,6 @@ function cs_utils.flip_cards(table, trigger, delay)
     end
 end
 
--- Does the same but with no event (Used for Flipper which is why they flip instantly)
 function cs_utils.flip_cards_noevent(table)
     for i=1, #table do
         local percent = 1.15 - (i-0.999)/(#table-0.998)*0.3
@@ -29,7 +28,6 @@ function cs_utils.flip_cards_noevent(table)
     end
 end
 
--- Uses game Unflip Cards logic
 function cs_utils.unflip_cards(table, trigger, delay)
     for i=1, #table do
         local percent = 0.85 + (i-0.999)/(#table-0.998)*0.3
@@ -37,7 +35,6 @@ function cs_utils.unflip_cards(table, trigger, delay)
     end
 end
 
--- Uses game Unflip Cards logic
 function cs_utils.unflip_cards_noevent(table, trigger, delay)
     for i=1, #table do
         local percent = 0.85 + (i-0.999)/(#table-0.998)*0.3
@@ -46,12 +43,6 @@ function cs_utils.unflip_cards_noevent(table, trigger, delay)
         play_sound('tarot2', percent, 0.6)
         table[i]:juice_up(0.3, 0.3)
     end
-end
-
--- Broken Drone messages when triggered
-function cs_utils.get_random_warning()
-    local index = math.random(#impostor_warnings)
-    return impostor_warnings[index]
 end
 
 function cs_utils.get_prev_rank_value(current)
@@ -153,29 +144,41 @@ function cs_utils.increase_suit(card)
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() card:change_suit(target_suit);return true end }))
 end
 
--- Resets Destroyer card (the name of the function says that)
-function cs_utils.reset_destroyer_card(card)
-    card.ability.below.value = 'Ace'
-    card.ability.below.rank = 14
-
-    if not G.playing_cards then
-        return
-    end
-
-    local valid_destroyer_ranks = {}
-    for k, v in ipairs(G.playing_cards) do
-        if v.ability.effect ~= 'Stone Card' then
-            valid_destroyer_ranks[#valid_destroyer_ranks+1] = v
+function cs_utils.remove_from_playing_cards(card)
+    for i = #G.playing_cards, 1, -1 do
+        if G.playing_cards[i] == card then
+            table.remove(G.playing_cards, i)
+            break
         end
-    end
-    if valid_destroyer_ranks[1] then 
-        local destroyer_card = pseudorandom_element(valid_destroyer_ranks, pseudoseed('destroyer'..G.GAME.round_resets.ante))
-        card.ability.below.rank = destroyer_card.base.id == 2 and 14 or (destroyer_card.base.id - 1)
-        card.ability.below.value = cs_utils.get_prev_rank_value(destroyer_card)
     end
 end
 
--- Broken Drone logic
+function cs_utils.is_most_played(hand)
+    local triggered = true
+    local play_more_than = (G.GAME.hands[hand].played or 0)
+
+    for k, v in pairs(G.GAME.hands) do
+        if k ~= hand and v.played >= play_more_than and v.visible then
+            triggered = false
+        end
+    end
+
+    return triggered
+end
+
+function cs_utils.move_cards(from, to, cards)
+    for i = 1, #cards do    
+        from:remove_card(cards[i])
+        to:emplace(cards[i])
+    end
+end
+
+-- JOKER UTILITY
+function cs_utils.get_random_warning()
+    local index = math.random(#impostor_warnings)
+    return impostor_warnings[index]
+end
+
 function cs_utils.broken_drone_interaction(new_card)
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
         local cs_broken_drone = SMODS.find_card('j_cs_broken_drone')
@@ -201,6 +204,28 @@ function cs_utils.broken_drone_interaction(new_card)
             end
         end
     return true end }))
+end
+
+-- RESET CARDS
+function cs_utils.reset_destroyer_card(card)
+    card.ability.below.value = 'Ace'
+    card.ability.below.rank = 14
+
+    if not G.playing_cards then
+        return
+    end
+
+    local valid_destroyer_ranks = {}
+    for k, v in ipairs(G.playing_cards) do
+        if v.ability.effect ~= 'Stone Card' then
+            valid_destroyer_ranks[#valid_destroyer_ranks+1] = v
+        end
+    end
+    if valid_destroyer_ranks[1] then 
+        local destroyer_card = pseudorandom_element(valid_destroyer_ranks, pseudoseed('destroyer'..G.GAME.round_resets.ante))
+        card.ability.below.rank = destroyer_card.base.id == 2 and 14 or (destroyer_card.base.id - 1)
+        card.ability.below.value = cs_utils.get_prev_rank_value(destroyer_card)
+    end
 end
 
 -- Create random consumable
@@ -231,7 +256,7 @@ function cs_utils.random_consumable(card, args)
     end
 end
 
--- Alignment functions
+-- ALIGNMENT UTILITY
 function cs_utils.random_alignment(chameleonable, architectable)
     local card_type = pseudorandom(pseudoseed('alignment'))
 
@@ -273,26 +298,46 @@ function cs_utils.is_alignment(alignment)
     end
 end
 
-function cs_utils.remove_from_playing_cards(card)
-    for i = #G.playing_cards, 1, -1 do
-        if G.playing_cards[i] == card then
-            table.remove(G.playing_cards, i)
-            break
+-- THIEF UTILITY
+function cs_utils.handle_stealing(card, cardlist, args)
+    if not cs_utils.is_first_thief(card) or not cs_utils.is_alignment('thief') then return 0 end
+    local remaining_space = G.cs_stack.config.card_limit - #G.cs_stack.cards
+    local stolen = 0
+
+    for i = 1, #cardlist do
+        if i <= remaining_space and not cardlist[i].cs_stolen and not cardlist[i].cs_blocked then
+            cardlist[i].cs_stolen = true
+            stolen = stolen + 1
+        end
+    end
+
+    return stolen
+end
+
+function cs_utils.return_stolen_cards(where)
+    for i = 1, #G.cs_stack.cards do
+        local stocard = G.cs_stack.cards[i]
+        stocard.cs_stolen = false
+
+        draw_card(G.cs_stack, where, i*100/#G.cs_stack.cards, 'down', true, stocard)
+    end
+end
+
+function cs_utils.stop_stealing()
+    for i = 1, #G.jokers.cards do
+        local joker_card = G.jokers.cards[i]
+
+        if cs_utils.is_alignment(joker_card.ability.alignment) and joker_card.ability.can_steal then
+            SMODS.debuff_card(joker_card, true, 'stop_stealing')
+            joker_card:juice_up(0.4, 0,4)
         end
     end
 end
 
-function cs_utils.is_most_played(hand)
-    local triggered = true
-    local play_more_than = (G.GAME.hands[hand].played or 0)
-
-    for k, v in pairs(G.GAME.hands) do
-        if k ~= hand and v.played >= play_more_than and v.visible then
-            triggered = false
-        end
+function cs_utils.is_first_thief(card)
+    for i = 1, #G.jokers.cards do
+        if G.jokers.cards[i].can_steal and G.jokers.cards[i] ~= card then return false else return true end
     end
-
-    return triggered
 end
 
 return cs_utils

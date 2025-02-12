@@ -33,16 +33,9 @@ SMODS.Joker {
     calculate = function (self, card, context)
         if context.scoring_hand and context.after then
             if cs_utils.is_most_played(context.scoring_name) then
-                local stolen_buffer = 1
+                local stolen_buffer = cs_utils.handle_stealing(card, context.scoring_hand)
 
-                for i = 1, #context.scoring_hand do
-                    if (#G.cs_stack.cards + stolen_buffer) <= G.cs_stack.config.card_limit and not context.scoring_hand[i].cs_stolen then
-                        context.scoring_hand[i].cs_stolen = true
-                        stolen_buffer = stolen_buffer + 1
-                    end
-                end
-
-                if #G.cs_stack.cards < G.cs_stack.config.card_limit and stolen_buffer > 1 then
+                if stolen_buffer >= 1 then
                     return {
                         card = card,
                         message = localize('cs_stolen'),
