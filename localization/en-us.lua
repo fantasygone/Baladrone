@@ -437,7 +437,7 @@ return {
 				["name"] = "Muggle Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_muggle,C:black}Muggle",
+					"morphed into {X:cs_muggle,C:black}Muggle{}",
 				}
 			},
 			["cs_hacker_aligned"] = {
@@ -451,28 +451,28 @@ return {
 				["name"] = "Thief Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_thief}Thief",
+					"morphed into {X:cs_thief,C:white}Thief{}",
 				}
 			},
 			["cs_archon_aligned"] = {
 				["name"] = "Archon Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_archon}Archon",
+					"morphed into {X:cs_archon,C:black}Archon{}",
 				}
 			},
 			["cs_drifter_aligned"] = {
 				["name"] = "Drifter Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {X:cs_drifter, C:black}Drifter{}",
+					"morphed into {X:cs_drifter,C:black}Drifter{}",
 				}
 			},
 			["cs_heretic_aligned"] = {
 				["name"] = "Heretic Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_heretic}Heretic",
+					"morphed into {X:cs_heretic,C:black}Heretic{}",
 				}
 			},
 			["cs_spectre_aligned"] = {
@@ -486,7 +486,7 @@ return {
 				["name"] = "Chameleon Aligned",
 				["text"] = {
 					"Can be used while",
-					"morphed into {C:cs_chameleon}Chameleon",
+					"morphed into {X:cs_chameleon, C:white}Chameleon",
 				}
 			},
 			["undiscovered_alignment"] = {

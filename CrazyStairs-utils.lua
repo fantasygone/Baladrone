@@ -281,6 +281,18 @@ function cs_utils.remove_from_playing_cards(card)
         end
     end
 end
---
+
+function cs_utils.is_most_played(hand)
+    local triggered = true
+    local play_more_than = (G.GAME.hands[hand].played or 0)
+
+    for k, v in pairs(G.GAME.hands) do
+        if k ~= hand and v.played >= play_more_than and v.visible then
+            triggered = false
+        end
+    end
+
+    return triggered
+end
 
 return cs_utils
