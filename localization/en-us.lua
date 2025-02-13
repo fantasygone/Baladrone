@@ -408,84 +408,84 @@ return {
 			["cs_patron_aligned"] = {
 				["name"] = "Patron Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_patron,C:black}Patron{}",
 				}
 			},
 			["cs_joker_aligned"] = {
 				["name"] = "Joker Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_joker,C:black}Joker{}",
 				}
 			},
 			["cs_wicked_aligned"] = {
 				["name"] = "Wicked Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_wicked,C:white}Wicked{}",
 				}
 			},
 			["cs_keeper_aligned"] = {
 				["name"] = "Keeper Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_keeper,C:white}Keeper{}",
 				}
 			},
 			["cs_muggle_aligned"] = {
 				["name"] = "Muggle Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_muggle,C:black}Muggle{}",
 				}
 			},
 			["cs_hacker_aligned"] = {
 				["name"] = "Hacker Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_hacker,C:black}Hacker{}",
 				}
 			},
 			["cs_thief_aligned"] = {
 				["name"] = "Thief Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_thief,C:white}Thief{}",
 				}
 			},
 			["cs_archon_aligned"] = {
 				["name"] = "Archon Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_archon,C:black}Archon{}",
 				}
 			},
 			["cs_drifter_aligned"] = {
 				["name"] = "Drifter Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_drifter,C:black}Drifter{}",
 				}
 			},
 			["cs_heretic_aligned"] = {
 				["name"] = "Heretic Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_heretic,C:black}Heretic{}",
 				}
 			},
 			["cs_spectre_aligned"] = {
 				["name"] = "Spectre Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_spectre, C:black}Spectre{}",
 				}
 			},
 			["cs_chameleon_aligned"] = {
 				["name"] = "Chameleon Aligned",
 				["text"] = {
-					"Can be used while",
+					"Can be found while",
 					"morphed into {X:cs_chameleon, C:white}Chameleon",
 				}
 			},
