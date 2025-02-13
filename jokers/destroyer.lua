@@ -61,6 +61,10 @@ SMODS.Joker {
 
         if context.end_of_round and not context.game_over and context.cardarea ~= G.hand then
             cs_utils.reset_destroyer_card(card)
+
+            return {
+                message = localize('k_reset')
+            }
         end
     end,
 
