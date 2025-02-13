@@ -36,7 +36,7 @@ SMODS.Joker {
     end,
 
     set_ability = function(self, card, initial, delay_sprites)
-        cs_utils.reset_destroyer_card(card)
+        cs_utils.reset_above_card(card, 'destroyer')
     end,
 
     calculate = function (self, card, context)
@@ -60,7 +60,7 @@ SMODS.Joker {
         end
 
         if context.end_of_round and not context.game_over and context.cardarea ~= G.hand then
-            cs_utils.reset_destroyer_card(card)
+            cs_utils.reset_above_card(card, 'destroyer')
 
             return {
                 message = localize('k_reset')

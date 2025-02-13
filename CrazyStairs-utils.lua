@@ -207,7 +207,7 @@ function cs_utils.broken_drone_interaction(new_card)
 end
 
 -- RESET CARDS
-function cs_utils.reset_destroyer_card(card)
+function cs_utils.reset_above_card(card, seed)
     card.ability.below.value = 'Ace'
     card.ability.below.rank = 14
 
@@ -215,16 +215,16 @@ function cs_utils.reset_destroyer_card(card)
         return
     end
 
-    local valid_destroyer_ranks = {}
+    local valid_above_ranks = {}
     for k, v in ipairs(G.playing_cards) do
         if v.ability.effect ~= 'Stone Card' then
-            valid_destroyer_ranks[#valid_destroyer_ranks+1] = v
+            valid_above_ranks[#valid_above_ranks+1] = v
         end
     end
-    if valid_destroyer_ranks[1] then 
-        local destroyer_card = pseudorandom_element(valid_destroyer_ranks, pseudoseed('destroyer'..G.GAME.round_resets.ante))
-        card.ability.below.rank = destroyer_card.base.id == 2 and 14 or (destroyer_card.base.id - 1)
-        card.ability.below.value = cs_utils.get_prev_rank_value(destroyer_card)
+    if valid_above_ranks[1] then 
+        local above_card = pseudorandom_element(valid_above_ranks, pseudoseed(seed .. G.GAME.round_resets.ante))
+        card.ability.below.rank = above_card.base.id == 2 and 14 or (above_card.base.id - 1)
+        card.ability.below.value = cs_utils.get_prev_rank_value(above_card)
     end
 end
 
@@ -305,7 +305,7 @@ function cs_utils.handle_stealing(card, cardlist, args)
     local stolen = 0
 
     for i = 1, #cardlist do
-        if i <= remaining_space and not cardlist[i].cs_stolen and not cardlist[i].cs_blocked then
+        if i <= remaining_space and not cardlist[i].cs_stolen and not cardlist[i].cs_blocked and not cardlist[i].getting_sliced and not cardlist[i].destroyed then
             cardlist[i].cs_stolen = true
             stolen = stolen + 1
         end
@@ -336,8 +336,12 @@ end
 
 function cs_utils.is_first_thief(card)
     for i = 1, #G.jokers.cards do
-        if G.jokers.cards[i].can_steal and G.jokers.cards[i] ~= card then return false else return true end
+        if G.jokers.cards[i].ability.can_steal then
+            return card == G.jokers.cards[i]
+        end
     end
+
+    return false
 end
 
 return cs_utils

@@ -412,7 +412,8 @@ JOKER_FILES = {
         "escalator_fan",
     },
     thief = {
-        "card_thief"
+        "card_thief",
+        "steal_above",
     },
     splicer = {
         "strider",

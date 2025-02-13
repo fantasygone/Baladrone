@@ -246,6 +246,46 @@ jd_def["j_cs_card_thief"] = {
     end
 }
 
+jd_def["j_cs_steal_above"] = {
+    text = {
+        { text = "+" },
+        { ref_table = "card.ability", ref_value = "stolen_chips", retrigger_type = "mult" },
+        { text = " Above " },
+        { ref_table = "card.ability.below", ref_value = "value", colour = G.C.IMPORTANT},
+    },
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "triggered" },
+        { text = ")" },
+    },
+
+    calc_function = function(card)
+        local text, _, scoring_hand = JokerDisplay.evaluate_hand()
+        card.joker_display_values.triggered = localize("jdis_inactive")
+
+        if text ~= 'Unknown' then
+            local above_rank = card.ability.below.rank == 14 and 2 or (card.ability.below.rank + 1)
+
+            for i = 1, #scoring_hand do
+                local actual = scoring_hand[i]
+
+                if actual.base.id == above_rank then
+                    card.joker_display_values.triggered = localize("jdis_active")
+                    break
+                end
+            end
+        end
+    end,
+
+    style_function = function(card, text, reminder_text, extra)
+        if text and text.children[1] and text.children[2] then
+            text.children[1].config.colour = cs_utils.is_alignment('thief') and G.C.CHIPS or G.C.UI.TEXT_INACTIVE
+            text.children[2].config.colour = cs_utils.is_alignment('thief') and G.C.CHIPS or G.C.UI.TEXT_INACTIVE
+        end
+        return false
+    end
+}
+
 -- Drifter
 
 jd_def["j_cs_strider"] = {

@@ -191,6 +191,18 @@ return {
 					"{C:inactive}(Must have room){}",
 				},
 			},
+			["j_cs_steal_above"] = {
+				["name"] = "Steal Above",
+				["text"] = {
+					"{C:attention}Steals{} first scored",
+					"card {C:attention}directly above #1#{}",
+					"Gains stolen cards'",
+					"doubled {C:chips}rank{} as Chips",
+					"{C:inactive}(Currently{} {C:chips}+#2#{} {C:inactive}Chips){}",
+					"{C:inactive}(Must have room){}",
+					"{s:0.8}Rank changes each round{}",
+				},
+			},
 			["j_cs_strider"] = {
 				["name"] = "Strider",
 				["text"] = {
