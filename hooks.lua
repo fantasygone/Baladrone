@@ -109,6 +109,15 @@ function draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped
     return original_draw_card(from, to, percent, dir, sort, card, delay, mute, stay_flipped, vol, discarded_only)
 end
 
+local original_level_up_hand = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    cs_level_by = amount or 1
+
+    SMODS.calculate_context( {cs_upgrade_hand = (level_by > 0)} )
+
+    original_level_up_hand(card, hand, instant, cs_level_by)
+end
+
 local original_set_ability = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
     if self.config.center.set == 'Alignment' then

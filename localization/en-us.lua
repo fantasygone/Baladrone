@@ -216,7 +216,7 @@ return {
 			["ali_cs_patron"] = {
 				["name"] = "Patron Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_patron,C:black}Patron{} aligned",
 					"Jokers",
 				},
@@ -224,7 +224,7 @@ return {
 			["ali_cs_wicked"] = {
 				["name"] = "Wicked Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_wicked,C:black}Wicked{} aligned",
 					"Jokers",
 				},
@@ -232,7 +232,7 @@ return {
 			["ali_cs_joker"] = {
 				["name"] = "Joker Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_joker,C:black}Joker{} aligned",
 					"Jokers",
 				},
@@ -240,7 +240,7 @@ return {
 			["ali_cs_keeper"] = {
 				["name"] = "Keeper Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_keeper,C:white}Keeper{} aligned",
 					"Jokers",
 				},
@@ -248,7 +248,7 @@ return {
 			["ali_cs_muggle"] = {
 				["name"] = "Muggle Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_muggle,C:black}Muggle{} aligned",
 					"Jokers",
 				},
@@ -256,7 +256,7 @@ return {
 			["ali_cs_hacker"] = {
 				["name"] = "Hacker Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_hacker,C:black}Hacker{} aligned",
 					"Jokers",
 				},
@@ -264,7 +264,7 @@ return {
 			["ali_cs_thief"] = {
 				["name"] = "Thief Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_thief,C:white}Thief{} aligned",
 					"Jokers",
 				},
@@ -272,7 +272,7 @@ return {
 			["ali_cs_archon"] = {
 				["name"] = "Archon Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_archon,C:black}Archon{} aligned",
 					"Jokers",
 				},
@@ -280,7 +280,7 @@ return {
 			["ali_cs_heretic"] = {
 				["name"] = "Heretic Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_heretic,C:black}Heretic{} aligned",
 					"Jokers",
 				},
@@ -288,7 +288,7 @@ return {
 			["ali_cs_drifter"] = {
 				["name"] = "Drifter Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_drifter,C:black}Drifter{} aligned",
 					"Jokers",
 				},
@@ -296,7 +296,7 @@ return {
 			["ali_cs_spectre"] = {
 				["name"] = "Spectre Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"{X:cs_spectre,C:black}Spectre{} aligned",
 					"Jokers",
 				},
@@ -304,7 +304,7 @@ return {
 			["ali_cs_chameleon"] = {
 				["name"] = "Chameleon Morph",
 				["text"] = {
-					"Allows using",
+					"Allows finding",
 					"any aligned Joker",
 					"plus its own"
 				},
