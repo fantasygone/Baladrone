@@ -113,7 +113,7 @@ local original_level_up_hand = level_up_hand
 function level_up_hand(card, hand, instant, amount)
     cs_level_by = amount or 1
 
-    SMODS.calculate_context( {cs_upgrade_hand = (level_by > 0)} )
+    SMODS.calculate_context( {cs_upgrade_hand = (cs_level_by > 0)} )
 
     original_level_up_hand(card, hand, instant, cs_level_by)
 end
