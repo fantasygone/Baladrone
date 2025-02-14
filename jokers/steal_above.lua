@@ -40,7 +40,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.scoring_hand and context.after then
+        if context.scoring_hand and context.after and not context.blueprint then
             local stolen_buffer = 0
 
             for i = 1, #context.scoring_hand do
@@ -68,7 +68,7 @@ SMODS.Joker {
             }
         end
 
-        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand then
+        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand and not context.blueprint then
             cs_utils.reset_above_card(card, 'stealabove')
 
             return {

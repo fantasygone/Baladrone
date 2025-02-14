@@ -59,7 +59,7 @@ SMODS.Joker {
             card.ability.triggered = false
         end
 
-        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand then
+        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand and not context.blueprint then
             cs_utils.reset_above_card(card, 'destroyer')
 
             return {

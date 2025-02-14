@@ -31,7 +31,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.scoring_hand and context.after then
+        if context.scoring_hand and context.after and not context.blueprint then
             if cs_utils.is_most_played(context.scoring_name) then
                 local stolen_buffer = cs_utils.handle_stealing(card, context.scoring_hand)
 
