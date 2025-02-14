@@ -9,7 +9,7 @@ SMODS.Booster {
         extra = 2,
         choose = 1
     },
-    weight = 0.3,
+    weight = 0.1,
     -- Sprite
 	atlas = "CrazyStairsBoosters_atlas",
     pos = { x = 0, y = 1 },
