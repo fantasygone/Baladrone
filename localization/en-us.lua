@@ -47,6 +47,19 @@ return {
                     "repeat {C:attention}1 or more{} times",
                 },
 			},
+			["j_cs_disco"] = {
+				["name"] = "Disco",
+				["text"] = {
+					"Disables {C:attention}Boss Blind{} if",
+					"all cards in scoring",
+					"hand have an {C:dark_edition}edition{}",
+
+				},
+				["unlock"] = {
+                    "Have the Joker {C:attention}Trap{}",
+                    "repeat {C:attention}1 or more{} times",
+                },
+			},
 			["j_cs_destroyer"] = {
 				["name"] = "Destroyer",
 				["text"] = {

@@ -53,6 +53,9 @@ SMODS.Joker {
             end
 
             if stolen_buffer >= 1 then
+                G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                    play_sound('cs_steal')
+                return true end }))
                 return {
                     card = card,
                     message = localize('cs_stolen'),

@@ -338,6 +338,7 @@ local audio_files = {
     "flip",
     "trap_set",
     "trap_triggered",
+    "disco",
     -- Wicked
     "destroy",
     "bend",
@@ -345,6 +346,8 @@ local audio_files = {
     "wall",
     -- Patron
     "create",
+    -- Thief
+    "steal",
     -- Seals
     "seal_lift_obtained",
     "seal_rank_obtained",
@@ -392,6 +395,7 @@ JOKER_FILES = {
     joker = {
         "trap",
         "bugged_trap",
+        "disco",
         "flipper",
     },
     wicked = {

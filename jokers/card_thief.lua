@@ -36,6 +36,9 @@ SMODS.Joker {
                 local stolen_buffer = cs_utils.handle_stealing(card, context.scoring_hand)
 
                 if stolen_buffer >= 1 then
+                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                        play_sound('cs_steal')
+                    return true end }))
                     return {
                         card = card,
                         message = localize('cs_stolen'),

@@ -73,6 +73,26 @@ jd_def["j_cs_bugged_trap"] = {
     end
 }
 
+jd_def["j_cs_disco"] = {
+    reminder_text = {
+        { ref_table = "card.joker_display_values", ref_value = "active_text" },
+    },
+    calc_function = function(card)
+        local disableable = G.GAME and G.GAME.blind and G.GAME.blind.get_type and (G.GAME.blind:get_type() == 'Boss')
+        card.joker_display_values.active = disableable
+        card.joker_display_values.active_text = localize(disableable and 'k_active' or 'ph_no_boss_active')
+    end,
+    style_function = function(card, text, reminder_text, extra)
+        if reminder_text and reminder_text.children[1] then
+            reminder_text.children[1].config.colour = card.joker_display_values.active and G.C.GREEN or
+                G.C.RED
+            reminder_text.children[1].config.scale = card.joker_display_values.active and 0.35 or 0.3
+            return true
+        end
+        return false
+    end
+}
+
 -- Wicked
 
 jd_def["j_cs_destroyer"] = {

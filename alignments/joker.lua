@@ -23,8 +23,5 @@ CrazyStairs.Alignment {
     end,
 
     calculate = function (self, card, context)
-        if context.setting_blind then
-            print('big if true')
-        end
     end
 }
