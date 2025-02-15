@@ -94,7 +94,7 @@ function get_pack(self, _key, _type)
     if not G.GAME.first_shop_alignment and not G.GAME.banned_keys['p_cs_morph_normal_1'] then
         G.GAME.first_shop_alignment = true
         G.GAME.shop.booster_max = G.GAME.shop.booster_max - 1
-        return G.P_CENTERS['p_cs_morph_normal_1']
+        return G.P_CENTERS['p_cs_morph_normal_'..(math.random(1, 3))]
     end
 
     return original_get_pack(self, _key, _type)

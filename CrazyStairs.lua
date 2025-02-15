@@ -452,7 +452,9 @@ local voucher_files = {
 
 -- List all vouchers files here
 local booster_files = {
-    "morph_pack",
+    "morph_pack_1",
+    "morph_pack_2",
+    "morph_pack_3",
 }
 
 -- List all type files here

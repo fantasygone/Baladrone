@@ -548,6 +548,22 @@ return {
                     "morph into",
                 },
             },
+            ["p_cs_morph_normal_2"]={
+                ["name"] = "Morph Pack",
+                ["text"] = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:cs_alignment}Alignments{} to",
+                    "morph into",
+                },
+            },
+            ["p_cs_morph_normal_3"]={
+                ["name"] = "Morph Pack",
+                ["text"] = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{} {C:cs_alignment}Alignments{} to",
+                    "morph into",
+                },
+            },
 			-- Alignment abilities
             ["cs_thief_start_ab"]={
                 ["name"] = "Starting Ability",
