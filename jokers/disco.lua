@@ -2,6 +2,7 @@ SMODS.Joker {
     key = "disco",
     config = {
         alignment = 'joker',
+        min = 2
     },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",
@@ -22,18 +23,21 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {key = 'cs_joker_aligned', set = 'Other'}
         return {vars = {
+            center.ability.min
         }}
     end,
 
     calculate = function (self, card, context)
-        if context.before and context.scoring_hand and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled and not context.blueprint then
-            local editioned = true
+        if context.before and context.scoring_hand and #context.scoring_hand >= card.ability.min and G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled and not context.blueprint then
+            local editions_found = {}
 
             for i = 1, #context.scoring_hand do
-                if not context.scoring_hand[i].edition then editioned = false; break end
+                if context.scoring_hand[i].edition and not cs_utils.contains(editions_found, context.scoring_hand[i].edition.type) then
+                    table.insert(editions_found, context.scoring_hand[i].edition.type)
+                end
             end
 
-            if editioned then
+            if #editions_found == #context.scoring_hand then
                 play_sound('cs_disco')
                 G.GAME.blind:disable()
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ph_boss_disabled')})

@@ -51,8 +51,10 @@ return {
 				["name"] = "Disco",
 				["text"] = {
 					"Disables {C:attention}Boss Blind{} if",
-					"all cards in scoring",
-					"hand have an {C:dark_edition}edition{}",
+					"scoring hand contains",
+					"at least {C:attention}#1#{} cards",
+					"and they all have",
+					"different {C:dark_edition}editions{}",
 
 				},
 				["unlock"] = {
