@@ -265,6 +265,38 @@ function CardArea:forcefully_add_to_highlighted(card, silent)
     end
 end
 
+function create_call_UIBox_buttons()
+    local text_scale = 0.45
+    local call_button = {n=G.UIT.C, config={id = 'call_button', align = "tm", minw = 2.5, padding = 0.3, r = 0.1, hover = true, colour = G.C.GREEN, button = "call_cards_from_highlighted", one_press = true, shadow = true, func = 'can_call'}, nodes={
+      {n=G.UIT.R, config={align = "bcm", padding = 0}, nodes={
+        {n=G.UIT.T, config={text = localize('b_call_hand'), scale = text_scale, colour = G.C.UI.TEXT_LIGHT, focus_args = {button = 'x', orientation = 'bm'}, func = 'set_button_pip'}}
+      }},
+    }}
+
+    local t = {
+      n=G.UIT.ROOT, config = {align = "cm", minw = 1, minh = 0.3,padding = 0.15, r = 0.1, colour = G.C.CLEAR}, nodes={
+          call_button,
+
+          {n=G.UIT.C, config={align = "cm", padding = 0.1, r = 0.1, colour =G.C.UI.TRANSPARENT_DARK, outline = 1.5, outline_colour = mix_colours(G.C.WHITE,G.C.JOKER_GREY, 0.7), line_emboss = 1}, nodes={
+            {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+              {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+                {n=G.UIT.T, config={text = localize('b_sort_hand'), scale = text_scale*0.8, colour = G.C.UI.TEXT_LIGHT}}
+              }},
+              {n=G.UIT.R, config={align = "cm", padding = 0.1}, nodes={
+                {n=G.UIT.C, config={align = "cm", minh = 0.7, minw = 0.9, padding = 0.1, r = 0.1, hover = true, colour =G.C.ORANGE, button = "sort_hand_value", shadow = true}, nodes={
+                  {n=G.UIT.T, config={text = localize('k_rank'), scale = text_scale*0.7, colour = G.C.UI.TEXT_LIGHT}}
+                }},
+                {n=G.UIT.C, config={align = "cm", minh = 0.7, minw = 0.9, padding = 0.1, r = 0.1, hover = true, colour =G.C.ORANGE, button = "sort_hand_suit", shadow = true}, nodes={
+                  {n=G.UIT.T, config={text = localize('k_suit'), scale = text_scale*0.7, colour = G.C.UI.TEXT_LIGHT}}
+                }}
+              }}
+            }}
+          }},
+        }
+      }
+    return t
+  end
+
 -- Keeping for when I need it :P
 -- function SMODS.current_mod.reset_game_globals(run_start)
 -- end
@@ -391,6 +423,7 @@ JOKER_FILES = {
         "creator",
         "link",
         "portal",
+        "call_the_orb",
     },
     joker = {
         "trap",
@@ -561,6 +594,92 @@ end
 
 G.FUNCS.cs_access_stack = function(e)
     CrazyStairs.create_overlay_stack()
+end
+
+G.FUNCS.draw_from_deck_to_other_hands = function(e)
+    if not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and
+        G.hand.config.card_limit <= 0 and #G.hand.cards == 0 then 
+        G.STATE = G.STATES.GAME_OVER; G.STATE_COMPLETE = false 
+        return true
+    end
+
+    local hand_space_2 = e or math.min(#G.deck.cards, G.hand_2.config.card_limit - #G.hand_2.cards)
+    local hand_space_3 = e or math.min(#G.deck.cards, G.hand_3.config.card_limit - #G.hand_3.cards)
+
+    delay(0.3)
+    for i=1, hand_space_2 do
+        draw_card(G.deck,G.hand_2, i*100/hand_space_2,'up', true)
+    end
+
+    delay(0.3)
+    for i=1, hand_space_3 do
+        draw_card(G.deck,G.hand_3, i*100/hand_space_3,'up', true)
+    end
+end
+
+G.FUNCS.can_call = function(e)
+    if #G.hand.highlighted + #G.hand_2.highlighted + #G.hand_3.highlighted <= 0 then
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    else
+        e.config.colour = G.C.GREEN
+        e.config.button = 'call_cards_from_highlighted'
+    end
+end
+
+G.FUNCS.call_cards_from_highlighted = function(e, hook)
+    stop_use()
+    card_eval_status_text(SMODS.find_card('j_cs_call_the_orb')[1], 'extra', nil, nil, nil, {message = localize('cs_called'), colour = G.C.ALIGNMENT['cs_patron']})
+    G.GAME.current_round.orb_card.cards = {}
+
+    local hand_high = {}
+    for _, card in ipairs(G.hand.highlighted) do
+        table.insert(hand_high, card)
+    end
+    for i = 1, #hand_high do
+        table.insert(G.GAME.current_round.orb_card.cards, hand_high[i])
+    end
+    G.hand:unhighlight_all()
+
+    local hand2_high = {}
+    for _, card in ipairs(G.hand_2.highlighted) do
+        table.insert(hand2_high, card)
+    end
+    for i = 1, #hand2_high do
+        table.insert(G.GAME.current_round.orb_card.cards, hand2_high[i])
+    end
+    G.hand_2:unhighlight_all()
+
+    local hand3_high = {}
+    for _, card in ipairs(G.hand_3.highlighted) do
+        table.insert(hand3_high, card)
+    end
+    local hand3_high = G.hand_3.highlighted
+    for i = 1, #hand3_high do
+        table.insert(G.GAME.current_round.orb_card.cards, hand3_high[i])
+    end
+    G.hand_3:unhighlight_all()
+
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3,func = function()
+        for i = 1, #G.hand_2.cards do
+            draw_card(G.hand_2,G.deck, 90,'down', nil, G.hand_2.cards[i])
+        end
+        for i = 1, #G.hand_3.cards do
+            draw_card(G.hand_3,G.deck, 90,'down', nil, G.hand_3.cards[i])
+        end
+
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            G.GAME.current_round.orb_card.called = true
+
+            if G.buttons then
+                G.buttons:remove()
+                G.buttons = UIBox{
+                    definition = create_UIBox_buttons(),
+                    config = {align="bm", offset = {x=0,y=0.3},major = G.hand, bond = 'Weak'}
+                }
+            end
+        return true end }))
+    return true end }))
 end
 
 if JokerDisplay then

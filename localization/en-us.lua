@@ -166,6 +166,18 @@ return {
 					"{C:inactive}(Exceeds card selection limit){}",
 				}
 			},
+			["j_cs_call_the_orb"] = {
+				["name"] = "Call the Orb",
+				["text"] = {
+					"When {C:attention}Small Blind{} is selected,",
+					"select {C:attention}#1#{} out of {C:attention}#2#{} cards",
+					"to draw after selecting",
+					"the next {C:attention}Boss Blind{}",
+				},
+				["unlock"] = {
+                    "{E:1,s:1.3}?????",
+                },
+			},
 			["j_cs_upwards_escalator"] = {
 				["name"] = "Upwards Escalator",
 				["text"] = {
@@ -539,6 +551,13 @@ return {
 					"made by {X:cs_muggle,C:black}Duskilion{}",
 				},
 			},
+			["cs_goldendiscopig_concept"] = {
+				["name"] = "Concept by GoldenDiscoPig",
+				["text"] = {
+					"This Joker concept was",
+					"made by {X:cs_drifter, C:black}GoldenDiscoPig{}",
+				},
+			},
 			-- Packs
             ["p_cs_morph_normal_1"]={
                 ["name"] = "Morph Pack",
@@ -582,6 +601,7 @@ return {
 			["k_cs_morph_pack"]="Morph Pack",
 			["b_alignments"]="Alignments",
 			["b_morph"]="MORPH INTO",
+			["b_call_hand"]="Call Hand",
 			-- Terms
 			["cs_card"] = "card",
 			["cs_cards"] = "cards",
@@ -620,6 +640,9 @@ return {
 			["cs_created"] = "Created!",
 			["cs_averaged"] = "Average!",
 			["cs_together"] = "Together!",
+			["cs_calling"] = "Calling!",
+			["cs_called"] = "Called!",
+			["cs_call_received"] = "Call Received!",
 			-- Drifter
 			["cs_boosted"] = "Boosted!",
 			["cs_boosted_again"] = "Boosted again!",
@@ -630,7 +653,7 @@ return {
 			-- Hacker
 			["cs_slowed_down"] = "Slowed Down!",
 			["cs_scaling"] = "Scaling",
-			--Thief
+			-- Thief
 			["b_cs_stack"] = "Stash",
 			["cs_stolen"] = "Stolen!",
 			["cs_borrowed"] = "Borrowed...",

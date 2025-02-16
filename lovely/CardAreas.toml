@@ -26,3 +26,29 @@ self.cs_stack = CardArea(
 )
 '''
 match_indent = true
+
+
+
+
+# Add 2 more Hand cardareas for Call the Orb
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''self.hand = CardArea('''
+position = "before"
+payload = '''
+self.hand_3 = CardArea(
+    (G.TILE_W - CAI.hand_W)- 2.85,
+    (G.TILE_H - CAI.hand_H) - 6,
+    CAI.hand_W,
+    CAI.hand_H, 
+    {card_limit = self.GAME.starting_params.hand_size, type = 'hand'})
+
+self.hand_2 = CardArea(
+    (G.TILE_W - CAI.hand_W) - 2.85,
+    (G.TILE_H - CAI.hand_H) - 4,
+    CAI.hand_W,
+    CAI.hand_H, 
+    {card_limit = self.GAME.starting_params.hand_size, type = 'hand'})
+'''
+match_indent = true
