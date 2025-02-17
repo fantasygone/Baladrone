@@ -40,9 +40,9 @@ SMODS.Joker {
     end,
 
     in_pool = function(self, args)
-        if G.STAGE == G.STAGES.RUN then
-            for _, v in ipairs(G.jokers.cards) do
-                if v:is_scaling() then
+        if G.STAGE == G.STAGES.RUN and G.jokers and #G.jokers.cards > 0 then
+            for i = 1, #G.jokers.cards do
+                if G.jokers.cards[i]:is_scaling() then
                     return cs_utils.is_alignment(self.config.alignment)
                 end
             end
