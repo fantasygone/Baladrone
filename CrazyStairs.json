@@ -11,7 +11,12 @@
 	"badge_text_colour": "6429a9",
 	"version": "0.1.7(Call the Orb)",
 	"dependencies": [
-		"Steamodded (>=1.0.0~ALPHA-1310*)"
+		"Steamodded (>=1.0.0~ALPHA-1310*)",
+		"Lovely (>=0.7.1)"
+	],
+	"conflicts": [
+		"maximus",
+		"Reverie"
 	],
 	"dump_loc": false
 }

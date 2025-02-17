@@ -143,11 +143,11 @@ end
 do
     local original_emplace = CardArea.emplace
     function CardArea:emplace(card, location, stay_flipped)
-        original_emplace(self, card, location, stay_flipped)
-
-        if self == G.cs_alignments and #G.cs_alignments.cards > G.cs_alignments.config.card_limit then
+        if self == G.cs_alignments and #G.cs_alignments.cards >= G.cs_alignments.config.card_limit then
             G.cs_alignments.cards[1]:start_dissolve()
         end
+
+        original_emplace(self, card, location, stay_flipped)
     end
 
     local original_change_size = CardArea.change_size

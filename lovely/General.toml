@@ -201,14 +201,14 @@ local hand_space = e
 '''
 position = "before"
 payload = '''
-if #SMODS.find_card('j_cs_call_the_orb') > 0 and G.GAME.blind:get_type() ~= 'Small' and G.GAME.blind:get_type() ~= 'Big' and #G.GAME.current_round.orb_card.cards > 0 and G.GAME.current_round.orb_card.called then
+if #SMODS.find_card('j_cs_call_the_orb') > 0 and G.GAME.blind:get_type() and G.GAME.blind:get_type() ~= 'Small' and G.GAME.blind:get_type() ~= 'Big' and #G.GAME.current_round.orb_card.cards > 0 and G.GAME.current_round.orb_card.called then
+    G.GAME.current_round.orb_card.called = false
     card_eval_status_text(SMODS.find_card('j_cs_call_the_orb')[1], 'extra', nil, nil, nil, {message = localize('cs_call_received'), colour = G.C.ALIGNMENT['cs_patron']})
-    if G.GAME.blind:get_type() then
-        G.GAME.current_round.orb_card.called = false
-    end
 
     for i=1, #G.GAME.current_round.orb_card.cards do
-        draw_card(G.deck,G.hand, i*100/#G.GAME.current_round.orb_card.cards,'up', true, G.GAME.current_round.orb_card.cards[i])
+        if G.GAME.current_round.orb_card.cards[i] then
+            draw_card(G.deck,G.hand, i*100/#G.GAME.current_round.orb_card.cards,'up', true, G.GAME.current_round.orb_card.cards[i])
+        end
     end
 
     return
