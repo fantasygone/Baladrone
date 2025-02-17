@@ -336,6 +336,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "CrazyStairsTarots_atlas",
+    path = "CsTarots.png",
+    px = 71,
+    py = 95
+}
+
 SMODS.UndiscoveredSprite{
     key = 'Alignment',
     atlas = "CrazyStairsAlignments_atlas",
@@ -490,6 +497,11 @@ local booster_files = {
     "morph_pack_3",
 }
 
+-- List all tarots files here
+local tarot_files = {
+    "annihilator",
+}
+
 -- List all type files here
 -- local type_files = {
 --     "alignment_type",
@@ -510,6 +522,11 @@ end
 
 for i = 1, #booster_files do
     if booster_files[i] then assert(SMODS.load_file('boosters/'.. booster_files[i] ..'.lua'))() end
+end
+
+for i = 1, #tarot_files do
+    print(tarot_files[i])
+    if tarot_files[i] then assert(SMODS.load_file('tarots/'.. tarot_files[i] ..'.lua'))() end
 end
 
 -- for i = 1, #type_files do
