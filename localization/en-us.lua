@@ -8,7 +8,7 @@ return {
 					"it gains {X:mult,C:white}X0.75{} Mult and",
 					"destroys any Joker attempting",
 					"to {C:attention}copy{} it",
-					"{C:inactive}(Currently {X:mult,C:white}X1.5 {C:inactive} Mult)",
+					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 				}
 			},
 			j_cs_flipper = {
