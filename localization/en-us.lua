@@ -369,9 +369,8 @@ return {
 				name = "Annihilator",
 				text = {
                     "Destroys {C:attention}#1#{} selected",
-                    "Joker and gain its",
-                    "original value in {C:money}dollars{}",
-                    "{C:inactive}(Ignores card's properties){}",
+                    "Joker for its {C:money}buy price{}",
+                    "{C:inactive}(Ignores Eternal){}",
 				},
 			},
 		},
