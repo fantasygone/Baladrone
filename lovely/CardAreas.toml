@@ -52,3 +52,20 @@ self.hand_2 = CardArea(
     {card_limit = self.GAME.starting_params.hand_size, type = 'hand'})
 '''
 match_indent = true
+
+
+
+
+# Remove card count from extra hands (since they share the  same  limit of original hand)
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''
+                    {n=G.UIT.B, config={w = 0.1,h=0.1}}
+                }} or nil
+'''
+position = "after"
+payload = '''
+if self == G.hand_2 or self == G.hand_3 then card_count = nil end
+'''
+match_indent = true

@@ -32,10 +32,16 @@ SMODS.Joker {
         }
     end,
 
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand_2:unhighlight_all()
+        G.hand_3:unhighlight_all()
+        cs_utils.return_extra_hands_to_deck(#G.hand_2.cards > 0, #G.hand_3.cards > 0, true)
+    end,
+
     calculate = function (self, card, context)
         if context.first_hand_drawn and G.GAME.blind:get_type() == 'Small' and not context.blueprint then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_calling'), colour = G.C.ALIGNMENT['cs_patron']})
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2,func = function()
+            G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
                 G.FUNCS.draw_from_deck_to_other_hands()
             return true end }))
         end

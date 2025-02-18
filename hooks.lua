@@ -6,6 +6,8 @@ do
     Game.init_game_object = function(self)
         local ret = igo(self)
 
+        ret.show_call_button = false
+
         ret.current_alignment = 'none'
         ret.first_shop_alignment = false
         ret.first_shop_chameleon = not config.start_with_chameleon
@@ -158,6 +160,35 @@ do
             G.hand_2:change_size(delta)
             G.hand_3:change_size(delta)
         end
+    end
+    
+    local original_move = CardArea.move
+    function CardArea:move(dt)
+        original_move(self, dt)
+
+        --Set sliding up/down for the extra hand areas
+        if self == G.hand_2 then 
+            local desired_y = G.TILE_H - G.hand_2.T.h - 1.9*((not G.deck_preview and (G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.DRAW_TO_HAND)) and 2 or 0.2)
+            G.hand_2.T.y = 15*G.real_dt*desired_y + (1-15*G.real_dt)*G.hand_2.T.y
+            if math.abs(desired_y - G.hand_2.T.y) < 0.01 then G.hand_2.T.y = desired_y end
+            if G.STATE == G.STATES.TUTORIAL then 
+                G.play.T.y = G.hand_2.T.y - (3 + 0.6)
+            end
+        end
+
+        --Set sliding up/down for the extra hand areas
+        if self == G.hand_3 then 
+            local desired_y = G.TILE_H - G.hand_3.T.h - 1.9*((not G.deck_preview and (G.STATE == G.STATES.SELECTING_HAND or G.STATE == G.STATES.DRAW_TO_HAND)) and 3 or 0.4)
+            G.hand_3.T.y = 15*G.real_dt*desired_y + (1-15*G.real_dt)*G.hand_3.T.y
+            if math.abs(desired_y - G.hand_3.T.y) < 0.01 then G.hand_3.T.y = desired_y end
+            if G.STATE == G.STATES.TUTORIAL then 
+                G.play.T.y = G.hand_3.T.y - (3 + 0.6)
+            end
+        end
+        
+
+        Moveable.move(self, dt)
+        self:align_cards()
     end
 end
 
