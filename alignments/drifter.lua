@@ -20,5 +20,6 @@ CrazyStairs.Alignment {
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.current_alignment = "drifter"
+        cs_utils.random_aligned_joker()
     end,
 }

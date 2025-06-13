@@ -9,6 +9,7 @@ do
         ret.show_call_button = false
 
         ret.current_alignment = 'none'
+        ret.current_alignment_only = false
         ret.first_shop_alignment = false
         ret.first_shop_chameleon = not config.start_with_chameleon
 
@@ -150,6 +151,12 @@ do
         end
 
         original_emplace(self, card, location, stay_flipped)
+
+        if self == G.jokers then
+            if G.GAME.current_alignment_only then
+                G.GAME.current_alignment_only = false
+            end
+        end
     end
 
     local original_change_size = CardArea.change_size

@@ -20,6 +20,7 @@ CrazyStairs.Alignment {
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.current_alignment = 'muggle'
+        cs_utils.random_aligned_joker()
     end,
 
     calculate = function (self, card, context)

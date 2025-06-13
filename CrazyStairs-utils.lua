@@ -281,8 +281,12 @@ end
 
 -- ALIGNMENT UTILITY
 do
-    function cs_utils.random_alignment(chameleonable, architectable)
+    function cs_utils.random_alignment(chameleonable, architectable, onlyalignmentable)
         local card_type = pseudorandom(pseudoseed('alignment'))
+
+        if onlyalignmentable then
+            G.GAME.current_alignment_only = true
+        end
 
         if not G.GAME.first_shop_chameleon then
             G.GAME.first_shop_chameleon = true
@@ -312,6 +316,15 @@ do
                 no_edition = true
             })
         end
+    end
+
+    function cs_utils.random_aligned_joker()
+        SMODS.add_card({
+            set = 'Joker',
+            no_edition = true,
+            key_append = 'free_aligned_joker',
+            legendary = pseudorandom('free_leg_joker'..G.GAME.round_resets.ante) < 0.05
+        })
     end
 
     function cs_utils.is_alignment(alignment)

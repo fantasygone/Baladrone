@@ -21,6 +21,7 @@ CrazyStairs.Alignment {
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.current_alignment = 'thief'
+        cs_utils.random_aligned_joker()
 
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             if not CrazyStairs.BUTTONS_CREATED then

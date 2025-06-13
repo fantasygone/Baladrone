@@ -26,6 +26,6 @@ SMODS.Booster {
     end,
 
     create_card = function(self, card, i)
-        return cs_utils.random_alignment(true, false)
+        return cs_utils.random_alignment(true, false, true)
     end,
 }
