@@ -401,7 +401,7 @@ ALIGNMENT_JOKERS = {
     "keeper",
     "hacker",
     "thief",
-    "splicer",
+    "drifter",
     "spectre"
 }
 
@@ -459,7 +459,7 @@ JOKER_FILES = {
         "card_thief",
         "steal_above",
     },
-    splicer = {
+    drifter = {
         "strider",
     },
     spectre = {

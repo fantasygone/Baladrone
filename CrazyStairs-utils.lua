@@ -319,12 +319,15 @@ do
     end
 
     function cs_utils.random_aligned_joker()
-        SMODS.add_card({
-            set = 'Joker',
-            no_edition = true,
-            key_append = 'free_aligned_joker',
-            legendary = pseudorandom('free_leg_joker'..G.GAME.round_resets.ante) < 0.05
-        })
+        card_eval_status_text(G.cs_alignments.cards[1], 'extra', nil, nil, nil, {message = localize('b_free_jokers_' .. G.GAME.current_alignment), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.current_alignment]})
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            SMODS.add_card({
+                set = 'Joker',
+                no_edition = true,
+                key_append = 'free_aligned_joker',
+                legendary = pseudorandom('free_leg_joker'..G.GAME.round_resets.ante) < 0.05
+            })
+        return true end }))
     end
 
     function cs_utils.is_alignment(alignment)
