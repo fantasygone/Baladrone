@@ -4,7 +4,7 @@ SMODS.Booster {
     group_key = 'k_cs_morph_pack',
     kind = "Alignment",
     -- Shop
-    cost = 2,
+    cost = 5,
     config = {
         extra = 2,
         choose = 1
