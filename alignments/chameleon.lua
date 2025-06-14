@@ -19,7 +19,9 @@ CrazyStairs.Alignment {
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.current_alignment = 'chameleon'
-        cs_utils.random_aligned_joker()
+        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+            cs_utils.random_aligned_joker()
+        return true end }))
 
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             if not CrazyStairs.BUTTONS_CREATED then
@@ -31,7 +33,7 @@ CrazyStairs.Alignment {
     remove_from_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             -- Temporary check until more alignment-specific areas are added
-            if CrazyStairs.BUTTONS_CREATED and not cs_utils.is_alignment(card.ability.type) and not cs_utils.is_alignment('thief') then
+            if CrazyStairs.BUTTONS_CREATED and not cs_utils.is_alignment(card.ability.type) and not cs_utils.is_alignment('thief') and G.GAME.alignment_buttons then
                 G.GAME.alignment_buttons:remove()
                 CrazyStairs.BUTTONS_CREATED = false
 

@@ -232,7 +232,7 @@ if G.GAME.current_alignment ~= "chameleon" then
 else
     if v.set == 'Joker' 
     and G.GAME.current_alignment_only 
-    and v.config.alignment == null then 
+    and v.config.alignment == nil then 
         add = nil 
     end
 end

@@ -319,14 +319,21 @@ do
     end
 
     function cs_utils.random_aligned_joker()
-        card_eval_status_text(G.cs_alignments.cards[1], 'extra', nil, nil, nil, {message = localize('b_free_jokers_' .. G.GAME.current_alignment), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.current_alignment]})
-        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+        local card_ali = G.jokers.cards[#G.jokers.cards]
+
+        delay(0.2)
+        SMODS.calculate_effect({message = localize('b_free_jokers_' .. G.GAME.current_alignment), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.current_alignment]}, card_ali)
+        G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
             SMODS.add_card({
                 set = 'Joker',
                 no_edition = true,
                 key_append = 'free_aligned_joker',
-                legendary = pseudorandom('free_leg_joker'..G.GAME.round_resets.ante) < 0.05
+                legendary = pseudorandom('free_leg_joker'..G.GAME.round_resets.ante) < 0.005
             })
+
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3,func = function()
+                draw_card(G.jokers,G.cs_alignments, 90,'up', nil, card_ali)
+            return true end }))
         return true end }))
     end
 

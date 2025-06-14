@@ -17,7 +17,7 @@ position = "before"
 payload = '''
 elseif card.ability.set == 'Alignment' then 
     card:add_to_deck()
-    G.cs_alignments:emplace(card)
+    G.jokers:emplace(card)
     play_sound('card1', 0.8, 0.6)
     play_sound('generic1')
     dont_dissolve = true
