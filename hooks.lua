@@ -49,7 +49,7 @@ do
         if not args.savetext then
             CrazyStairs.BUTTONS_CREATED = false
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
-                G.GAME.shop.booster_max = G.GAME.shop.booster_max + 1
+                SMODS.change_booster_limit(1)
 
                 SMODS.add_card({set = 'Alignment', area = G.cs_alignments, key = 'ali_cs_none'})
             return true end }))
@@ -91,7 +91,7 @@ do
     function get_pack(self, _key, _type)
         if not G.GAME.first_shop_alignment and not G.GAME.banned_keys['p_cs_morph_normal_1'] then
             G.GAME.first_shop_alignment = true
-            G.GAME.shop.booster_max = G.GAME.shop.booster_max - 1
+            SMODS.change_booster_limit(-1)
             return G.P_CENTERS['p_cs_morph_normal_'..(math.random(1, 3))]
         end
 
