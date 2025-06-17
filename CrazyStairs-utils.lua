@@ -298,13 +298,13 @@ do
             })
         end
 
-        if card_type > .98 and architectable then
+        if card_type < 0.002 and architectable then
             return SMODS.create_card({
                 set = 'Alignment',
                 key = 'ali_cs_architect',
                 no_edition = true
             })
-        elseif card_type > .95 and chameleonable then
+        elseif card_type < 0.005 and chameleonable then
             return SMODS.create_card({
                 set = 'Alignment',
                 key = 'ali_cs_chameleon',

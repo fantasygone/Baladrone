@@ -11,7 +11,7 @@
 	"badge_text_colour": "6429a9",
 	"version": "0.1.9(Free Joker)",
 	"dependencies": [
-		"Steamodded (>=1.0.0~ALPHA-1310*)",
+		"Steamodded (>=1.0.0~BETA-0615*)",
 		"Lovely (>=0.7.1)"
 	],
 	"conflicts": [
