@@ -421,10 +421,10 @@ LESS_ALIGNMENT_JOKERS = {
     "chameleon",
     "none",
     "architect",
-    "splicer",
-    "gremlin",
-    "reaver",
-    "necromancer"
+    -- "splicer",
+    -- "gremlin",
+    -- "reaver",
+    -- "necromancer"
 }
 
 JOKER_FILES = {
