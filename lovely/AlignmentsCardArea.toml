@@ -30,21 +30,22 @@ match_indent = true
 
 
 
-# Set Alignment undiscovered sprite
+
+# Set Alignment undiscovered sprite while patching SMODS? wish me luck... (it worked??!?!?!?)
 [[patches]]
 [patches.pattern]
-target = "card.lua"
+target = '''=[SMODS _ "src/overrides.lua"]'''
 pattern = '''
-                elseif self.config.center.consumeable and self.config.center.demo then 
-                    self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["Tarot"], G.c_locked.pos)
+elseif _center.set == 'Joker' or _center.consumeable or _center.set == 'Voucher' then
 '''
-position = "after"
-payload = '''
+position="before"
+payload='''
 elseif not self.params.bypass_discovery_center and _center.set == 'Alignment' and not _center.discovered then 
     self.children.center = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS[_center.atlas or _center.set], 
     (_center.set == 'Alignment' and _center.undisc_pos))
 '''
 match_indent = true
+
 
 
 

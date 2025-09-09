@@ -25,12 +25,13 @@ CrazyStairs.Alignment = SMODS.Center:extend {
     set = "Alignment",
     atlas = "CrazyStairsAlignments_atlas",
     config = {},
-    required_params = { "key", "atlas", "pos" },
+    required_params = { "key", "atlas", "pos", "undisc_pos" },
     params = {
         bypass_discovery_center = false,
         bypass_discovery_ui = false,
         discover = false
     },
+    perishable_compat = true,
     pre_inject_class = function(self)
         G.P_CENTER_POOLS[self.set] = {}
     end,
@@ -420,6 +421,10 @@ LESS_ALIGNMENT_JOKERS = {
     "chameleon",
     "none",
     "architect",
+    "splicer",
+    "gremlin",
+    "reaver",
+    "necromancer"
 }
 
 JOKER_FILES = {

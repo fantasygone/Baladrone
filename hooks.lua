@@ -152,7 +152,7 @@ do
 
         original_emplace(self, card, location, stay_flipped)
 
-        if self == G.jokers and card.ability.alignment ~= nil then
+        if self == G.jokers and (card.ability.alignment ~= nil or card.ability.name == 'Joker') then
             if G.GAME.current_alignment_only then
                 G.GAME.current_alignment_only = false
             end
