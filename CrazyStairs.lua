@@ -352,6 +352,13 @@ SMODS.UndiscoveredSprite{
     no_overlay = true,
 }
 
+SMODS.Gradient {
+    key = "multchips",
+    colours = {G.C.RED, G.C.BLUE},
+    cycle = 4,
+    interpolation = 'linear'
+}
+
 -- Mod Icon in Mods tab
 SMODS.Atlas({
 	key = "modicon",
@@ -421,10 +428,10 @@ LESS_ALIGNMENT_JOKERS = {
     "chameleon",
     "none",
     "architect",
-    -- "splicer",
-    -- "gremlin",
-    -- "reaver",
-    -- "necromancer"
+    "splicer",
+    "necromancer",
+    "reaver",
+    "gremlin",
 }
 
 JOKER_FILES = {

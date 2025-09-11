@@ -34,7 +34,7 @@ jd_def["j_cs_link"] = {
             { text = ")" },
         }
     },
-    extra_config = { colour = G.C.BLUE, scale = 0.3 },
+    extra_config = { colour = SMODS.Gradients.cs_multchips, scale = 0.3 },
 
     calc_function = function(card)
         card.joker_display_values.average = card.ability.count > 0 and (math.floor(card.ability.chips_total / card.ability.count) * math.floor(card.ability.mult_total / card.ability.count)) or 0

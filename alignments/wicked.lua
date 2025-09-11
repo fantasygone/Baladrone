@@ -7,6 +7,7 @@ CrazyStairs.Alignment {
     atlas = "CrazyStairsAlignments_atlas",
     pos = { x = 3, y = 0 },
     undisc_pos = { x = 3, y = 1 },
+    overlay_undisc_pos = { x = 3, y = 2 },
     -- Player data
     unlocked = true,
     discovered = false,

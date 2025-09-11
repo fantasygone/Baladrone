@@ -151,7 +151,7 @@ return {
 					"If played hand scores",
 					"{C:attention}below{} average, adjusts score",
 					"to average once {C:attention}per ante{}",
-					"{C:inactive}(Current average score:{} {C:blue}#1#{}{C:inactive}){}"
+					"{C:inactive}(Current average score:{} {C:cs_multchips}#1#{}{C:inactive}){}"
 				}
 			},
 			j_cs_portal = {
@@ -348,6 +348,38 @@ return {
 					"plus its own"
 				},
 			},
+			ali_cs_splicer = {
+				name = "Splicer Morph",
+				text = {
+					"Allows finding",
+					"{X:cs_splicer,C:black}Splicer{} aligned",
+					"Jokers",
+				},
+			},
+			ali_cs_necromancer = {
+				name = "Necromancer Morph",
+				text = {
+					"Allows finding",
+					"{X:cs_necromancer,C:white}Necromancer{} aligned",
+					"Jokers",
+				},
+			},
+			ali_cs_reaver = {
+				name = "Reaver Morph",
+				text = {
+					"Allows finding",
+					"{X:cs_reaver,C:white}Reaver{} aligned",
+					"Jokers",
+				},
+			},
+			ali_cs_gremlin = {
+				name = "Gremlin Morph",
+				text = {
+					"Allows finding",
+					"{X:cs_gremlin,C:black}Gremlin{} aligned",
+					"Jokers",
+				},
+			},
 			ali_cs_none = {
 				name = "None",
 				text = {
@@ -536,6 +568,34 @@ return {
 				text = {
 					"Can be found while",
 					"morphed into {X:cs_chameleon, C:white}Chameleon",
+				}
+			},
+			cs_splicer_aligned = {
+				name = "Splicer Aligned",
+				text = {
+					"Can be found while",
+					"morphed into {X:cs_splicer,C:black}Splicer{}",
+				}
+			},
+			cs_reaver_aligned = {
+				name = "Reaver Aligned",
+				text = {
+					"Can be found while",
+					"morphed into {X:cs_reaver,C:white}reaver{}",
+				}
+			},
+			cs_gremlin_aligned = {
+				name = "Gremlin Aligned",
+				text = {
+					"Can be found while",
+					"morphed into {X:cs_gremlin,C:black}Gremlin{}",
+				}
+			},
+			cs_necromancer_aligned = {
+				name = "Necromancer Aligned",
+				text = {
+					"Can be found while",
+					"morphed into {X:cs_necromancer,C:white}Necromancer{}",
 				}
 			},
 			undiscovered_alignment = {

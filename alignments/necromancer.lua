@@ -1,13 +1,13 @@
 CrazyStairs.Alignment {
-    key = "keeper",
+    key = "necromancer",
     config = {
-        type = 'keeper',
+        type = 'necromancer',
     },
     -- Sprite settings
     atlas = "CrazyStairsAlignments_atlas",
-    pos = { x = 4, y = 0 },
-    undisc_pos = { x = 4, y = 1 },
-    overlay_undisc_pos = { x = 4, y = 2 },
+    pos = { x = 15, y = 0 },
+    undisc_pos = { x = 15, y = 1 },
+    overlay_undisc_pos = { x = 15, y = 2 },
     -- Player data
     unlocked = true,
     discovered = false,
@@ -20,7 +20,7 @@ CrazyStairs.Alignment {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.current_alignment = 'keeper'
+        G.GAME.current_alignment = 'necromancer'
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             cs_utils.random_aligned_joker()
         return true end }))
