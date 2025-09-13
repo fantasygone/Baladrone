@@ -410,7 +410,8 @@ ALIGNMENT_JOKERS = {
     "hacker",
     "thief",
     "drifter",
-    "spectre"
+    "spectre",
+    "necromancer"
 }
 
 LESS_ALIGNMENT_JOKERS = {
@@ -476,6 +477,9 @@ JOKER_FILES = {
     },
     spectre = {
         "random_teleport",
+    },
+    necromancer = {
+        "dual_hands",
     }
 }
 

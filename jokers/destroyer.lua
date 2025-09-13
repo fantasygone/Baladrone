@@ -40,7 +40,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.full_hand and context.destroying_card and not context.destroying_card.debuff and not context.blueprint then
+        if context.full_hand and context.destroying_card and not context.destroying_card.debuff and not context.blueprint and not context.destroying_card.getting_sliced and not context.destroying_card.destroyed and not context.destroying_card.shattered then
             local playcard = context.destroying_card
 
             if playcard.base.id == (card.ability.below.rank == 14 and 2 or (card.ability.below.rank + 1)) and not card.ability.triggered then

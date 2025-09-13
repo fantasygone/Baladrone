@@ -250,6 +250,16 @@ return {
 					"{C:inactive}(Must have room){}",
 				}
 			},
+			j_cs_dual_hands = {
+				name = "Dual Hands",
+				text = {
+					"{C:green}#1# in #2#{} chance for each",
+					"played hand to be",
+					"retriggered {C:attention}#3#{} more #4#",
+					"{C:red}Self destructs{} if cards are",
+					"{C:attention}destroyed{} when triggered",
+				}
+			},
 		},
 		Alignment = {
 			ali_cs_patron = {
@@ -628,6 +638,13 @@ return {
 					"made by {X:cs_drifter, C:black}GoldenDiscoPig{}",
 				},
 			},
+			cs_levthelion_concept = {
+				name = "Concept by Levthelion",
+				text = {
+					"This Joker concept was",
+					"made by {X:cs_necromancer,C:white}Levthelion{}",
+				},
+			},
 			-- Packs
             p_cs_morph_normal_1={
                 name = "Morph Pack",
@@ -693,6 +710,8 @@ return {
 			cs_cards = "cards",
 			cs_consumable = "consumable",
 			cs_consumables = "consumables",
+			cs_time = "time",
+			cs_times = "times",
 			cs_tarot = "Tarot",
 			cs_tarots = "Tarots",
 			cs_spectral = "Spectral",
@@ -743,6 +762,8 @@ return {
 			b_cs_stack = "Stash",
 			cs_stolen = "Stolen!",
 			cs_borrowed = "Borrowed...",
+			-- Necromancer
+			cs_twin_is_gone = "Twin is gone!",
 			-- Music stuff
 			b_music_selector = "Soundtrack",
 			ml_music_selector_opt = {

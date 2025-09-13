@@ -31,14 +31,25 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.full_hand and context.destroying_card and not context.destroying_card.debuff and not context.blueprint then
-            local playcard = context.destroying_card
-            
-            if playcard.config.center.set == 'Enhanced' then
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_destroyed'), colour = G.C.ALIGNMENT['cs_wicked']})
+        -- if context.full_hand and context.destroying_card and not context.destroying_card.debuff and not context.blueprint then
+        --     local playcard = context.destroying_card
+
+        --     if playcard.config.center.set == 'Enhanced' then
+        --         SMODS.calculate_effect({message = localize('cs_destroyed'), colour = G.C.ALIGNMENT['cs_wicked']}, card)
+        --         return {
+        --             dollars = card.ability.payout,
+        --             card = card,
+        --         }
+        --     end
+        -- end
+
+        if context.destroy_card and not context.blueprint then
+            if context.destroy_card.config.center.set == 'Enhanced' then
+                SMODS.calculate_effect({message = localize('cs_destroyed'), colour = G.C.ALIGNMENT['cs_wicked']}, card)
+                ease_dollars(card.ability.payout)
+                delay(0.3)
                 return {
-                    dollars = card.ability.payout,
-                    card = card,
+                    remove = true
                 }
             end
         end
