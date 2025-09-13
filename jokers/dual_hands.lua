@@ -54,7 +54,9 @@ SMODS.Joker {
                 if #context.full_hand ~= card.ability.retriggered_cards and card.ability.active then
                     SMODS.calculate_effect({message = localize('cs_twin_is_gone'), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.current_alignment]}, card)
 
-                    card:start_dissolve()
+                    G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
+                        card:start_dissolve()
+                    return true end }))
                 else
                     card.ability.active = false
                 end
