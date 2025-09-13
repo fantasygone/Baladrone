@@ -18,7 +18,7 @@ SMODS.Joker {
     unlocked = true,
     discovered = false,
     -- Compatibility
-    blueprint_compat = true,    -- FALSE for passive Jokers
+    blueprint_compat = false,    -- FALSE for passive Jokers
     perishable_compat = true,   -- FALSE for scaling Jokers
     eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
     rental_compat = true,       -- FALSE for idk??
@@ -37,7 +37,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.final_scoring_step and pseudorandom('dual_hands') < G.GAME.probabilities.normal/card.ability.odds and not card.ability.active then
+        if context.final_scoring_step and pseudorandom('dual_hands') < G.GAME.probabilities.normal/card.ability.odds and not card.ability.active and not context.blueprint then
             card.ability.active = true
             card.ability.retriggered_cards = #context.full_hand
 
