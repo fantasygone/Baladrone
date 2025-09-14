@@ -42,7 +42,7 @@ SMODS.Joker {
             card.ability.retriggered_cards = #context.full_hand
 
             for i = 1, card.ability.repeats do
-                SMODS.calculate_effect({message = localize('k_again_ex'), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.current_alignment]}, card)
+                SMODS.calculate_effect({message = localize('k_again_ex'), colour =  G.C.ALIGNMENT['cs_necromancer']}, card)
                 for _, v in ipairs(SMODS.get_card_areas('playing_cards')) do
                     SMODS.calculate_main_scoring({cardarea = v, full_hand = G.play.cards, scoring_hand = context.scoring_hand, scoring_name = context.scoring_name, poker_hands = context.poker_hands}, v == G.play and context.scoring_hand or nil)
                 end
@@ -51,15 +51,7 @@ SMODS.Joker {
 
         if context.full_hand and context.after and not context.blueprint then
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                if #context.full_hand ~= card.ability.retriggered_cards and card.ability.active then
-                    SMODS.calculate_effect({message = localize('cs_twin_is_gone'), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.current_alignment]}, card)
-
-                    G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
-                        card:start_dissolve()
-                    return true end }))
-                else
-                    card.ability.active = false
-                end
+                card.ability.active = false
             return true end }))
         end
     end,

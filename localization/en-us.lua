@@ -256,8 +256,6 @@ return {
 					"{C:green}#1# in #2#{} chance for each",
 					"played hand to be",
 					"retriggered {C:attention}#3#{} more #4#",
-					"{C:red}Self destructs{} if cards are",
-					"{C:attention}destroyed{} when triggered",
 				}
 			},
 		},
