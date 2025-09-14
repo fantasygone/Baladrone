@@ -20,7 +20,7 @@ SMODS.Joker {
     -- Compatibility
     blueprint_compat = false,    -- FALSE for passive Jokers
     perishable_compat = true,   -- FALSE for scaling Jokers
-    eternal_compat = false,      -- FALSE for Jokers to be sold or that expire by themselves
+    eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
     rental_compat = true,       -- FALSE for idk??
 
     loc_vars = function(self, info_queue, center)
