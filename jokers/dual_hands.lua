@@ -5,7 +5,6 @@ SMODS.Joker {
         repeats = 1,
         odds = 3,
         active = false,
-        retriggered_cards = 0,
     },
     -- Sprite settings
     atlas = "CrazyStairs_atlas",
@@ -37,9 +36,8 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.final_scoring_step and pseudorandom('dual_hands') < G.GAME.probabilities.normal/card.ability.odds and not card.ability.active and not context.blueprint then
+        if context.cs_before_final_scoring and pseudorandom('dual_hands') < G.GAME.probabilities.normal/card.ability.odds and not card.ability.active and not context.blueprint then
             card.ability.active = true
-            card.ability.retriggered_cards = #context.full_hand
 
             for i = 1, card.ability.repeats do
                 SMODS.calculate_effect({message = localize('k_again_ex'), colour =  G.C.ALIGNMENT['cs_necromancer']}, card)

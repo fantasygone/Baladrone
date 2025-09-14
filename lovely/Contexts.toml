@@ -49,3 +49,17 @@ payload = '''
 SMODS.calculate_context({cs_check_score = true})
 '''
 match_indent = true
+
+
+
+
+# Context just before final_scoring_step
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "-- context.final_scoring_step calculations"
+position = "after"
+payload = '''
+SMODS.calculate_context({full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands, cs_before_final_scoring = true})
+'''
+match_indent = true
