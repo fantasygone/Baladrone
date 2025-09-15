@@ -848,7 +848,7 @@ return {
 			},
 			-- Patron
 			ach_cs_find_patron = {
-				"Find the Patron Alignment",
+				"Morph to Patron",
 			},
 			ach_cs_win_with_patron = {
 				"Beat any stake while",
@@ -856,7 +856,7 @@ return {
 			},
 			-- Wicked
 			ach_cs_find_wicked = {
-				"Find the Wicked Alignment",
+				"Morph to Wicked",
 			},
 			ach_cs_win_with_wicked = {
 				"Beat any stake while",
@@ -864,7 +864,7 @@ return {
 			},
 			-- Joker
 			ach_cs_find_joker = {
-				"Find the Joker Alignment",
+				"Morph to Joker",
 			},
 			ach_cs_win_with_joker = {
 				"Beat any stake while",
@@ -876,7 +876,7 @@ return {
 			},
 			-- Keeper
 			ach_cs_find_keeper = {
-				"Find the Keeper Alignment",
+				"Morph to Keeper",
 			},
 			ach_cs_win_with_keeper = {
 				"Beat any stake while",
@@ -889,7 +889,7 @@ return {
 			},
 			-- Muggle
 			ach_cs_find_muggle = {
-				"Find the Muggle Alignment",
+				"Morph to Muggle",
 			},
 			ach_cs_win_with_muggle = {
 				"Beat any stake while",
@@ -897,7 +897,7 @@ return {
 			},
 			-- Hacker
 			ach_cs_find_hacker = {
-				"Find the Hacker Alignment",
+				"Morph to Hacker",
 			},
 			ach_cs_win_with_hacker = {
 				"Beat any stake while",
@@ -905,7 +905,7 @@ return {
 			},
 			-- Thief
 			ach_cs_find_thief = {
-				"Find the Thief Alignment",
+				"Morph to Thief",
 			},
 			ach_cs_win_with_thief = {
 				"Beat any stake while",
@@ -913,7 +913,7 @@ return {
 			},
 			-- Archon
 			ach_cs_find_archon = {
-				"Find the Archon Alignment",
+				"Morph to Archon",
 			},
 			ach_cs_win_with_archon = {
 				"Beat any stake while",
@@ -921,7 +921,7 @@ return {
 			},
 			-- Drifter
 			ach_cs_find_drifter = {
-				"Find the Drifter Alignment",
+				"Morph to Drifter",
 			},
 			ach_cs_win_with_drifter = {
 				"Beat any stake while",
@@ -929,7 +929,7 @@ return {
 			},
 			-- Heretic
 			ach_cs_find_heretic = {
-				"Find the Heretic Alignment",
+				"Morph to Heretic",
 			},
 			ach_cs_win_with_heretic = {
 				"Beat any stake while",
@@ -937,7 +937,7 @@ return {
 			},
 			-- Spectre
 			ach_cs_find_spectre = {
-				"Find the Spectre Alignment",
+				"Morph to Spectre",
 			},
 			ach_cs_win_with_spectre = {
 				"Beat any stake while",
@@ -945,7 +945,7 @@ return {
 			},
 			-- Chameleon
 			ach_cs_find_chameleon = {
-				"Find the Chameleon Alignment",
+				"Morph to Chameleon",
 			},
 			ach_cs_win_with_chameleon = {
 				"Beat any stake while",
@@ -953,7 +953,7 @@ return {
 			},
 			-- Splicer
 			ach_cs_find_splicer = {
-				"Find the Splicer Alignment",
+				"Morph to Splicer",
 			},
 			ach_cs_win_with_splicer = {
 				"Beat any stake while",
@@ -961,7 +961,7 @@ return {
 			},
 			-- Necromancer
 			ach_cs_find_necromancer = {
-				"Find the Necromancer Alignment",
+				"Morph to Necromancer",
 			},
 			ach_cs_win_with_necromancer = {
 				"Beat any stake while",
@@ -969,7 +969,7 @@ return {
 			},
 			-- Reaver
 			ach_cs_find_reaver = {
-				"Find the Reaver Alignment",
+				"Morph to Reaver",
 			},
 			ach_cs_win_with_reaver = {
 				"Beat any stake while",
@@ -977,7 +977,7 @@ return {
 			},
 			-- Gremlin
 			ach_cs_find_gremlin = {
-				"Find the Gremlin Alignment",
+				"Morph to Gremlin",
 			},
 			ach_cs_win_with_gremlin = {
 				"Beat any stake while",
@@ -985,7 +985,7 @@ return {
 			},
 			-- Architect
 			ach_cs_find_architect = {
-				"Find the Architect Alignment",
+				"Morph to Architect",
 			},
 			ach_cs_win_with_architect = {
 				"Beat any stake while",
