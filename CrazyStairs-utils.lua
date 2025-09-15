@@ -344,6 +344,17 @@ do
             return alignment == G.GAME.current_alignment
         end
     end
+
+    function cs_utils.morph_to_alignment(alignment)
+        G.GAME.current_alignment = alignment
+        check_for_unlock({type = 'morph', alignment = alignment})
+
+        if alignment ~= 'architect' and alignment ~= 'none' then
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                cs_utils.random_aligned_joker()
+            return true end }))
+        end
+    end
 end
 
 -- THIEF UTILITY

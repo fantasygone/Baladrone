@@ -54,6 +54,8 @@ SMODS.Joker {
                     end
                 end
 
+                check_for_unlock({target = 'j_cs_bugged_trap', type = 'repeat', count = current_repeats})
+
                 if G.jokers.cards[self_index - 1] and current_repeats > 0 then
                     for i = 1, #G.jokers.cards do
                         if context.other_card == G.jokers.cards[self_index - 1] then

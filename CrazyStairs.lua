@@ -40,7 +40,7 @@ CrazyStairs.Alignment = SMODS.Center:extend {
             return nil
         end
         return self.obj_table[key] or SMODS.Center:get_obj(key)
-    end
+    end,
 }
 
 function CrazyStairs.Alignment:is_discovered()
@@ -344,6 +344,13 @@ SMODS.Atlas {
     py = 95
 }
 
+SMODS.Atlas {
+    key = "CrazyStairsAchievements_atlas",
+    path = "CsAchievements.png",
+    px = 66,
+    py = 66
+}
+
 SMODS.UndiscoveredSprite{
     key = 'Alignment',
     atlas = "CrazyStairsAlignments_atlas",
@@ -414,7 +421,7 @@ ALIGNMENT_JOKERS = {
     "necromancer"
 }
 
-LESS_ALIGNMENT_JOKERS = {
+ALIGNMENT_CARDS = {
     "patron",
     "wicked",
     "joker",
@@ -433,6 +440,26 @@ LESS_ALIGNMENT_JOKERS = {
     "necromancer",
     "reaver",
     "gremlin",
+}
+
+ACH_ALIGNMENT_ORDER = {
+    "patron",
+    "wicked",
+    "joker",
+    "keeper",
+    "muggle",
+    "hacker",
+    "thief",
+    "archon",
+    "drifter",
+    "heretic",
+    "splicer",
+    "necromancer",
+    "reaver",
+    "gremlin",
+    "spectre",
+    "chameleon",
+    "architect",
 }
 
 JOKER_FILES = {
@@ -541,16 +568,17 @@ for i = 1, #booster_files do
 end
 
 for i = 1, #tarot_files do
-    print(tarot_files[i])
     if tarot_files[i] then assert(SMODS.load_file('tarots/'.. tarot_files[i] ..'.lua'))() end
 end
+
+assert(SMODS.load_file('achievements.lua'))()
 
 -- for i = 1, #type_files do
 --     SMODS.load_file(SMODS.current_mod.path .. "/types/" .. type_files[i] .. ".lua")()
 -- end
 
-for i = 1, #LESS_ALIGNMENT_JOKERS do
-    if LESS_ALIGNMENT_JOKERS[i] then assert(SMODS.load_file('alignments/'.. LESS_ALIGNMENT_JOKERS[i] ..'.lua'))() end
+for i = 1, #ALIGNMENT_CARDS do
+    if ALIGNMENT_CARDS[i] then assert(SMODS.load_file('alignments/'.. ALIGNMENT_CARDS[i] ..'.lua'))() end
 end
 
 -- Load and register Sounds

@@ -568,14 +568,14 @@ return {
 				name = "Spectre Aligned",
 				text = {
 					"Can be found while",
-					"morphed into {X:cs_spectre, C:black}Spectre{}",
+					"morphed into {X:cs_spectre,C:black}Spectre{}",
 				}
 			},
 			cs_chameleon_aligned = {
 				name = "Chameleon Aligned",
 				text = {
 					"Can be found while",
-					"morphed into {X:cs_chameleon, C:white}Chameleon",
+					"morphed into {X:cs_chameleon,C:white}Chameleon{}",
 				}
 			},
 			cs_splicer_aligned = {
@@ -589,7 +589,7 @@ return {
 				name = "Reaver Aligned",
 				text = {
 					"Can be found while",
-					"morphed into {X:cs_reaver,C:white}reaver{}",
+					"morphed into {X:cs_reaver,C:white}Reaver{}",
 				}
 			},
 			cs_gremlin_aligned = {
@@ -777,6 +777,220 @@ return {
 		},
 		v_dictionary = {
 			cs_just_chips = "#1#",
+		},
+		achievement_names = {
+			-- Special
+			ach_cs_well_aligned = "Well Aligned",
+			ach_cs_full_circle = "Full Circle",
+			-- Patron
+			ach_cs_find_patron = "Helping The Noobs",
+			ach_cs_win_with_patron = "Patron's Pride",
+			-- Wicked
+			ach_cs_find_wicked = "Villain Arc",
+			ach_cs_win_with_wicked = "Wicked's Treason",
+			-- Joker
+			ach_cs_find_joker = "Stage Fright",
+			ach_cs_win_with_joker = "Joker's Trick",
+			ach_cs_continuous_falling = "Continuous Falling",
+			-- Keeper
+			ach_cs_find_keeper = "Starting From The Bottom",
+			ach_cs_win_with_keeper = "Keeper's Order",
+			ach_cs_top_promotion = "Top Promotion",
+			-- Muggle
+			ach_cs_find_muggle = "Hanging There",
+			ach_cs_win_with_muggle = "Muggle's Logic",
+			-- Hacker
+			ach_cs_find_hacker = "White Hat",
+			ach_cs_win_with_hacker = "Hacker's Exploit",
+			-- Thief
+			ach_cs_find_thief = "The Scheming Begins",
+			ach_cs_win_with_thief = "Thief's Heist",
+			-- Archon
+			ach_cs_find_archon = "Newfound Knowledge",
+			ach_cs_win_with_archon = "Archon's Connection",
+			-- Drifter
+			ach_cs_find_drifter = "Places To Be",
+			ach_cs_win_with_drifter = "Drifter's Voyage",
+			-- Heretic
+			ach_cs_find_heretic = "Drawing A Circle",
+			ach_cs_win_with_heretic = "Heretic's Curse",
+			-- Spectre
+			ach_cs_find_spectre = "Will-o'-the-wisp",
+			ach_cs_win_with_spectre = "Spectre's Soul",
+			-- Chameleon
+			ach_cs_find_chameleon = "Colors At My Disposal",
+			ach_cs_win_with_chameleon = "Chameleon's Guise",
+			-- Splicer
+			ach_cs_find_splicer = "The First Half",
+			ach_cs_win_with_splicer = "Splicer's Twist",
+			-- Necromancer
+			ach_cs_find_necromancer = "A New Life",
+			ach_cs_win_with_necromancer = "Necromancer's Rite",
+			-- Reaver
+			ach_cs_find_reaver = "Handle With Care",
+			ach_cs_win_with_reaver = "Reaver's Reflection",
+			-- Gremlin
+			ach_cs_find_gremlin = "Minor Annoyance",
+			ach_cs_win_with_gremlin = "Gremlin's Spiral",
+			-- Architect
+			ach_cs_find_architect = "I Am In Charge Now",
+			ach_cs_win_with_architect = "Architect's Design",
+		},
+		achievement_descriptions = {
+			--Special 
+			ach_cs_well_aligned = {
+				"Morph into every Alignment",
+				"at least once",
+			},
+			ach_cs_full_circle = {
+				"Beat any stake",
+				"with each Alignment",
+			},
+			-- Patron
+			ach_cs_find_patron = {
+				"Find the Patron Alignment",
+			},
+			ach_cs_win_with_patron = {
+				"Beat any stake while",
+				"aligned to Patron",
+			},
+			-- Wicked
+			ach_cs_find_wicked = {
+				"Find the Wicked Alignment",
+			},
+			ach_cs_win_with_wicked = {
+				"Beat any stake while",
+				"aligned to Wicked",
+			},
+			-- Joker
+			ach_cs_find_joker = {
+				"Find the Joker Alignment",
+			},
+			ach_cs_win_with_joker = {
+				"Beat any stake while",
+				"aligned to Joker",
+			},
+			ach_cs_continuous_falling = {
+				"Trigger Bugged Trap",
+				"all of the three times",
+			},
+			-- Keeper
+			ach_cs_find_keeper = {
+				"Find the Keeper Alignment",
+			},
+			ach_cs_win_with_keeper = {
+				"Beat any stake while",
+				"aligned to Keeper",
+			},
+			ach_cs_top_promotion = {
+				"Have an Ace card",
+				"with a Rank Seal",
+				"within your deck",
+			},
+			-- Muggle
+			ach_cs_find_muggle = {
+				"Find the Muggle Alignment",
+			},
+			ach_cs_win_with_muggle = {
+				"Beat any stake while",
+				"aligned to Muggle",
+			},
+			-- Hacker
+			ach_cs_find_hacker = {
+				"Find the Hacker Alignment",
+			},
+			ach_cs_win_with_hacker = {
+				"Beat any stake while",
+				"aligned to Hacker",
+			},
+			-- Thief
+			ach_cs_find_thief = {
+				"Find the Thief Alignment",
+			},
+			ach_cs_win_with_thief = {
+				"Beat any stake while",
+				"aligned to Thief",
+			},
+			-- Archon
+			ach_cs_find_archon = {
+				"Find the Archon Alignment",
+			},
+			ach_cs_win_with_archon = {
+				"Beat any stake while",
+				"aligned to Archon",
+			},
+			-- Drifter
+			ach_cs_find_drifter = {
+				"Find the Drifter Alignment",
+			},
+			ach_cs_win_with_drifter = {
+				"Beat any stake while",
+				"aligned to Drifter",
+			},
+			-- Heretic
+			ach_cs_find_heretic = {
+				"Find the Heretic Alignment",
+			},
+			ach_cs_win_with_heretic = {
+				"Beat any stake while",
+				"aligned to Heretic",
+			},
+			-- Spectre
+			ach_cs_find_spectre = {
+				"Find the Spectre Alignment",
+			},
+			ach_cs_win_with_spectre = {
+				"Beat any stake while",
+				"aligned to Spectre",
+			},
+			-- Chameleon
+			ach_cs_find_chameleon = {
+				"Find the Chameleon Alignment",
+			},
+			ach_cs_win_with_chameleon = {
+				"Beat any stake while",
+				"aligned to Chameleon",
+			},
+			-- Splicer
+			ach_cs_find_splicer = {
+				"Find the Splicer Alignment",
+			},
+			ach_cs_win_with_splicer = {
+				"Beat any stake while",
+				"aligned to Splicer",
+			},
+			-- Necromancer
+			ach_cs_find_necromancer = {
+				"Find the Necromancer Alignment",
+			},
+			ach_cs_win_with_necromancer = {
+				"Beat any stake while",
+				"aligned to Necromancer",
+			},
+			-- Reaver
+			ach_cs_find_reaver = {
+				"Find the Reaver Alignment",
+			},
+			ach_cs_win_with_reaver = {
+				"Beat any stake while",
+				"aligned to Reaver",
+			},
+			-- Gremlin
+			ach_cs_find_gremlin = {
+				"Find the Gremlin Alignment",
+			},
+			ach_cs_win_with_gremlin = {
+				"Beat any stake while",
+				"aligned to Gremlin",
+			},
+			-- Architect
+			ach_cs_find_architect = {
+				"Find the Architect Alignment",
+			},
+			ach_cs_win_with_architect = {
+				"Beat any stake while",
+				"aligned to Architect",
+			},
 		},
 		labels = {
 			cs_lift_seal = "Lift Seal",

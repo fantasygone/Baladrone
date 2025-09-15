@@ -20,10 +20,7 @@ CrazyStairs.Alignment {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.current_alignment = 'hacker'
-        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            cs_utils.random_aligned_joker()
-        return true end }))
+        cs_utils.morph_to_alignment(self.config.type)
     end,
 
     calculate = function (self, card, context)

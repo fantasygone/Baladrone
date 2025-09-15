@@ -20,7 +20,7 @@ CrazyStairs.Alignment {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.current_alignment = 'none'
+        cs_utils.morph_to_alignment(self.config.type)
     end,
 
     calculate = function (self, card, context)
