@@ -12,12 +12,11 @@ do
         ret.current_alignment_only = false
         ret.first_shop_alignment = false
         ret.first_shop_chameleon = not config.start_with_chameleon
+        ret.cs_morphed = -1
 
         ret.current_round.cs_cards_are_blocked = false
         ret.current_round.orb_card = {called = false, cards = {}}
 
-        ret.shop.voucher_max = 1
-        ret.shop.booster_max = 2
         return ret
     end
 

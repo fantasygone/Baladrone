@@ -5,10 +5,11 @@ for i, alignment in ipairs(ACH_ALIGNMENT_ORDER) do
         hidden_pos = { x = 0, y = i - 1 },
         pos = { x = 1, y = i - 1 },
         order = i,
+        reset_on_startup = false,
 
         unlock_condition = function(self, args)
-            if args.type == 'morph' and args.alignment then
-                return cs_utils.is_alignment(alignment)
+            if args.type == 'cs_morph' then
+                return G.GAME.current_alignment == alignment
             end
         end
     }
@@ -21,10 +22,11 @@ for i, alignment in ipairs(ACH_ALIGNMENT_ORDER) do
         hidden_pos = { x = 0, y = i - 1 },
         pos = { x = 1, y = i - 1 },
         order = 0.1 + i,
+        reset_on_startup = false,
 
         unlock_condition = function(self, args)
-            if args.type == 'win' then
-                return cs_utils.is_alignment(alignment)
+            if args.type == 'cs_win_alignment' and args.count <= 1 then
+                return G.GAME.current_alignment == alignment
             end
         end
     }
@@ -38,10 +40,10 @@ SMODS.Achievement {
     hidden_pos = { x = 0, y = 17 },
     pos = { x = 1, y = 17 },
     order = 0,
-    reset_on_startup = true,
+    reset_on_startup = false,
 
     unlock_condition = function(self, args)
-        if args.morphed then
+        if args.type == 'cs_morph' then
             local tally = 0
             for _, v in pairs(G.P_CENTER_POOLS['Alignment']) do
                 if v:is_discovered() then
@@ -64,6 +66,7 @@ SMODS.Achievement {
     hidden_pos = { x = 0, y = 2 },
     pos = { x = 1, y = 2 },
     order = 3.1,
+    reset_on_startup = false,
 
     unlock_condition = function(self, args)
         if args.target == 'j_cs_bugged_trap' and args.type == 'repeat' and args.count >= 3 then
@@ -79,6 +82,7 @@ SMODS.Achievement {
     hidden_pos = { x = 0, y = 3 },
     pos = { x = 1, y = 3 },
     order = 4.1,
+    reset_on_startup = false,
 
     unlock_condition = function(self, args)
         if G.STAGE == G.STAGES.RUN then

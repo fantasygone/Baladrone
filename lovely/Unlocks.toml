@@ -1,0 +1,20 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+
+
+
+# Unlocks when you win
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+check_for_unlock({type = 'win'})
+'''
+position = "after"
+payload = '''
+check_for_unlock({type = 'cs_win_alignment', count = G.GAME.cs_morphed})
+'''
+match_indent = true
