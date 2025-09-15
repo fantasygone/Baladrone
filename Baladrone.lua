@@ -1,10 +1,10 @@
 -- Import utility functions
-cs_utils = NFS.load(SMODS.current_mod.path .. "/CrazyStairs-utils.lua")()
+cs_utils = NFS.load(SMODS.current_mod.path .. "/Baladrone-utils.lua")()
 assert(SMODS.load_file('hooks.lua'))()
-CrazyStairs = SMODS.current_mod
+Baladrone = SMODS.current_mod
 
-CrazyStairs.SUIT_ORDER = {}
-CrazyStairs.BUTTONS_CREATED = false
+Baladrone.SUIT_ORDER = {}
+Baladrone.BUTTONS_CREATED = false
 
 -- Retrigger Jokers are somehow an optional feature whyy ç_ç
 SMODS.current_mod.optional_features = function()
@@ -15,15 +15,15 @@ end
 
 -- Build suit order mapping
 for i = #SMODS.Suit.obj_buffer, 1, -1 do
-    CrazyStairs.SUIT_ORDER[SMODS.Suit.obj_buffer[i]] = i
+    Baladrone.SUIT_ORDER[SMODS.Suit.obj_buffer[i]] = i
 end
 
-CrazyStairs.Alignment = SMODS.Center:extend {
+Baladrone.Alignment = SMODS.Center:extend {
     class_prefix = "ali",
     discovered = false,
     unlocked = true,
     set = "Alignment",
-    atlas = "CrazyStairsAlignments_atlas",
+    atlas = "BaladroneAlignments_atlas",
     config = {},
     required_params = { "key", "atlas", "pos", "undisc_pos" },
     params = {
@@ -43,15 +43,15 @@ CrazyStairs.Alignment = SMODS.Center:extend {
     end,
 }
 
-function CrazyStairs.Alignment:is_discovered()
+function Baladrone.Alignment:is_discovered()
     return self.discovered or G.PROFILES[G.SETTINGS.profile].all_unlocked
 end
 
 -- Ty JoyousSpring for this function!
-CrazyStairs.create_overlay_stack = function()
-    CrazyStairs.stack_area = {}
+Baladrone.create_overlay_stack = function()
+    Baladrone.stack_area = {}
 
-    CrazyStairs.stack_area[1] = CardArea(
+    Baladrone.stack_area[1] = CardArea(
         G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2,
         G.ROOM.T.h,
         6.5 * G.CARD_W,
@@ -67,7 +67,7 @@ CrazyStairs.create_overlay_stack = function()
 
     for i = 1, #G.cs_stack.cards do
         local added_card = copy_card(G.cs_stack.cards[i])
-        CrazyStairs.stack_area[1]:emplace(added_card)
+        Baladrone.stack_area[1]:emplace(added_card)
     end
 
     G.FUNCS.overlay_menu({
@@ -140,7 +140,7 @@ CrazyStairs.create_overlay_stack = function()
                                                 {
                                                     n = G.UIT.O,
                                                     config = {
-                                                        object = CrazyStairs.stack_area[1]
+                                                        object = Baladrone.stack_area[1]
                                                     }
                                                 },
                                             }
@@ -156,8 +156,8 @@ CrazyStairs.create_overlay_stack = function()
     })
 end
 
-CrazyStairs.create_thief_buttons = function()
-    CrazyStairs.BUTTONS_CREATED = true
+Baladrone.create_thief_buttons = function()
+    Baladrone.BUTTONS_CREATED = true
 
     G.GAME.alignment_buttons = UIBox {
         definition = {
@@ -303,49 +303,49 @@ function create_call_UIBox_buttons()
 -- end
 
 SMODS.Atlas {
-    key = "CrazyStairs_atlas",
+    key = "Baladrone_atlas",
     path = "CsJokers.png",
     px = 71,
     py = 95
 }
 
 SMODS.Atlas {
-    key = "CrazyStairsSeals_atlas",
+    key = "BaladroneSeals_atlas",
     path = "CsSeals.png",
     px = 71,
     py = 95
 }
 
 SMODS.Atlas {
-    key = "CrazyStairsVouchers_atlas",
+    key = "BaladroneVouchers_atlas",
     path = "CsVouchers.png",
     px = 71,
     py = 95
 }
 
 SMODS.Atlas {
-    key = "CrazyStairsAlignments_atlas",
+    key = "BaladroneAlignments_atlas",
     path = "CsAlignments.png",
     px = 71,
     py = 95
 }
 
 SMODS.Atlas {
-    key = "CrazyStairsBoosters_atlas",
+    key = "BaladroneBoosters_atlas",
     path = "CsBoosters.png",
     px = 71,
     py = 95
 }
 
 SMODS.Atlas {
-    key = "CrazyStairsTarots_atlas",
+    key = "BaladroneTarots_atlas",
     path = "CsTarots.png",
     px = 71,
     py = 95
 }
 
 SMODS.Atlas {
-    key = "CrazyStairsAchievements_atlas",
+    key = "BaladroneAchievements_atlas",
     path = "CsAchievements.png",
     px = 66,
     py = 66
@@ -353,7 +353,7 @@ SMODS.Atlas {
 
 SMODS.UndiscoveredSprite{
     key = 'Alignment',
-    atlas = "CrazyStairsAlignments_atlas",
+    atlas = "BaladroneAlignments_atlas",
     pos = { x = 0, y = 1 },
     overlay_pos = { x = 0, y = 2 },
     no_overlay = true,
@@ -592,12 +592,12 @@ end
 
 -- local music_nums = {
 -- 	balatro = 1,
--- 	crazystairs = 2
+-- 	Baladrone = 2
 -- }
 
 -- local music_strings = {
 -- 	"balatro",
--- 	"crazystairs",
+-- 	"Baladrone",
 -- }
 
 -- G.FUNCS.change_music = function(args)
@@ -621,7 +621,7 @@ end
 SMODS.current_mod.config_tab = function()
     return {n=G.UIT.ROOT, config = {align = "cm", minh = G.ROOM.T.h*0.25, padding = 0.0, r = 0.1, colour = G.C.GREY}, nodes = {
         {n = G.UIT.R, config = { align = "cm", minw = G.ROOM.T.w*0.25 }, nodes = {
-            create_toggle{ label = localize("start_with_chameleon"), info = localize("start_with_chameleon_desc"), active_colour = CrazyStairs.badge_colour, ref_table = CrazyStairs.config, ref_value = "start_with_chameleon" },
+            create_toggle{ label = localize("start_with_chameleon"), info = localize("start_with_chameleon_desc"), active_colour = Baladrone.badge_colour, ref_table = Baladrone.config, ref_value = "start_with_chameleon" },
         }},
     }}
 end
@@ -654,7 +654,7 @@ create_UIBox_your_collection_alignments = function()
 end
 
 G.FUNCS.cs_access_stack = function(e)
-    CrazyStairs.create_overlay_stack()
+    Baladrone.create_overlay_stack()
 end
 
 G.FUNCS.draw_from_deck_to_other_hands = function(e)

@@ -8,7 +8,7 @@ SMODS.Consumable {
     },
     cost = 3,
     -- Sprite
-    atlas = "CrazyStairsTarots_atlas",
+    atlas = "BaladroneTarots_atlas",
     pos = { x = 1, y = 0 },
     -- Player data
     discovered = false,

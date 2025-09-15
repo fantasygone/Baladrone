@@ -1,10 +1,10 @@
-CrazyStairs.Alignment {
+Baladrone.Alignment {
     key = "spectre",
     config = {
         type = 'spectre',
     },
     -- Sprite settings
-    atlas = "CrazyStairsAlignments_atlas",
+    atlas = "BaladroneAlignments_atlas",
     pos = { x = 10, y = 0 },
     undisc_pos = { x = 10, y = 1 },
     overlay_undisc_pos = { x = 10, y = 2 },

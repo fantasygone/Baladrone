@@ -10,7 +10,7 @@ SMODS.Joker {
         stolen_chips = 0
     },
     -- Sprite settings
-    atlas = "CrazyStairs_atlas",
+    atlas = "Baladrone_atlas",
     pos = { x = 1, y = 10 },
     soul_pos = nil,
     -- Card info

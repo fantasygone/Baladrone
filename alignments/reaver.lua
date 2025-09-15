@@ -1,10 +1,10 @@
-CrazyStairs.Alignment {
+Baladrone.Alignment {
     key = "reaver",
     config = {
         type = 'reaver',
     },
     -- Sprite settings
-    atlas = "CrazyStairsAlignments_atlas",
+    atlas = "BaladroneAlignments_atlas",
     pos = { x = 16, y = 0 },
     undisc_pos = { x = 16, y = 1 },
     overlay_undisc_pos = { x = 16, y = 2 },

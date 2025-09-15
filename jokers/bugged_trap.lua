@@ -6,7 +6,7 @@ SMODS.Joker {
         odds = 5
     },
     -- Sprite settings
-    atlas = "CrazyStairs_atlas",
+    atlas = "Baladrone_atlas",
     pos = { x = 2, y = 3 },
     soul_pos = nil,
     -- Card info

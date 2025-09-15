@@ -3,7 +3,7 @@ SMODS.Enhancement({
     config = {
         alignment = 'joker'
     },
-    atlas = "CrazyStairsSeals_atlas",
+    atlas = "BaladroneSeals_atlas",
     pos = {x = 0, y = 1},
     weight = 0,
     

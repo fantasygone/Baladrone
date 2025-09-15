@@ -5,7 +5,7 @@ SMODS.Seal {
         alignment = 'keeper'
     },
     -- Seal Info
-    atlas = "CrazyStairsSeals_atlas",
+    atlas = "BaladroneSeals_atlas",
     pos = {x= 0, y= 2},
     sound = { sound = 'cs_seal_rank_obtained', per = 1.06, vol = 0.4 },
     -- Player Data

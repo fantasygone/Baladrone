@@ -1,10 +1,10 @@
-CrazyStairs.Alignment {
+Baladrone.Alignment {
     key = "necromancer",
     config = {
         type = 'necromancer',
     },
     -- Sprite settings
-    atlas = "CrazyStairsAlignments_atlas",
+    atlas = "BaladroneAlignments_atlas",
     pos = { x = 15, y = 0 },
     undisc_pos = { x = 15, y = 1 },
     overlay_undisc_pos = { x = 15, y = 2 },

@@ -1,10 +1,10 @@
-CrazyStairs.Alignment {
+Baladrone.Alignment {
     key = "thief",
     config = {
         type = 'thief',
     },
     -- Sprite settings
-    atlas = "CrazyStairsAlignments_atlas",
+    atlas = "BaladroneAlignments_atlas",
     pos = { x = 7, y = 0 },
     undisc_pos = { x = 7, y = 1 },
     overlay_undisc_pos = { x = 7, y = 2 },
@@ -24,17 +24,17 @@ CrazyStairs.Alignment {
         cs_utils.morph_to_alignment(self.config.type)
 
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            if not CrazyStairs.BUTTONS_CREATED then
-                CrazyStairs.create_thief_buttons()
+            if not Baladrone.BUTTONS_CREATED then
+                Baladrone.create_thief_buttons()
             end
         return true end }))
     end,
 
     remove_from_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            if CrazyStairs.BUTTONS_CREATED and not cs_utils.is_alignment(card.ability.type) then
+            if Baladrone.BUTTONS_CREATED and not cs_utils.is_alignment(card.ability.type) then
                 G.GAME.alignment_buttons:remove()
-                CrazyStairs.BUTTONS_CREATED = false
+                Baladrone.BUTTONS_CREATED = false
 
                 cs_utils.return_stolen_cards(G.deck)
             end

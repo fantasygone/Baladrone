@@ -114,7 +114,7 @@ do
     end
 
     function cs_utils.decrease_suit(card)
-        local suit_order = CrazyStairs.SUIT_ORDER
+        local suit_order = Baladrone.SUIT_ORDER
         local target_suit
 
         -- Get the current suit
@@ -131,7 +131,7 @@ do
     end
 
     function cs_utils.increase_suit(card)
-        local suit_order = CrazyStairs.SUIT_ORDER
+        local suit_order = Baladrone.SUIT_ORDER
         local target_suit
 
         -- Get the current suit

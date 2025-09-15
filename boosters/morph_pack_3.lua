@@ -11,7 +11,7 @@ SMODS.Booster {
     },
     weight = 0.1,
     -- Sprite
-	atlas = "CrazyStairsBoosters_atlas",
+	atlas = "BaladroneBoosters_atlas",
     pos = { x = 2, y = 1 },
     -- Player daya
     discovered = false,

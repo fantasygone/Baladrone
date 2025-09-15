@@ -4,7 +4,7 @@ SMODS.Joker {
         alignment = 'patron',
     },
     -- Sprite settings
-    atlas = "CrazyStairs_atlas",
+    atlas = "Baladrone_atlas",
     pos = { x = 2, y = 5 },
     soul_pos = nil,
     -- Card info

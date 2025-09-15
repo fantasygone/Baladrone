@@ -5,7 +5,7 @@ SMODS.Voucher {
         extra = 6
     },
     -- Sprite settings
-    atlas = "CrazyStairsVouchers_atlas",
+    atlas = "BaladroneVouchers_atlas",
     pos = { x = 1, y = 1 },
     soul_pos = nil,
     -- Voucher info

@@ -5,7 +5,7 @@ SMODS.Seal {
         alignment = 'drifter'
     },
     -- Seal Info
-    atlas = "CrazyStairsSeals_atlas",
+    atlas = "BaladroneSeals_atlas",
     pos = {x= 1, y= 2},
     sound = { sound = 'cs_seal_lift_obtained', per = 1.2, vol = 0.4 },
     -- Player Data

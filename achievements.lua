@@ -1,7 +1,7 @@
 for i, alignment in ipairs(ACH_ALIGNMENT_ORDER) do
     SMODS.Achievement {
         key = "find_" .. alignment,
-        atlas = 'CrazyStairsAchievements_atlas',
+        atlas = 'BaladroneAchievements_atlas',
         hidden_pos = { x = 0, y = i - 1 },
         pos = { x = 1, y = i - 1 },
         order = i,
@@ -17,7 +17,7 @@ end
 for i, alignment in ipairs(ACH_ALIGNMENT_ORDER) do
     SMODS.Achievement {
         key = "win_with_" .. alignment,
-        atlas = 'CrazyStairsAchievements_atlas',
+        atlas = 'BaladroneAchievements_atlas',
         hidden_pos = { x = 0, y = i - 1 },
         pos = { x = 1, y = i - 1 },
         order = 0.1 + i,
@@ -33,7 +33,7 @@ end
 -- Special 
 SMODS.Achievement {
     key = "well_aligned",
-    atlas = 'CrazyStairsAchievements_atlas',
+    atlas = 'BaladroneAchievements_atlas',
     hidden_text = true,
     hidden_pos = { x = 0, y = 17 },
     pos = { x = 1, y = 17 },
@@ -60,7 +60,7 @@ SMODS.Achievement {
 -- Joker
 SMODS.Achievement {
     key = "continuous_falling",
-    atlas = 'CrazyStairsAchievements_atlas',
+    atlas = 'BaladroneAchievements_atlas',
     hidden_pos = { x = 0, y = 2 },
     pos = { x = 1, y = 2 },
     order = 3.1,
@@ -75,7 +75,7 @@ SMODS.Achievement {
 -- Keeper
 SMODS.Achievement {
     key = "top_promotion",
-    atlas = 'CrazyStairsAchievements_atlas',
+    atlas = 'BaladroneAchievements_atlas',
     hidden_pos = { x = 0, y = 3 },
     pos = { x = 1, y = 3 },
     order = 4.1,
@@ -93,7 +93,7 @@ SMODS.Achievement {
 
 -- SMODS.Achievement {
 --     key = "full_circle",
---     atlas = 'CrazyStairsAchievements_atlas',
+--     atlas = 'BaladroneAchievements_atlas',
 --     hidden_text = true,
 --     hidden_pos = { x = 0, y = 17 },
 --     pos = { x = 1, y = 17 },

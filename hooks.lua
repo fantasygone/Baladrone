@@ -47,7 +47,7 @@ do
         original_start_run(self, args)
 
         if not args.savetext then
-            CrazyStairs.BUTTONS_CREATED = false
+            Baladrone.BUTTONS_CREATED = false
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
                 SMODS.change_booster_limit(1)
 
@@ -55,7 +55,7 @@ do
             return true end }))
         else
             if cs_utils.is_alignment('thief') then
-                CrazyStairs.create_thief_buttons()
+                Baladrone.create_thief_buttons()
             end
         end
     end

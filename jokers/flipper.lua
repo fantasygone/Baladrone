@@ -5,7 +5,7 @@ SMODS.Joker {
         rank_to_flip = 6
     },
     -- Sprite settings
-    atlas = "CrazyStairs_atlas",
+    atlas = "Baladrone_atlas",
     pos = { x = 0, y = 3 },
     soul_pos = nil,
     -- Card info
