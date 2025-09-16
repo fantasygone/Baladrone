@@ -43,6 +43,56 @@ Baladrone.Alignment = SMODS.Center:extend {
     end,
 }
 
+function set_alignment_win()
+    local alignment_type
+    for k, v in pairs(G.cs_alignments.cards) do
+        alignment_type = tostring(v.config.center.key):gsub("ali_cs_", "")
+        if alignment_type and v.ability.set == 'Alignment' then
+            G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type] = G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type] or {count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}, victories = 0}
+            if G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type] then
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].victories = (G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].victories or 0) + 1
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].wins = G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].wins or {}
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].wins[G.GAME.stake] or 0) + 1
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+            end
+
+            check_for_unlock({type = 'cs_alignment_victory', alignment = alignment_type, count = G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].victories})
+        end
+    end
+    G:save_settings()
+end
+
+function set_alignment_loss()
+    local alignment_type
+    for k, v in pairs(G.cs_alignments.cards) do
+        alignment_type = tostring(v.config.center.key):gsub("ali_cs_", "")
+        if alignment_type and v.ability.set == 'Alignment' then
+            if G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type] then
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].losses = G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].losses or {}
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].losses[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].losses[G.GAME.stake] or 0) + 1
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].losses_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].losses_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+            end
+        end
+    end
+    G:save_settings()
+end
+
+function set_alignment_usage()
+    local alignment_type
+    for k, v in pairs(G.cs_alignments.cards) do
+        alignment_type = tostring(v.config.center.key):gsub("ali_cs_", "")
+        if alignment_type and v.ability.set == 'Alignment' then
+            if G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type] then
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].count = G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type].count + 1
+            else
+                G.PROFILES[G.SETTINGS.profile].alignment_usage[alignment_type] = {count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+            end
+        end
+    end
+    G:save_settings()
+end
+
+
 function Baladrone.Alignment:is_discovered()
     return self.discovered or G.PROFILES[G.SETTINGS.profile].all_unlocked
 end

@@ -72,3 +72,85 @@ not self.config.center.discovered and
 end    
 '''
 match_indent = true
+
+
+
+
+# Gain Joker aligned to current Alignment when acquired
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end"
+position = "after"
+payload = '''
+if G.GAME.current_alignment ~= "chameleon" then
+    if v.set == 'Joker' 
+    and v.config.alignment ~= G.GAME.current_alignment 
+    and G.GAME.current_alignment_only then 
+        add = nil 
+    end
+else
+    if v.set == 'Joker' 
+    and G.GAME.current_alignment_only 
+    and v.config.alignment == nil then 
+        add = nil 
+    end
+end
+'''
+match_indent = true
+
+
+
+
+# Set Alignment usage
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "set_joker_usage()"
+position = "after"
+payload = '''
+set_alignment_usage()
+'''
+match_indent = true
+
+
+
+
+# Set Alignment win
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "set_joker_win()"
+position = "after"
+payload = '''
+set_alignment_win()
+'''
+match_indent = true
+
+
+
+
+# Set Alignment loss
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "set_joker_loss()"
+position = "after"
+payload = '''
+set_alignment_loss()
+'''
+match_indent = true
+
+
+
+
+# alignment_usage
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "joker_usage = {},"
+position = "after"
+payload = '''
+alignment_usage = {},
+'''
+match_indent = true

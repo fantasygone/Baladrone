@@ -782,6 +782,7 @@ return {
 			-- Special
 			ach_cs_well_aligned = "Well Aligned",
 			ach_cs_full_circle = "Full Circle",
+			ach_cs_perfect_circle = "Perfect Circle",
 			-- Patron
 			ach_cs_find_patron = "Helping The Noobs",
 			ach_cs_win_with_patron = "Patron's Pride",
@@ -844,6 +845,10 @@ return {
 			},
 			ach_cs_full_circle = {
 				"Beat any stake",
+				"with each Alignment",
+			},
+			ach_cs_perfect_circle = {
+				"Beat Gold stake",
 				"with each Alignment",
 			},
 			-- Patron

@@ -58,6 +58,52 @@ SMODS.Achievement {
         end
     end
 }
+SMODS.Achievement {
+    key = "full_circle",
+    atlas = 'BaladroneAchievements_atlas',
+    hidden_text = true,
+    hidden_pos = { x = 0, y = 17 },
+    pos = { x = 1, y = 17 },
+    order = 0.1,
+    reset_on_startup = false,
+
+    unlock_condition = function(self, args)
+        if args.type == 'cs_alignment_victory' then
+            for _, v in pairs(G.P_CENTER_POOLS['Alignment']) do
+                if v.config.type and v.config.type ~= 'architect' and v.config.type ~= 'none' then
+                    if not (G.PROFILES[G.SETTINGS.profile].alignment_usage[v.config.type] and G.PROFILES[G.SETTINGS.profile].alignment_usage[v.config.type].victories and G.PROFILES[G.SETTINGS.profile].alignment_usage[v.config.type].victories > 0) then
+                        return false
+                    end
+                end
+            end
+
+            return true
+        end
+    end
+}
+SMODS.Achievement {
+    key = "perfect_circle",
+    atlas = 'BaladroneAchievements_atlas',
+    hidden_text = true,
+    hidden_pos = { x = 0, y = 17 },
+    pos = { x = 1, y = 17 },
+    order = 0.2,
+    reset_on_startup = false,
+
+    unlock_condition = function(self, args)
+        if args.type == 'cs_alignment_victory' then
+            for _, v in pairs(G.P_CENTER_POOLS['Alignment']) do
+                if v.config.type and v.config.type ~= 'architect' and v.config.type ~= 'none' then
+                    if not (G.PROFILES[G.SETTINGS.profile].alignment_usage[v.config.type] and G.PROFILES[G.SETTINGS.profile].alignment_usage[v.config.type].wins_by_key['stake_gold'] and G.PROFILES[G.SETTINGS.profile].alignment_usage[v.config.type].wins_by_key['stake_gold'] > 0) then
+                        return false
+                    end
+                end
+            end
+
+            return true
+        end
+    end
+}
 
 -- Joker
 SMODS.Achievement {
@@ -94,28 +140,3 @@ SMODS.Achievement {
         end
     end
 }
-
--- SMODS.Achievement {
---     key = "full_circle",
---     atlas = 'BaladroneAchievements_atlas',
---     hidden_text = true,
---     hidden_pos = { x = 0, y = 17 },
---     pos = { x = 1, y = 17 },
---     order = 0.1,
-
---     unlock_condition = function(self, args)
---         if args.morphed then
---             local tally = 0
---             for _, v in pairs(G.P_CENTER_POOLS['Alignment']) do
---                 if v:is_discovered() then
---                     tally = tally + 1
---                 end
---             end
-
---             -- Architect does not count
---             if tally >= (#G.P_CENTER_POOLS['Alignment'] - 1) then
---                 return true
---             end
---         end
---     end
--- }
