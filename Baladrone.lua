@@ -595,6 +595,11 @@ local tarot_files = {
     "annihilator",
 }
 
+-- List all spectral files here
+local spectral_files = {
+    "duality",
+}
+
 -- List all type files here
 -- local type_files = {
 --     "alignment_type",
@@ -619,6 +624,10 @@ end
 
 for i = 1, #tarot_files do
     if tarot_files[i] then assert(SMODS.load_file('tarots/'.. tarot_files[i] ..'.lua'))() end
+end
+
+for i = 1, #spectral_files do
+    if spectral_files[i] then assert(SMODS.load_file('spectrals/'.. spectral_files[i] ..'.lua'))() end
 end
 
 assert(SMODS.load_file('achievements.lua'))()

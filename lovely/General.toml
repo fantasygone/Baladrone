@@ -61,9 +61,7 @@ payload = '''
         local current_cons = G.consumeables.cards[i]
 
         if current_cons.ability.cs_temp.active and current_cons.ability.cs_temp.expiry == 'ending_shop' then
-            G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
-                current_cons:start_dissolve()
-            return true end }))
+            SMODS.destroy_cards(current_cons)
         end
     end
 '''
@@ -84,9 +82,7 @@ payload = '''
 
         card_eval_status_text(cs_escalator, 'extra', nil, nil, nil, {message = localize('cs_slowed_down'), colour = G.C.ALIGNMENT["cs_hacker"]})
 
-        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-            cs_escalator:start_dissolve()
-        return true end }))
+        SMODS.destroy_cards(cs_escalator, true)
     else
         delay(0.4); ease_ante(1); delay(0.4); check_for_unlock({type = 'ante_up', ante = G.GAME.round_resets.ante + 1})
     end

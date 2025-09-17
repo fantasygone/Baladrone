@@ -414,6 +414,17 @@ return {
 				},
 			},
 		},
+		Spectral = {
+			c_cs_duality = {
+				name = "Duality",
+				text = {
+                    "Creates a {C:attention}Perishable{} copy",
+                    "of a random {C:attention}non-Perishable{}",
+                    "Joker and vice versa",
+					"{C:inactive,s:0.9}(Removes {C:dark_edition,s:0.9}Negative{C:inactive,s:0.9} from copy)",
+				},
+			},
+		},
 		Enhanced = {
 			m_cs_fake = {
 				name = "Fake Card",
@@ -448,6 +459,14 @@ return {
 			}
 		},
 		Other = {
+			cs_perishable_info = {
+                name="Perishable",
+                text={
+                    "Debuffed after",
+                    "{C:attention}5{} rounds",
+                    "{C:inactive}({C:attention}5{C:inactive} remaining)",
+                },
+			},
 			cs_fake_card = {
 				name = "Fake Card",
 				text = {

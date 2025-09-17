@@ -195,9 +195,7 @@ do
                         card_eval_status_text(new_card, 'extra', nil, nil, nil, {message = localize('cs_false'), colour = G.C.GREEN})
                         if not new_card.ability.eternal then
                             new_card.getting_sliced = true
-                            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                                new_card:start_dissolve()
-                            return true end }))
+                            SMODS.destroy_cards(new_card)
 
                             card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = 'X' .. cs_broken_drone[i].ability.x_mult .. ' Mult', colour = G.C.RED})
                         else

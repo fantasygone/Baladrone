@@ -30,7 +30,7 @@ SMODS.Consumable {
         G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.4,func = function()
             play_sound('tarot1')
             card:juice_up(0.3, 0.5)
-            G.jokers.highlighted[1]:start_dissolve()
+            SMODS.destroy_cards(G.jokers.highlighted[1], true, true)
         return true end }))
 
         delay(0.3)

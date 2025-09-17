@@ -58,6 +58,7 @@ SMODS.Achievement {
         end
     end
 }
+-- Upgrade each alignment once
 -- SMODS.Achievement {
 --     key = "full_circle",
 --     atlas = 'BaladroneAchievements_atlas',
@@ -81,6 +82,7 @@ SMODS.Achievement {
 --         end
 --     end
 -- }
+-- Upgrade each alignment to max
 -- SMODS.Achievement {
 --     key = "perfect_circle",
 --     atlas = 'BaladroneAchievements_atlas',

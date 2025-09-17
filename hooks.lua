@@ -146,7 +146,7 @@ do
     local original_emplace = CardArea.emplace
     function CardArea:emplace(card, location, stay_flipped)
         if self == G.cs_alignments and #G.cs_alignments.cards >= G.cs_alignments.config.card_limit then
-            G.cs_alignments.cards[1]:start_dissolve()
+            SMODS.destroy_cards(G.cs_alignments.cards[1])
         end
 
         original_emplace(self, card, location, stay_flipped)
