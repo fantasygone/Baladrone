@@ -65,10 +65,11 @@ return {
 			j_cs_flip_right = {
 				name = "Flip Right",
 				text = {
-					"{C:attention}Flips over{} the Joker",
+					"When not in a {C:attention}Blind{},",
+					"{C:attention}flips over{} the Joker",
 					"to the right for {C:attention}#2#{} Mana",
-					"{X:mult,C:white}X#4#{} Mult if the {C:attention}other Jokers{}",
-					"are all {C:attention}flipped over{}",
+					"{X:mult,C:white}X#4#{} Mult if the {C:attention}other{}",
+					"{C:attention}Jokers{} are all {C:attention}flipped over{}",
 					"{C:inactive}(MANA:{} {C:attention}#1#{}{C:inactive}/{}{C:attention}#3#{}{C:inactive}){}",
 				},
 			},

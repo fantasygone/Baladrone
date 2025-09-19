@@ -292,14 +292,10 @@ end
 function Card:can_flip()
     if (G.play and #G.play.cards > 0) or
         (G.CONTROLLER.locked) or 
-        (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) --or 
-        --G.STATE == G.STATES.BLIND_SELECT 
+        (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) or
+        (G.GAME.blind:get_type())
         then return false end
-    if self.area and
-        self.area.config.type == 'joker' then
-        return true
-    end
-    return false
+    return true
 end
 
 function CardArea:forcefully_add_to_highlighted(card, silent)
