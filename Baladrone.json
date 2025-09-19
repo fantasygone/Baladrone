@@ -3,13 +3,13 @@
 	"name": "Baladrone",
 	"display_name": "Baladrone",
 	"author": ["Roloversion"],
-	"description": "New Jokers and new item (Alignments)",
+	"description": "New Jokers, Tarots and Spectral Cards themed after the Roblox experience Crazy Stairs. Also, new Card type (Alignments).",
 	"prefix": "cs",
 	"main_file": "Baladrone.lua",
 	"priority": -2,
 	"badge_colour": "ef9553",
 	"badge_text_colour": "6429a9",
-	"version": "0.2.12(Duality)",
+	"version": "0.2.13(Flip Right)",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA*)",
 		"Lovely (>=0.7.1)"

@@ -14,37 +14,53 @@ end
 
 -- GAME UTILITY
 do
-    function cs_utils.flip_cards(table, trigger, delay)
-        for i=1, #table do
-            local percent = 1.15 - (i-0.999)/(#table-0.998)*0.3
-            G.E_MANAGER:add_event(Event({trigger = trigger,delay = delay,func = function() table[i]:flip();play_sound('card1', percent);table[i]:juice_up(0.3, 0.3);return true end }))
+    function cs_utils.flip_cards(cards, trigger, delay)
+        if not cards[1] then
+            cards = {cards}
+        end
+
+        for i=1, #cards do
+            local percent = 1.15 - (i-0.999)/(#cards-0.998)*0.3
+            G.E_MANAGER:add_event(Event({trigger = trigger,delay = delay,func = function() cards[i]:flip();play_sound('card1', percent);cards[i]:juice_up(0.3, 0.3);return true end }))
         end
     end
 
-    function cs_utils.flip_cards_noevent(table)
-        for i=1, #table do
-            local percent = 1.15 - (i-0.999)/(#table-0.998)*0.3
+    function cs_utils.flip_cards_noevent(cards)
+        if not cards[1] then
+            cards = {cards}
+        end
 
-            table[i]:flip()
+        for i=1, #cards do
+            local percent = 1.15 - (i-0.999)/(#cards-0.998)*0.3
+
+            cards[i]:flip()
             play_sound('card1', percent)
-            table[i]:juice_up(0.3, 0.3)
+            cards[i]:juice_up(0.3, 0.3)
         end
     end
 
-    function cs_utils.unflip_cards(table, trigger, delay)
-        for i=1, #table do
-            local percent = 0.85 + (i-0.999)/(#table-0.998)*0.3
-            G.E_MANAGER:add_event(Event({trigger = trigger,delay = delay,func = function() table[i]:flip();play_sound('tarot2', percent, 0.6);table[i]:juice_up(0.3, 0.3);return true end }))
+    function cs_utils.unflip_cards(cards, trigger, delay)
+        if not cards[1] then
+            cards = {cards}
+        end
+
+        for i=1, #cards do
+            local percent = 0.85 + (i-0.999)/(#cards-0.998)*0.3
+            G.E_MANAGER:add_event(Event({trigger = trigger,delay = delay,func = function() cards[i]:flip();play_sound('tarot2', percent, 0.6);cards[i]:juice_up(0.3, 0.3);return true end }))
         end
     end
 
-    function cs_utils.unflip_cards_noevent(table, trigger, delay)
-        for i=1, #table do
-            local percent = 0.85 + (i-0.999)/(#table-0.998)*0.3
+    function cs_utils.unflip_cards_noevent(cards, trigger, delay)
+        if not cards[1] then
+            cards = {cards}
+        end
 
-            table[i]:flip()
+        for i=1, #cards do
+            local percent = 0.85 + (i-0.999)/(#cards-0.998)*0.3
+
+            cards[i]:flip()
             play_sound('tarot2', percent, 0.6)
-            table[i]:juice_up(0.3, 0.3)
+            cards[i]:juice_up(0.3, 0.3)
         end
     end
 

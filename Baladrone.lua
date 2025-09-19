@@ -289,6 +289,19 @@ function Card:is_scaling()
     return false
 end
 
+function Card:can_flip()
+    if (G.play and #G.play.cards > 0) or
+        (G.CONTROLLER.locked) or 
+        (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) --or 
+        --G.STATE == G.STATES.BLIND_SELECT 
+        then return false end
+    if self.area and
+        self.area.config.type == 'joker' then
+        return true
+    end
+    return false
+end
+
 function CardArea:forcefully_add_to_highlighted(card, silent)
     if self.config.type == 'shop' then
         if self.highlighted[1] then
@@ -524,6 +537,7 @@ JOKER_FILES = {
     },
     joker = {
         "trap",
+        "flip_right",
         "bugged_trap",
         "disco",
         "flipper",
@@ -789,6 +803,47 @@ G.FUNCS.call_cards_from_highlighted = function(e, hook)
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3,func = function()
         cs_utils.return_extra_hands_to_deck(#G.hand_2.cards > 0, #G.hand_3.cards > 0, false)
     return true end }))
+end
+
+G.FUNCS.flip_card = function(e)
+    local card = e.config.ref_table
+    if not card and not card.config.target then return end
+    local target = card.config.target
+
+    if card.highlighted then
+        card:highlight(false)
+    end
+
+    card.ability.mana = card.ability.mana - card.ability.mana_cost
+
+    cs_utils.flip_cards(target, 'before', 0.1)
+    SMODS.calculate_effect({message = localize('cs_flipped'), colour =  G.C.ALIGNMENT['cs_joker']}, card)
+    play_sound('cs_flip')
+end
+
+G.FUNCS.can_flip_card = function(e)
+    local card = e.config.ref_table
+
+    if card and card:can_flip() and card.ability.mana >= card.ability.mana_cost and #G.jokers.cards > 1 then
+        local card_index
+
+        for index, c in ipairs(G.jokers.cards) do
+            if c == card then
+                card_index = index
+                break
+            end
+        end
+
+        if card_index and G.jokers.cards[card_index + 1] then
+            card.config.target = G.jokers.cards[card_index + 1]
+            e.config.colour = G.C.ALIGNMENT['cs_joker']
+            e.config.button = 'flip_card'
+            return
+        end
+    end
+
+    e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+    e.config.button = nil
 end
 
 if JokerDisplay then

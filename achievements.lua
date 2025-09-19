@@ -133,7 +133,7 @@ SMODS.Achievement {
     reset_on_startup = false,
 
     unlock_condition = function(self, args)
-        if G.STAGE == G.STAGES.RUN then
+        if G.STAGE == G.STAGES.RUN and G.playing_cards then
             for k, v in pairs(G.playing_cards) do
                 if v.seal == 'cs_rank' and v:get_id() == 14 then return true end
             end

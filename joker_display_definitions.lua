@@ -93,6 +93,27 @@ jd_def["j_cs_disco"] = {
     end
 }
 
+jd_def["j_cs_flip_right"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+            }
+        }
+    },
+    calc_function = function(card)
+        local flipped = 0
+        for _, jok in pairs(G.jokers.cards) do
+            if jok ~= card and jok.facing == 'back' then
+                flipped = flipped + 1
+            end
+        end
+
+        card.joker_display_values.x_mult = (flipped == #G.jokers.cards - 1) and card.ability.extra.mult or 1
+    end,
+}
+
 -- Wicked
 
 jd_def["j_cs_destroyer"] = {

@@ -62,6 +62,16 @@ return {
                     "repeat {C:attention}1 or more{} times",
                 },
 			},
+			j_cs_flip_right = {
+				name = "Flip Right",
+				text = {
+					"{C:attention}Flips over{} the Joker",
+					"to the right for {C:attention}#2#{} Mana",
+					"{X:mult,C:white}X#4#{} Mult if the {C:attention}other Jokers{}",
+					"are all {C:attention}flipped over{}",
+					"{C:inactive}(MANA:{} {C:attention}#1#{}{C:inactive}/{}{C:attention}#3#{}{C:inactive}){}",
+				},
+			},
 			j_cs_destroyer = {
 				name = "Destroyer",
 				text = {
@@ -717,7 +727,7 @@ return {
 			b_free_jokers_drifter="To infinity and beyond!",
 			b_free_jokers_heretic="Make good use of dark magic!",
 			b_free_jokers_spectre="This is a temporary arrangement",
-			b_free_jokers_splicer="Lets join forces!",
+			b_free_jokers_splicer="Let's join forces!",
 			b_free_jokers_necromancer="We just wanna play",
 			b_free_jokers_reaver="Just don't break this",
 			b_free_jokers_gremlin="WHEEEEEEEEEEE!",
@@ -751,6 +761,7 @@ return {
 			cs_fake_played = "Hahaha!",
 			cs_lame = "Lame",
 			cs_fall_again = "Fall Again!",
+			b_flip = "FLIP",
 			-- Wicked
 			cs_destroyed = "Destroyed!",
 			cs_damaged = "Damaged!",
