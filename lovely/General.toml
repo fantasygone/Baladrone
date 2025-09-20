@@ -13,8 +13,13 @@ target = "functions/common_events.lua"
 pattern = '''-- TARGET: main scoring on played cards'''
 position = "after"
 payload = '''
-if card.ability.cs_fake then
+if card.ability.cs_fake and not card.debuff then
     ret.playing_card.chips = card.base.nominal - (card.base.nominal*2)
+
+    if card.config.center ~= G.P_CENTERS.m_cs_fake then
+        card:set_ability(G.P_CENTERS['m_cs_fake'])
+        card:juice_up(0.6, 0.6)
+    end
 end
 '''
 match_indent = true

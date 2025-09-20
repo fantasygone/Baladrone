@@ -86,10 +86,6 @@ SMODS.Joker {
                 local current = context.scoring_hand[i]
                 if current.ability.cs_fake and not current.debuff then
                     playedFake = true
-                    if current.config.center ~= G.P_CENTERS.m_cs_fake then
-                        current:set_ability(G.P_CENTERS['m_cs_fake'])
-                        current:juice_up(0.6, 0.6)
-                    end
                 end
             end
 
