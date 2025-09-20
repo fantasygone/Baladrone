@@ -16,7 +16,7 @@ SMODS.Joker {
     soul_pos = nil,
     -- Card info
     rarity = 1, --Common
-    cost = 4,
+    cost = 5,
     -- Player data
     unlocked = true,
     discovered = false,
