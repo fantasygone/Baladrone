@@ -110,7 +110,7 @@ jd_def["j_cs_flip_right"] = {
             end
         end
 
-        card.joker_display_values.x_mult = (flipped == #G.jokers.cards - 1) and card.ability.extra.mult or 1
+        card.joker_display_values.x_mult = (flipped == #G.jokers.cards - 1 and #G.jokers.cards > 1) and card.ability.extra.mult or 1
     end,
 }
 

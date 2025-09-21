@@ -45,7 +45,7 @@ SMODS.Joker {
                 end
             end
 
-            if flipped == (#G.jokers.cards - 1) then
+            if #G.jokers.cards > 1 and flipped == (#G.jokers.cards - 1) then
                 return {
                     xmult = card.ability.extra.mult,
                 }
