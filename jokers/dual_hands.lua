@@ -42,7 +42,7 @@ SMODS.Joker {
             for i = 1, card.ability.repeats do
                 SMODS.calculate_effect({message = localize('k_again_ex'), colour =  G.C.ALIGNMENT['cs_necromancer']}, card)
                 for _, v in ipairs(SMODS.get_card_areas('playing_cards')) do
-                    SMODS.calculate_main_scoring({cardarea = v, full_hand = G.play.cards, scoring_hand = context.scoring_hand, scoring_name = context.scoring_name, poker_hands = context.poker_hands}, v == G.play and context.scoring_hand or nil)
+                    SMODS.calculate_main_scoring({cardarea = v, full_hand = G.play.cards, scoring_hand = context.cs_scoring_hand, scoring_name = context.cs_scoring_name, poker_hands = context.cs_poker_hands}, v == G.play and context.cs_scoring_hand or nil)
                 end
             end
         end
