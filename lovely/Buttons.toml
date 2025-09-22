@@ -19,7 +19,7 @@ print(card.config.center.key)
 if (card.area == G.jokers and G.jokers and card.config.center.key == 'j_cs_flip_right') and G.STATE ~= G.STATES.TUTORIAL then 
 base_attach.children.flip = G.UIDEF.card_focus_button{
     card = card, parent = base_attach, type = 'flip',
-    func = 'can_flip_card', button = 'flip_card', card_width = card_width
+    func = 'cs_can_flip_card', button = 'cs_flip_card', card_width = card_width
 }
 end
 '''
@@ -45,7 +45,7 @@ match_indent = true
 
 
 
-# Flip button for Flip Right
+# Buttons creation
 [[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -55,6 +55,7 @@ local use = nil
 position = "after"
 payload = '''
 local flip = nil
+local restore = nil
 
 -- Flip button
 if card.area and card.area.config.type == 'joker' and card.config.center.key == 'j_cs_flip_right' then
@@ -62,18 +63,36 @@ if card.area and card.area.config.type == 'joker' and card.config.center.key == 
     { n = G.UIT.C, config = {
         ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25,
         hover = true, shadow = true, colour = G.C.ALIGNMENT['cs_joker'],
-        one_press = true, button = 'flip_card', func = 'can_flip_card'
+        one_press = true, button = 'cs_flip_card', func = 'cs_can_flip_card'
       }, nodes = {
         { n = G.UIT.B, config = { w = 0.1, h = 0.6 } },
-        -- THIS COLUMN forces vertical stacking of the two rows below
         { n = G.UIT.C, config = { align = "tm" }, nodes = {
-            -- first row: FLIP label
             { n = G.UIT.R, config = { align = "cm", maxw = 1.25 }, nodes = {
                 { n = G.UIT.T, config = { text = localize('b_flip'), colour = G.C.UI.TEXT_DARK, scale = 0.40, shadow = true } }
             }},
-            -- second row: cost under the label
             { n = G.UIT.R, config = { align = "cm" }, nodes = {
-                { n = G.UIT.T, config = { text = "-2 MANA", colour = G.C.RED, scale = 0.35, shadow = true } }
+                { n = G.UIT.T, config = { text = "-" .. card.ability.spell.mana_cost .. " MANA", colour = G.C.UI.TEXT_LIGHT, scale = 0.35, shadow = true } }
+            }}
+        }},
+    }},
+  }}
+end
+
+-- Restore button
+if card.area and card.area.config.type == 'joker' and card.config.center.key == 'j_cs_restoration' then
+  restore = { n = G.UIT.C, config = { align = "cr" }, nodes = {
+    { n = G.UIT.C, config = {
+        ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25,
+        hover = true, shadow = true, colour = G.C.ALIGNMENT['cs_keeper'],
+        one_press = true, button = 'cs_restore_card', func = 'cs_can_restore_card'
+      }, nodes = {
+        { n = G.UIT.B, config = { w = 0.1, h = 0.6 } },
+        { n = G.UIT.C, config = { align = "tm" }, nodes = {
+            { n = G.UIT.R, config = { align = "cm", maxw = 1.25 }, nodes = {
+                { n = G.UIT.T, config = { text = localize('b_restore'), colour = G.C.UI.TEXT_LIGHT, scale = 0.40, shadow = true } }
+            }},
+            { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                { n = G.UIT.T, config = { text = "-" .. card.ability.spell.mana_cost .. " MANA", colour = G.C.UI.TEXT_LIGHT, scale = 0.35, shadow = true } }
             }}
         }},
     }},
@@ -85,7 +104,7 @@ match_indent = true
 
 
 
-# Flip button for Flip Right
+# Add them buttons
 [[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
@@ -97,13 +116,24 @@ function G.UIDEF.card_focus_ui(card)
 '''
 position = "before"
 payload = '''
-t = {
-  n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-    {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
-      {n=G.UIT.R, config={align = 'cl'}, nodes={sell}},
-      {n=G.UIT.R, config={align = 'cl'}, nodes={use or flip}},  -- stack underneath
-    }},
+if card.config.center.key == 'j_cs_flip_right' then
+  t = {
+    n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+      {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
+        {n=G.UIT.R, config={align = 'cl'}, nodes={sell}},
+        {n=G.UIT.R, config={align = 'cl'}, nodes={flip}},
+      }},
+    }
   }
-}
+elseif card.config.center.key == 'j_cs_restoration' then
+  t = {
+    n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+      {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
+        {n=G.UIT.R, config={align = 'cl'}, nodes={sell}},
+        {n=G.UIT.R, config={align = 'cl'}, nodes={restore}},
+      }},
+    }
+  }
+end
 '''
 match_indent = true

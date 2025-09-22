@@ -42,7 +42,7 @@ SMODS.Joker {
         if context.first_hand_drawn and G.GAME.blind:get_type() == 'Small' and not context.blueprint then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_calling'), colour = G.C.ALIGNMENT['cs_patron']})
             G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
-                G.FUNCS.draw_from_deck_to_other_hands()
+                G.FUNCS.cs_draw_from_deck_to_other_hands()
             return true end }))
         end
     end,

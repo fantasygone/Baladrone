@@ -58,7 +58,7 @@ SMODS.Joker {
 
                     G.hand.highlighted[#G.hand.highlighted+1] = curcard
                     G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
-                        G.hand:forcefully_add_to_highlighted(curcard)
+                        G.hand:cs_forcefully_add_to_highlighted(curcard)
                     return true end }))
                 end
             end

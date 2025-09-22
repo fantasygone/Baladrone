@@ -3,9 +3,10 @@ SMODS.Joker {
     config = {
         alignment = 'joker',
         target = nil,
-        mana = 10,
-        mana_cost = 2,
-        mana_max = 10,
+        spell = {
+            mana = -1,
+            mana_cost = 2,
+        },
         extra = {
             mult = 3
         },
@@ -29,11 +30,17 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, center)
         info_queue[#info_queue + 1] = {key = 'cs_joker_aligned', set = 'Other'}
         return {vars = {
-            center.ability.mana,
-            center.ability.mana_cost,
-            center.ability.mana_max,
+            center.ability.spell.mana < 0 and G.GAME.cs_mana_max or center.ability.spell.mana,
+            center.ability.spell.mana_cost,
+            G.GAME.cs_mana_max,
             center.ability.extra.mult
         }}
+    end,
+
+    add_to_deck = function(self, card, from_debuff)
+        if not from_debuff then
+            card.ability.spell.mana = G.GAME.cs_mana_max
+        end
     end,
 
     calculate = function (self, card, context)

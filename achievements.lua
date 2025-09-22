@@ -9,7 +9,7 @@ for i, alignment in ipairs(ACH_ALIGNMENT_ORDER) do
 
         unlock_condition = function(self, args)
             if args.type == 'cs_morph' then
-                return G.GAME.current_alignment == alignment
+                return G.GAME.cs_current_alignment == alignment
             end
         end
     }
@@ -26,7 +26,7 @@ for i, alignment in ipairs(ACH_ALIGNMENT_ORDER) do
 
         unlock_condition = function(self, args)
             if args.type == 'cs_win_alignment' and args.count <= 1 then
-                return G.GAME.current_alignment == alignment
+                return G.GAME.cs_current_alignment == alignment
             end
         end
     }

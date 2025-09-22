@@ -83,15 +83,15 @@ target = "functions/common_events.lua"
 pattern = "if v.yes_pool_flag and not G.GAME.pool_flags[v.yes_pool_flag] then add = nil end"
 position = "after"
 payload = '''
-if G.GAME.current_alignment ~= "chameleon" then
+if G.GAME.cs_current_alignment ~= "chameleon" then
     if v.set == 'Joker' 
-    and v.config.alignment ~= G.GAME.current_alignment 
-    and G.GAME.current_alignment_only then 
+    and v.config.alignment ~= G.GAME.cs_current_alignment 
+    and G.GAME.cs_current_alignment_only then 
         add = nil 
     end
 else
     if v.set == 'Joker' 
-    and G.GAME.current_alignment_only 
+    and G.GAME.cs_current_alignment_only 
     and v.config.alignment == nil then 
         add = nil 
     end

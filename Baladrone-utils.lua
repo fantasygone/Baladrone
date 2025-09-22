@@ -186,14 +186,24 @@ do
     end
 
     function cs_utils.move_cards(from, to, cards)
-        for i = 1, #cards do    
+        for i = 1, #cards do
             from:remove_card(cards[i])
             to:emplace(cards[i])
         end
     end
+
+    function cs_utils.save_debuffed_cards(cards, cardsToRestore)
+        for _, c in ipairs(cards) do
+            if c.debuff then
+                table.insert(cardsToRestore, c)
+            end
+        end
+
+        return cardsToRestore
+    end
 end
 
--- JOKER UTILITY
+-- JOKER CARDS UTILITY
 do
     function cs_utils.get_random_warning()
         local index = math.random(#impostor_warnings)
@@ -223,6 +233,12 @@ do
                 end
             end
         return true end }))
+    end
+
+    function cs_utils.add_mana(card, amount)
+        if not card then return end
+
+        card.ability.spell.mana = math.max(0, math.min(card.ability.spell.mana + amount, G.GAME.cs_mana_max))
     end
 end
 
@@ -299,11 +315,11 @@ do
         local card_type = pseudorandom(pseudoseed('alignment'))
 
         if onlyalignmentable then
-            G.GAME.current_alignment_only = true
+            G.GAME.cs_current_alignment_only = true
         end
 
-        if not G.GAME.first_shop_chameleon then
-            G.GAME.first_shop_chameleon = true
+        if not G.GAME.cs_first_shop_chameleon then
+            G.GAME.cs_first_shop_chameleon = true
 
             return SMODS.create_card({
                 set = 'Alignment',
@@ -336,7 +352,7 @@ do
         local card_ali = G.jokers.cards[#G.jokers.cards]
 
         delay(0.2)
-        SMODS.calculate_effect({message = localize('b_free_jokers_' .. G.GAME.current_alignment), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.current_alignment]}, card_ali)
+        SMODS.calculate_effect({message = localize('b_free_jokers_' .. G.GAME.cs_current_alignment), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.cs_current_alignment]}, card_ali)
         G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
             SMODS.add_card({
                 set = 'Joker',
@@ -352,15 +368,15 @@ do
     end
 
     function cs_utils.is_alignment(alignment)
-        if G.GAME.current_alignment == 'chameleon' then
+        if G.GAME.cs_current_alignment == 'chameleon' then
             return true
         else
-            return alignment == G.GAME.current_alignment
+            return alignment == G.GAME.cs_current_alignment
         end
     end
 
     function cs_utils.morph_to_alignment(alignment)
-        G.GAME.current_alignment = alignment
+        G.GAME.cs_current_alignment = alignment
         G.GAME.cs_morphed = G.GAME.cs_morphed + 1
         check_for_unlock({type = 'cs_morph'})
 
@@ -436,9 +452,9 @@ do
 
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             if reset then
-                G.GAME.current_round.orb_card = {called = false, cards = {}}
+                G.GAME.current_round.cs_orb_card = {called = false, cards = {}}
             else
-                G.GAME.current_round.orb_card.called = true
+                G.GAME.current_round.cs_orb_card.called = true
             end
 
             cs_utils.refresh_play_discard_UI()

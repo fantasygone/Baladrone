@@ -118,12 +118,20 @@ return {
 			},
 			j_cs_restoration = {
 				name = "Restoration",
+				-- text = {
+				-- 	"Restores debuffed",
+				-- 	"cards every {C:attention}#1#{} {C:inactive}[#2#]{}",
+				-- 	"scoring cards played",
+				-- 	"{C:inactive}(Includes Joker cards){}",
+				-- 	"{C:inactive}(Dispels self-debuffs){}"
+				-- }
 				text = {
-					"Restores debuffed",
-					"cards every {C:attention}#1#{} {C:inactive}[#2#]{}",
-					"scoring cards played",
+					"Every {C:attention}#1#{} {C:inactive}[#2#]{} cards played,",
+					"restores debuffed cards",
+					"for {C:attention}1{} Mana per card",
 					"{C:inactive}(Includes Joker cards){}",
-					"{C:inactive}(Dispels self-debuffs){}"
+					"{C:inactive}(Dispels self-debuffs){}",
+					"{C:inactive}(MANA:{} {C:attention}#3#{}{C:inactive}/{}{C:attention}#4#{}{C:inactive}){}",
 				}
 			},
 			j_cs_move_up = {
@@ -784,6 +792,7 @@ return {
 			-- Keeper
 			cs_restored = "Restored!",
 			cs_promoted = "Promoted!",
+			b_restore = "RESTORE",
 			-- Hacker
 			cs_slowed_down = "Slowed Down!",
 			cs_scaling = "Scaling",

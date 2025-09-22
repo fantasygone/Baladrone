@@ -1,6 +1,7 @@
 -- Import utility functions
 cs_utils = NFS.load(SMODS.current_mod.path .. "/Baladrone-utils.lua")()
 assert(SMODS.load_file('hooks.lua'))()
+assert(SMODS.load_file('functions.lua'))()
 Baladrone = SMODS.current_mod
 
 Baladrone.SUIT_ORDER = {}
@@ -261,7 +262,7 @@ Baladrone.create_thief_buttons = function()
     }
 end
 
-function Card:undebuff_this()
+function Card:cs_undebuff_this()
     if self.debuff then
         self:add_to_deck(true)
         self:juice_up(0.3, 0.3)
@@ -273,7 +274,7 @@ function Card:undebuff_this()
     end
 end
 
-function Card:is_scaling()
+function Card:cs_is_scaling()
     -- Most scaling Jokers are not perish compat
     if not self.config.center.perishable_compat then
         return true
@@ -289,16 +290,16 @@ function Card:is_scaling()
     return false
 end
 
-function Card:can_flip()
+function Card:cs_can_interact()
     if (G.play and #G.play.cards > 0) or
         (G.CONTROLLER.locked) or 
         (G.GAME.STOP_USE and G.GAME.STOP_USE > 0) or
-        (G.GAME.blind:get_type())
+        (self.debuff)
         then return false end
     return true
 end
 
-function CardArea:forcefully_add_to_highlighted(card, silent)
+function CardArea:cs_forcefully_add_to_highlighted(card, silent)
     if self.config.type == 'shop' then
         if self.highlighted[1] then
             self:remove_from_highlighted(self.highlighted[1])
@@ -327,7 +328,7 @@ end
 
 function create_call_UIBox_buttons()
     local text_scale = 0.45
-    local call_button = {n=G.UIT.C, config={id = 'call_button', align = "tm", minw = 2.5, padding = 0.3, r = 0.1, hover = true, colour = G.C.GREEN, button = "call_cards_from_highlighted", one_press = true, shadow = true, func = 'can_call'}, nodes={
+    local call_button = {n=G.UIT.C, config={id = 'call_button', align = "tm", minw = 2.5, padding = 0.3, r = 0.1, hover = true, colour = G.C.GREEN, button = "cs_call_cards_from_highlighted", one_press = true, shadow = true, func = 'cs_can_call'}, nodes={
       {n=G.UIT.R, config={align = "bcm", padding = 0}, nodes={
         {n=G.UIT.T, config={text = localize('b_call_hand'), scale = text_scale, colour = G.C.UI.TEXT_LIGHT, focus_args = {button = 'x', orientation = 'bm'}, func = 'set_button_pip'}}
       }},
@@ -720,126 +721,6 @@ create_UIBox_your_collection_alignments = function()
         no_materialize = false,
         h_mod = 0.95,
     })
-end
-
-G.FUNCS.cs_access_stack = function(e)
-    Baladrone.create_overlay_stack()
-end
-
-G.FUNCS.draw_from_deck_to_other_hands = function(e)
-    if not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and
-        G.hand.config.card_limit <= 0 and #G.hand.cards == 0 then 
-        G.STATE = G.STATES.GAME_OVER; G.STATE_COMPLETE = false 
-        return true
-    end
-
-    local hand_space_2 = e or math.min(#G.deck.cards, G.hand_2.config.card_limit - #G.hand_2.cards)
-    local hand_space_3 = e or math.min(#G.deck.cards, G.hand_3.config.card_limit - #G.hand_3.cards)
-
-    delay(0.3)
-    for i=1, hand_space_2 do
-        draw_card(G.deck,G.hand_2, i*100/hand_space_2,'up', true)
-    end
-
-    delay(0.3)
-    for i=1, hand_space_3 do
-        draw_card(G.deck,G.hand_3, i*100/hand_space_3,'up', true)
-    end
-
-    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-        G.GAME.show_call_button = true
-    return true end }))
-end
-
-G.FUNCS.can_call = function(e)
-    if #G.hand.highlighted + #G.hand_2.highlighted + #G.hand_3.highlighted <= 0 or not G.GAME.show_call_button then
-        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil
-    else
-        e.config.colour = G.C.GREEN
-        e.config.button = 'call_cards_from_highlighted'
-    end
-end
-
-G.FUNCS.call_cards_from_highlighted = function(e, hook)
-    G.GAME.show_call_button = false
-
-    stop_use()
-    card_eval_status_text(SMODS.find_card('j_cs_call_the_orb')[1], 'extra', nil, nil, nil, {message = localize('cs_called'), colour = G.C.ALIGNMENT['cs_patron']})
-    G.GAME.current_round.orb_card.cards = {}
-
-    local hand_high = {}
-    for _, card in ipairs(G.hand.highlighted) do
-        table.insert(hand_high, card)
-    end
-    for i = 1, #hand_high do
-        table.insert(G.GAME.current_round.orb_card.cards, hand_high[i])
-    end
-
-    local hand2_high = {}
-    for _, card in ipairs(G.hand_2.highlighted) do
-        table.insert(hand2_high, card)
-    end
-    for i = 1, #hand2_high do
-        table.insert(G.GAME.current_round.orb_card.cards, hand2_high[i])
-    end
-
-    local hand3_high = {}
-    for _, card in ipairs(G.hand_3.highlighted) do
-        table.insert(hand3_high, card)
-    end
-    local hand3_high = G.hand_3.highlighted
-    for i = 1, #hand3_high do
-        table.insert(G.GAME.current_round.orb_card.cards, hand3_high[i])
-    end
-
-    G.hand:unhighlight_all()
-    G.hand_2:unhighlight_all()
-    G.hand_3:unhighlight_all()
-    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3,func = function()
-        cs_utils.return_extra_hands_to_deck(#G.hand_2.cards > 0, #G.hand_3.cards > 0, false)
-    return true end }))
-end
-
-G.FUNCS.flip_card = function(e)
-    local card = e.config.ref_table
-    if not card and not card.config.target then return end
-    local target = card.config.target
-
-    if card.highlighted then
-        card:highlight(false)
-    end
-
-    card.ability.mana = card.ability.mana - card.ability.mana_cost
-
-    cs_utils.flip_cards(target, 'before', 0.1)
-    SMODS.calculate_effect({message = localize('cs_flipped'), colour =  G.C.ALIGNMENT['cs_joker']}, card)
-    play_sound('cs_flip')
-end
-
-G.FUNCS.can_flip_card = function(e)
-    local card = e.config.ref_table
-
-    if card and card:can_flip() and card.ability.mana >= card.ability.mana_cost and #G.jokers.cards > 1 then
-        local card_index
-
-        for index, c in ipairs(G.jokers.cards) do
-            if c == card then
-                card_index = index
-                break
-            end
-        end
-
-        if card_index and G.jokers.cards[card_index + 1] then
-            card.config.target = G.jokers.cards[card_index + 1]
-            e.config.colour = G.C.ALIGNMENT['cs_joker']
-            e.config.button = 'flip_card'
-            return
-        end
-    end
-
-    e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-    e.config.button = nil
 end
 
 if JokerDisplay then

@@ -6,16 +6,17 @@ do
     Game.init_game_object = function(self)
         local ret = igo(self)
 
-        ret.show_call_button = false
+        ret.cs_show_call_button = false
+        ret.cs_mana_max = 10
 
-        ret.current_alignment = 'none'
-        ret.current_alignment_only = false
-        ret.first_shop_alignment = false
-        ret.first_shop_chameleon = not config.start_with_chameleon
+        ret.cs_current_alignment = 'none'
+        ret.cs_current_alignment_only = false
+        ret.cs_first_shop_alignment = false
+        ret.cs_first_shop_chameleon = not config.start_with_chameleon
         ret.cs_morphed = -1
 
         ret.current_round.cs_cards_are_blocked = false
-        ret.current_round.orb_card = {called = false, cards = {}}
+        ret.current_round.cs_orb_card = {called = false, cards = {}}
 
         return ret
     end
@@ -88,8 +89,8 @@ do
 
     local original_get_pack = get_pack
     function get_pack(self, _key, _type)
-        if not G.GAME.first_shop_alignment and not G.GAME.banned_keys['p_cs_morph_normal_1'] then
-            G.GAME.first_shop_alignment = true
+        if not G.GAME.cs_first_shop_alignment and not G.GAME.banned_keys['p_cs_morph_normal_1'] then
+            G.GAME.cs_first_shop_alignment = true
             SMODS.change_booster_limit(-1)
             return G.P_CENTERS['p_cs_morph_normal_'..(math.random(1, 3))]
         end
@@ -117,7 +118,7 @@ do
 
     local original_create_UIBox_buttons = create_UIBox_buttons
     function create_UIBox_buttons()
-        if #SMODS.find_card('j_cs_call_the_orb') > 0 and not G.GAME.current_round.orb_card.called and G.GAME.blind:get_type() == 'Small' then
+        if #SMODS.find_card('j_cs_call_the_orb') > 0 and not G.GAME.current_round.cs_orb_card.called and G.GAME.blind:get_type() == 'Small' then
             return create_call_UIBox_buttons()
         else
             return original_create_UIBox_buttons()
@@ -152,8 +153,8 @@ do
         original_emplace(self, card, location, stay_flipped)
 
         if self == G.jokers and (card.ability.alignment ~= nil or card.ability.name == 'Joker') then
-            if G.GAME.current_alignment_only then
-                G.GAME.current_alignment_only = false
+            if G.GAME.cs_current_alignment_only then
+                G.GAME.cs_current_alignment_only = false
             end
         end
     end
@@ -220,7 +221,7 @@ do
     local CardArea_draw_ref=CardArea.draw
     -- enable Alignments area to draw alignments in it
     function CardArea:draw()
-        if ((self == G.hand_2 or self == G.hand_3) and (#SMODS.find_card('j_cs_call_the_orb') < 1 or (G.GAME.blind:get_type() and G.GAME.blind:get_type() ~= 'Small') or G.GAME.current_round.orb_card.called)) then
+        if ((self == G.hand_2 or self == G.hand_3) and (#SMODS.find_card('j_cs_call_the_orb') < 1 or (G.GAME.blind:get_type() and G.GAME.blind:get_type() ~= 'Small') or G.GAME.current_round.cs_orb_card.called)) then
             return
         end
 

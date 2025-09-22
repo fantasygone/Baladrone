@@ -258,7 +258,7 @@ jd_def["j_cs_escalator_fan"] = {
         local count = 0
         if G.jokers then
             for _, joker_card in ipairs(G.jokers.cards) do
-                if joker_card:is_scaling() then
+                if joker_card:cs_is_scaling() then
                     count = count + 1
                 end
             end
@@ -267,7 +267,7 @@ jd_def["j_cs_escalator_fan"] = {
         card.joker_display_values.localized_text = localize("cs_scaling")
     end,
     mod_function = function(card, mod_joker)
-        return { x_mult = (card:is_scaling() and mod_joker.ability.extra ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
+        return { x_mult = (card:cs_is_scaling() and mod_joker.ability.extra ^ JokerDisplay.calculate_joker_triggers(mod_joker) or nil) }
     end
 }
 

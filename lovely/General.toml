@@ -30,20 +30,29 @@ match_indent = true
 # Restoration restores itself
 [[patches]]
 [patches.pattern]
-target = "card.lua"
-pattern = '''if self.debuff then return nil end'''
-position = "before"
+target = "functions/common_events.lua"
+pattern = '''
+function eval_card(card, context)'''
+position = "after"
 payload = '''
-if self.ability.name == 'j_cs_restoration' and self.debuff and context.before and context.scoring_hand then
-    G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
-        self.debuff = false
-        if self.ability and self.ability.perishable then 
-            self.ability.perish_tally = 3
-        end
-        self:juice_up(0.3, 0.3)
-    return true end }))
-    card_eval_status_text(self, 'extra', nil, nil, nil, {message = localize('cs_restored'), colour = G.C.ORANGE})
-end
+    if card.ability.name == 'j_cs_restoration' and 
+    card.debuff and
+    card.ability.spell.mana >= card.ability.spell.mana_per_card and 
+    context.before and context.scoring_hand then
+        G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
+            card.debuff = false
+            cs_utils.add_mana(card, -card.ability.spell.mana_per_card)
+            card.ability.played = 0
+
+            if card.ability and card.ability.perishable then 
+                card.ability.perish_tally = 3
+            end
+            card:juice_up(0.3, 0.3)
+            play_sound('cs_create')
+        return true end }))
+
+        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_restored'), colour = G.C.ORANGE})
+    end
 '''
 match_indent = true
 
@@ -202,13 +211,13 @@ local hand_space = e
 '''
 position = "before"
 payload = '''
-if #SMODS.find_card('j_cs_call_the_orb') > 0 and G.GAME.blind:get_type() and G.GAME.blind:get_type() ~= 'Small' and G.GAME.blind:get_type() ~= 'Big' and #G.GAME.current_round.orb_card.cards > 0 and G.GAME.current_round.orb_card.called then
-    G.GAME.current_round.orb_card.called = false
+if #SMODS.find_card('j_cs_call_the_orb') > 0 and G.GAME.blind:get_type() and G.GAME.blind:get_type() ~= 'Small' and G.GAME.blind:get_type() ~= 'Big' and #G.GAME.current_round.cs_orb_card.cards > 0 and G.GAME.current_round.cs_orb_card.called then
+    G.GAME.current_round.cs_orb_card.called = false
     card_eval_status_text(SMODS.find_card('j_cs_call_the_orb')[1], 'extra', nil, nil, nil, {message = localize('cs_call_received'), colour = G.C.ALIGNMENT['cs_patron']})
 
-    for i=1, #G.GAME.current_round.orb_card.cards do
-        if cs_utils.contains(G.deck.cards, G.GAME.current_round.orb_card.cards[i]) then
-            draw_card(G.deck,G.hand, i*100/#G.GAME.current_round.orb_card.cards,'up', true, G.GAME.current_round.orb_card.cards[i])
+    for i=1, #G.GAME.current_round.cs_orb_card.cards do
+        if cs_utils.contains(G.deck.cards, G.GAME.current_round.cs_orb_card.cards[i]) then
+            draw_card(G.deck,G.hand, i*100/#G.GAME.current_round.cs_orb_card.cards,'up', true, G.GAME.current_round.cs_orb_card.cards[i])
         end
     end
 

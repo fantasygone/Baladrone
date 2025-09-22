@@ -31,7 +31,7 @@ SMODS.Joker {
     end,
 
     calculate = function (self, card, context)
-        if context.other_joker and context.other_joker:is_scaling() then
+        if context.other_joker and context.other_joker:cs_is_scaling() then
             return {
                 message = localize{type='variable',key='a_xmult',vars={card.ability.extra}},
                 Xmult_mod = card.ability.extra
@@ -42,7 +42,7 @@ SMODS.Joker {
     in_pool = function(self, args)
         if G.STAGE == G.STAGES.RUN and G.jokers and #G.jokers.cards > 0 then
             for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i]:is_scaling() then
+                if G.jokers.cards[i]:cs_is_scaling() then
                     return cs_utils.is_alignment(self.config.alignment)
                 end
             end
