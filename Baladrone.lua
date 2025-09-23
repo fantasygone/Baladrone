@@ -540,7 +540,7 @@ JOKER_FILES = {
         "flipper",
     },
     wicked = {
-        "destroyer",
+        "destroy_above",
         -- "bend_down",
         "damage",
         "vicious_joker",

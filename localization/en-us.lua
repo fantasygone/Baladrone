@@ -74,7 +74,7 @@ return {
 				},
 			},
 			j_cs_destroyer = {
-				name = "Destroyer",
+				name = "Destroy Above",
 				text = {
 					"Destroys first scored",
 					"card {C:attention}directly above #1#{}",
@@ -128,7 +128,7 @@ return {
 				text = {
 					"Every {C:attention}#1#{} {C:inactive}[#2#]{} cards played,",
 					"restores debuffed cards",
-					"for {C:attention}1{} Mana per card",
+					"for {C:attention}#5#{} Mana per card",
 					"{C:inactive}(Includes Joker cards){}",
 					"{C:inactive}(Dispels self-debuffs){}",
 					"{C:inactive}(MANA:{} {C:attention}#3#{}{C:inactive}/{}{C:attention}#4#{}{C:inactive}){}",

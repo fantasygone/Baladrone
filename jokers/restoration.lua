@@ -35,6 +35,7 @@ SMODS.Joker {
                 center.ability.played,
                 center.ability.spell.mana < 0 and G.GAME.cs_mana_max or center.ability.spell.mana,
                 G.GAME.cs_mana_max,
+                center.ability.spell.mana_per_card
             }
         }
     end,
