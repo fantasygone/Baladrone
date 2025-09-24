@@ -314,9 +314,9 @@ do
     function cs_utils.random_alignment(chameleonable, architectable, onlyalignmentable)
         local card_type = pseudorandom(pseudoseed('alignment'))
 
-        if onlyalignmentable then
-            G.GAME.cs_current_alignment_only = true
-        end
+        -- if onlyalignmentable then
+        --     G.GAME.cs_current_alignment_only = true
+        -- end
 
         if not G.GAME.cs_first_shop_chameleon then
             G.GAME.cs_first_shop_chameleon = true
@@ -348,25 +348,6 @@ do
         end
     end
 
-    function cs_utils.random_aligned_joker()
-        local card_ali = G.jokers.cards[#G.jokers.cards]
-
-        delay(0.2)
-        SMODS.calculate_effect({message = localize('b_free_jokers_' .. G.GAME.cs_current_alignment), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.cs_current_alignment]}, card_ali)
-        G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
-            SMODS.add_card({
-                set = 'Joker',
-                no_edition = true,
-                key_append = 'free_aligned_joker',
-                legendary = pseudorandom('free_leg_joker'..G.GAME.round_resets.ante) < 0.005
-            })
-
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3,func = function()
-                draw_card(G.jokers,G.cs_alignments, 90,'up', nil, card_ali)
-            return true end }))
-        return true end }))
-    end
-
     function cs_utils.is_alignment(alignment)
         if G.GAME.cs_current_alignment == 'chameleon' then
             return true
@@ -385,6 +366,25 @@ do
                 cs_utils.random_aligned_joker()
             return true end }))
         end
+    end
+
+    function cs_utils.random_aligned_joker()
+        local card_ali = G.jokers.cards[#G.jokers.cards]
+
+        delay(0.2)
+        SMODS.calculate_effect({message = localize('b_free_jokers_' .. G.GAME.cs_current_alignment), colour =  G.C.ALIGNMENT['cs_' .. G.GAME.cs_current_alignment]}, card_ali)
+        G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0.1,func = function()
+            SMODS.add_card({
+                set = SMODS.ObjectTypes[G.GAME.cs_current_alignment .. '_aligned'] and G.GAME.cs_current_alignment .. '_aligned' or 'neutral_aligned',
+                no_edition = true,
+                key_append = 'free_aligned_joker',
+                legendary = pseudorandom('free_leg_joker'..G.GAME.round_resets.ante) < 0.005
+            })
+
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.3,func = function()
+                draw_card(G.jokers,G.cs_alignments, 90,'up', nil, card_ali)
+            return true end }))
+        return true end }))
     end
 end
 

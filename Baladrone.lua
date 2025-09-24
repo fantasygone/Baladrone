@@ -467,20 +467,6 @@ local audio_files = {
     "seal_rank_obtained",
 }
 
--- List all Joker files here
-ALIGNMENT_JOKERS = {
-    "neutral",
-    "patron",
-    "joker",
-    "wicked",
-    "keeper",
-    "hacker",
-    "thief",
-    "drifter",
-    "spectre",
-    "necromancer"
-}
-
 ALIGNMENT_CARDS = {
     "patron",
     "wicked",
@@ -520,6 +506,20 @@ ACH_ALIGNMENT_ORDER = {
     "spectre",
     "chameleon",
     "architect",
+}
+
+-- List all Joker files here
+ALIGNMENT_JOKERS = {
+    "neutral",
+    "patron",
+    "joker",
+    "wicked",
+    "keeper",
+    "hacker",
+    "thief",
+    "drifter",
+    "spectre",
+    "necromancer"
 }
 
 JOKER_FILES = {
@@ -572,6 +572,22 @@ JOKER_FILES = {
 }
 
 for _, alignment in ipairs(ALIGNMENT_JOKERS) do
+    local cards = {}
+    for _, jkr in ipairs(JOKER_FILES[alignment]) do
+        cards["j_cs_" .. jkr] = true
+    end
+
+    SMODS.ObjectType({
+        key = alignment .. "_aligned",
+        cards = cards,
+        rarities = {
+            {key = 'Common'},
+            {key = 'Uncommon'},
+            {key = 'Rare'},
+            {key = 'Legendary'},
+        }
+    })
+
     for _, jkr in ipairs(JOKER_FILES[alignment]) do
         if jkr then assert(SMODS.load_file('jokers/'.. jkr ..'.lua'))() end
     end
