@@ -568,6 +568,7 @@ JOKER_FILES = {
     },
     necromancer = {
         "dual_hands",
+        "revival_point",
     }
 }
 

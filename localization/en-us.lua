@@ -277,6 +277,16 @@ return {
 					"retriggered {C:attention}#3#{} more #4#",
 				}
 			},
+			j_cs_revival_point = {
+				name = "Revival Point",
+				text = {
+                    "Sell this card to gain",
+                    "back {C:blue}Hands{}, {C:red}Discards{}",
+                    "and {C:money}Dollars{} that were",
+					"lost after this",
+					"Joker was obtained",
+				}
+			},
 		},
 		Alignment = {
 			ali_cs_patron = {
