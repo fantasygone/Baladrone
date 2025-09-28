@@ -116,6 +116,15 @@ return {
 					"cards and earn {C:money}$#1#{} for each",
 				}
 			},
+			j_cs_new_destroyer = {
+				name = "Destroyer",
+				text = {
+					"On {C:attention}first hand{} of round,",
+					"destroys scoring hand",
+					"if {C:attention}hand level{} is equal to",
+					"the current {C:attention}Ante{}",
+				}
+			},
 			j_cs_restoration = {
 				name = "Restoration",
 				-- text = {

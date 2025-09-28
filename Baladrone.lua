@@ -541,9 +541,9 @@ JOKER_FILES = {
     },
     wicked = {
         "destroy_above",
-        -- "bend_down",
-        "damage",
         "vicious_joker",
+        "damage",
+        "destroyer",
         "four_walls",
     },
     keeper = {

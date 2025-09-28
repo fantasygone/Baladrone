@@ -224,6 +224,17 @@ jd_def["j_cs_vicious_joker"] = {
     end,
 }
 
+jd_def["j_cs_new_destroyer"] = {
+    reminder_text = {
+        { text = "(" },
+        { ref_table = "card.joker_display_values", ref_value = "active" },
+        { text = ")" },
+    },
+    calc_function = function(card)
+        card.joker_display_values.active = (G.GAME and G.GAME.current_round.hands_played == 0 and localize("jdis_active") or localize("jdis_inactive"))
+    end
+}
+
 -- Keeper
 
 jd_def["j_cs_restoration"] = {
