@@ -185,6 +185,48 @@ do
         return triggered
     end
 
+    function cs_utils.get_least_upgraded_hands()
+        local min_upgrade = 999
+        local hands = {}
+
+        -- find min level
+        for k, v in pairs(G.GAME.hands) do
+            if v.level < min_upgrade and v.visible then
+                min_upgrade = v.level
+            end
+        end
+
+        -- find all hands with min level
+        for k, v in pairs(G.GAME.hands) do
+            if v.level == min_upgrade and v.visible then
+                table.insert(hands, k)
+            end
+        end
+
+        return hands
+    end
+
+    function cs_utils.get_most_upgraded_hands()
+        local max_upgrade = -1
+        local hands = {}
+
+        -- find max level
+        for k, v in pairs(G.GAME.hands) do
+            if v.level > max_upgrade and v.visible then
+                max_upgrade = v.level
+            end
+        end
+
+        -- find all hands with max level
+        for k, v in pairs(G.GAME.hands) do
+            if v.level == max_upgrade and v.visible then
+                table.insert(hands, k)
+            end
+        end
+
+        return hands
+    end
+
     function cs_utils.move_cards(from, to, cards)
         for i = 1, #cards do
             from:remove_card(cards[i])

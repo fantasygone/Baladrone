@@ -33,7 +33,7 @@ SMODS.Joker {
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        if from_debuff and G.GAME.blind and G.GAME.blind:get_type() == 'Small' then
+        if G.GAME.blind and G.GAME.blind:get_type() == 'Small' then
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_blocked'), colour = G.C.RED})
 
             for i = 1, #G.hand.cards do

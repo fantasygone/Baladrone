@@ -9,7 +9,7 @@
 	"priority": -2,
 	"badge_colour": "ef9553",
 	"badge_text_colour": "6429a9",
-	"version": "0.2.14(Destroyer)",
+	"version": "0.2.15(Bend Up)",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA*)",
 		"Lovely (>=0.7.1)"

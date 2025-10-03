@@ -545,6 +545,7 @@ JOKER_FILES = {
         "damage",
         "destroyer",
         "four_walls",
+        "bend_up",
     },
     keeper = {
         "restoration",

@@ -125,6 +125,17 @@ return {
 					"the current {C:attention}Ante{}",
 				}
 			},
+			j_cs_bend_up = {
+				name = "Bend Up",
+				text = {
+					"{C:blue}-#1#{} level to each hand",
+					"On {C:attention}first hand{} of round,",
+					"{C:attention}temporarily{} upgrades a",
+					"random hand with the",
+					"{C:attention}lowest level{} to match the",
+					"{C:attention}highest{} hand level you own"
+				}
+			},
 			j_cs_restoration = {
 				name = "Restoration",
 				-- text = {
@@ -797,6 +808,7 @@ return {
 			cs_blocked = "Blocked!",
 			cs_freed = "Free!",
 			cs_nuh_uh = "Nuh Uh!",
+			cs_bend_up = "Bend Up!",
 			-- Patron
 			cs_created = "Created!",
 			cs_averaged = "Average!",
