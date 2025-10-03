@@ -37,7 +37,7 @@ SMODS.Joker {
     add_to_deck = function(self, card, from_debuff)
         for k, v in pairs(G.GAME.hands) do
             if v.visible then
-                G.GAME.hands[k].level = G.GAME.hands[k].level - 1
+                G.GAME.hands[k].level = G.GAME.hands[k].level - card.ability.extra.remove_level
                 G.GAME.hands[k].mult = math.max(G.GAME.hands[k].s_mult + G.GAME.hands[k].l_mult*(G.GAME.hands[k].level - 1), 1)
                 G.GAME.hands[k].chips = math.max(G.GAME.hands[k].s_chips + G.GAME.hands[k].l_chips*(G.GAME.hands[k].level - 1), 0)
                 -- level_up_hand(nil, k, true, -1)
@@ -52,7 +52,7 @@ SMODS.Joker {
 
         for k, v in pairs(G.GAME.hands) do
             if v.visible then
-                G.GAME.hands[k].level = G.GAME.hands[k].level + 1
+                G.GAME.hands[k].level = G.GAME.hands[k].level + card.ability.extra.remove_level
                 G.GAME.hands[k].mult = math.max(G.GAME.hands[k].s_mult + G.GAME.hands[k].l_mult*(G.GAME.hands[k].level - 1), 1)
                 G.GAME.hands[k].chips = math.max(G.GAME.hands[k].s_chips + G.GAME.hands[k].l_chips*(G.GAME.hands[k].level - 1), 0)
             end
