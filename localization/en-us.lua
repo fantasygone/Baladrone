@@ -136,6 +136,15 @@ return {
 					"{C:attention}highest{} hand level you own"
 				}
 			},
+			j_cs_imperator = {
+				name = "Imperator",
+				text = {
+					"If {C:attention}played hand{} scores less",
+					"than required chips, remove",
+					"that amount from required chips",
+					"in exchange for a random {C:attention}Joker{}",
+				}
+			},
 			j_cs_restoration = {
 				name = "Restoration",
 				-- text = {
@@ -751,6 +760,7 @@ return {
 		dictionary = {
 			-- b_alignment_cards = "Alignment",
 			k_alignment = "Alignment",
+			k_cs_ultimate = "Ultimate",
 			k_cs_morph_pack="Morph Pack",
 			b_alignments="Alignments",
 			b_morph="MORPH",

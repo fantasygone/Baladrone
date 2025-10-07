@@ -2,17 +2,25 @@ do -- FLIP button for Flip Right
     G.FUNCS.cs_flip_card = function(e)
         local card = e.config.ref_table
         if not card and not card.ability.target then return end
-        local target = card.ability.target
+        local card_index
+        local target
 
-        if card.highlighted then
-            card:highlight(false)
+        for index, c in ipairs(G.jokers.cards) do
+            if c == card then
+                card_index = index
+                break
+            end
         end
 
-        cs_utils.add_mana(card, -card.ability.spell.mana_cost)
+        if card_index and G.jokers.cards[card_index + 1] then
+            target = G.jokers.cards[card_index + 1]
 
-        cs_utils.flip_cards(target, 'before', 0.1)
-        SMODS.calculate_effect({message = localize('cs_flipped'), colour =  G.C.ALIGNMENT['cs_joker']}, card)
-        play_sound('cs_flip')
+            cs_utils.add_mana(card, -card.ability.spell.mana_cost)
+
+            cs_utils.flip_cards(target, 'before', 0.1)
+            SMODS.calculate_effect({message = localize('cs_flipped'), colour =  G.C.ALIGNMENT['cs_joker']}, card)
+            play_sound('cs_flip')
+        end
     end
 
     G.FUNCS.cs_can_flip_card = function(e)
@@ -29,7 +37,6 @@ do -- FLIP button for Flip Right
             end
 
             if card_index and G.jokers.cards[card_index + 1] then
-                card.ability.target = G.jokers.cards[card_index + 1]
                 e.config.colour = G.C.ALIGNMENT['cs_joker']
                 e.config.button = 'cs_flip_card'
                 return
@@ -46,10 +53,6 @@ do -- RESTORE button for Restoration
         local card = e.config.ref_table
         if not card then return end
 
-        if card.highlighted then
-            card:highlight(false)
-        end
-
         local cardsToRestore = {}
 
         cardsToRestore = cs_utils.save_debuffed_cards(G.hand.cards, cardsToRestore)
@@ -57,11 +60,9 @@ do -- RESTORE button for Restoration
 
         if #cardsToRestore > 0 then
             cs_utils.add_mana(card, -card.ability.spell.mana_cost)
-            card.ability.restored = card.ability.restored or {}
 
             for _, c in ipairs(cardsToRestore) do
-                table.insert(card.ability.restored, c)
-                -- c:cs_undebuff_this()
+                table.insert(G.GAME.current_round.cs_permanent_undebuff, c)
 
                 if c.ability and c.ability.perishable then
                     c.ability.perish_tally = 3
@@ -77,33 +78,6 @@ do -- RESTORE button for Restoration
             play_sound('cs_create')
         end
     end
-
-    -- if #cardsToRestore > 0 then
-    --     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-    --         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
-    --             play_sound('cs_create')
-    --         return true end }))
-
-    --         G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0,func = function()
-    --             card.ability.restored = card.ability.restored or {}
-    --             for _, c in ipairs(cardsToRestore) do
-    --                 table.insert(card.ability.restored, c)
-    --                 c:cs_undebuff_this()
-
-    --                 if c.ability and c.ability.perishable then
-    --                     c.ability.perish_tally = 3
-    --                 end
-
-    --                 SMODS.debuff_card(c, 'prevent_debuff', 'restoration')
-    --                 c:juice_up(0.3, 0.3)
-    --             end
-
-    --             card.ability.played = 0
-    --         return true end }))
-
-    --         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_restored'), colour = G.C.ALIGNMENT['cs_keeper']})
-    --     return true end }))
-    --  end
 
     G.FUNCS.cs_can_restore_card = function(e)
         local card = e.config.ref_table

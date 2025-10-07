@@ -16,6 +16,7 @@ do
         ret.cs_morphed = -1
 
         ret.current_round.cs_cards_are_blocked = false
+        ret.current_round.cs_permanent_undebuff = {}
         ret.current_round.cs_orb_card = {called = false, cards = {}}
 
         return ret
@@ -65,16 +66,105 @@ end
 do
     local original_use_and_sell_buttons = G.UIDEF.use_and_sell_buttons
     function G.UIDEF.use_and_sell_buttons(card)
+        local abc = original_use_and_sell_buttons(card)
+
         if card.area and card.area == G.pack_cards and card.ability.set == 'Alignment' then
             return {
                 n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
-                {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, maxw = 0.9*card.T.w - 0.15, minh = 0.3*card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_select_card'}, nodes={
-                {n=G.UIT.T, config={text = localize('b_morph'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
+                    {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, maxw = 0.9*card.T.w - 0.15, minh = 0.3*card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_select_card'}, nodes={
+                    {n=G.UIT.T, config={text = localize('b_morph'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
                 }},
             }}
         end
+        if card.area and card.area == G.jokers and G.jokers and card.config.center.key == "j_cs_flip_right" then
+            sell = {n=G.UIT.C, config={align = "cr"}, nodes={
+                {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+                    {n=G.UIT.B, config = {w=0.1,h=0.6}},
+                    {n=G.UIT.C, config={align = "tm"}, nodes={
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
+                        }},
+                        {n=G.UIT.R, config={align = "cm"}, nodes={
+                            {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+                            {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+                        }}
+                    }}
+                }},
+            }}
 
-        return original_use_and_sell_buttons(card)
+            flip = { n = G.UIT.C, config = { align = "cr" }, nodes = {
+                { n = G.UIT.C, config = {
+                    ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25,
+                    hover = true, shadow = true, colour = G.C.ALIGNMENT['cs_joker'],
+                    button = 'cs_flip_card', func = 'cs_can_flip_card'
+                }, nodes = {
+                    { n = G.UIT.B, config = { w = 0.1, h = 0.6 } },
+                    { n = G.UIT.C, config = { align = "tm" }, nodes = {
+                        { n = G.UIT.R, config = { align = "cm", maxw = 1.25 }, nodes = {
+                            { n = G.UIT.T, config = { text = localize('b_flip'), colour = G.C.UI.TEXT_DARK, scale = 0.40, shadow = true } }
+                        }},
+                        { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                            { n = G.UIT.T, config = { text = "-" .. card.ability.spell.mana_cost .. " MANA", colour = G.C.UI.TEXT_DARK, scale = 0.35, shadow = true } }
+                        }}
+                    }},
+                }},
+            }}
+
+            return {
+                n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+                    {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
+                        {n=G.UIT.R, config={align = 'cl'}, nodes={sell}},
+                        {n=G.UIT.R, config={align = 'cl'}, nodes={flip}},
+                    }},
+                }
+            }
+        end
+
+        if card.area and card.area == G.jokers and G.jokers and card.config.center.key == "j_cs_restoration" then
+            sell = {n=G.UIT.C, config={align = "cr"}, nodes={
+                {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
+                    {n=G.UIT.B, config = {w=0.1,h=0.6}},
+                    {n=G.UIT.C, config={align = "tm"}, nodes={
+                        {n=G.UIT.R, config={align = "cm", maxw = 1.25}, nodes={
+                            {n=G.UIT.T, config={text = localize('b_sell'),colour = G.C.UI.TEXT_LIGHT, scale = 0.4, shadow = true}}
+                        }},
+                        {n=G.UIT.R, config={align = "cm"}, nodes={
+                            {n=G.UIT.T, config={text = localize('$'),colour = G.C.WHITE, scale = 0.4, shadow = true}},
+                            {n=G.UIT.T, config={ref_table = card, ref_value = 'sell_cost_label',colour = G.C.WHITE, scale = 0.55, shadow = true}}
+                        }}
+                    }}
+                }},
+            }}
+
+            restore = { n = G.UIT.C, config = { align = "cr" }, nodes = {
+                { n = G.UIT.C, config = {
+                    ref_table = card, align = "cr", padding = 0.1, r = 0.08, minw = 1.25,
+                    hover = true, shadow = true, colour = G.C.ALIGNMENT['cs_keeper'],
+                    button = 'cs_restore_card', func = 'cs_can_restore_card'
+                }, nodes = {
+                    { n = G.UIT.B, config = { w = 0.1, h = 0.6 } },
+                    { n = G.UIT.C, config = { align = "tm" }, nodes = {
+                        { n = G.UIT.R, config = { align = "cm", maxw = 1.25 }, nodes = {
+                            { n = G.UIT.T, config = { text = localize('b_restore'), colour = G.C.UI.TEXT_LIGHT, scale = 0.40, shadow = true } }
+                        }},
+                        { n = G.UIT.R, config = { align = "cm" }, nodes = {
+                            { n = G.UIT.T, config = { text = "-" .. card.ability.spell.mana_cost .. " MANA", colour = G.C.UI.TEXT_LIGHT, scale = 0.35, shadow = true } }
+                        }}
+                    }},
+                }},
+            }}
+
+            return {
+                n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+                    {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
+                        {n=G.UIT.R, config={align = 'cl'}, nodes={sell}},
+                        {n=G.UIT.R, config={align = 'cl'}, nodes={restore}},
+                    }},
+                }
+            }
+        end
+
+        return abc
     end
 end
 

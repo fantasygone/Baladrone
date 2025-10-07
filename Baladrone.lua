@@ -359,8 +359,20 @@ function create_call_UIBox_buttons()
   end
 
 -- Keeping for when I need it :P
--- function SMODS.current_mod.reset_game_globals(run_start)
--- end
+-- I need it now!!
+function SMODS.current_mod.reset_game_globals(run_start)
+    if not run_start then
+        if #G.GAME.current_round.cs_permanent_undebuff > 0 then
+            for i, v in ipairs(G.GAME.current_round.cs_permanent_undebuff) do
+                if cs_utils.contains(G.playing_cards, v) or cs_utils.contains(G.jokers.cards, v) then
+                    SMODS.debuff_card(v, 'reset', nil)
+                end
+            end
+
+            G.GAME.current_round.cs_permanent_undebuff = {}
+        end
+    end
+end
 
 SMODS.Atlas {
     key = "Baladrone_atlas",
@@ -424,6 +436,39 @@ SMODS.Gradient {
     colours = {G.C.RED, G.C.BLUE},
     cycle = 4,
     interpolation = 'linear'
+}
+
+SMODS.Gradient {
+    key = "everyalignment",
+    colours = {
+        G.C.ALIGNMENT["cs_muggle"],
+        G.C.ALIGNMENT["cs_hacker"],
+        G.C.ALIGNMENT["cs_wicked"],
+        G.C.ALIGNMENT["cs_keeper"],
+        G.C.ALIGNMENT["cs_gremlin"],
+        G.C.ALIGNMENT["cs_joker"],
+        G.C.ALIGNMENT["cs_splicer"],
+        G.C.ALIGNMENT["cs_drifter"],
+        G.C.ALIGNMENT["cs_patron"],
+        G.C.ALIGNMENT["cs_archon"],
+        G.C.ALIGNMENT["cs_spectre"],
+        G.C.ALIGNMENT["cs_thief"],
+        G.C.ALIGNMENT["cs_reaver"],
+        G.C.ALIGNMENT["cs_heretic"],
+        G.C.ALIGNMENT["cs_necromancer"],
+        G.C.ALIGNMENT["cs_chameleon"]
+    },
+    cycle = 12,
+    interpolation = 'trig'
+}
+
+SMODS.Rarity {
+    key = "Ultimate",
+    default_weight = 0.01,
+    badge_colour = SMODS.Gradients.cs_everyalignment,
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
 }
 
 -- Mod Icon in Mods tab
@@ -546,6 +591,7 @@ JOKER_FILES = {
         "destroyer",
         "four_walls",
         "bend_up",
+        "imperator",
     },
     keeper = {
         "restoration",

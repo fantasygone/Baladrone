@@ -4,7 +4,6 @@ SMODS.Joker {
         alignment = 'keeper',
         to_play = 23,
         played = 0,
-        restored = {},
         spell = {
             mana = -1,
             mana_cost = -1,
@@ -71,51 +70,6 @@ SMODS.Joker {
                     card.ability.played = card.ability.played + 1
                 end
             end
-
-            -- if card.ability.played >= card.ability.to_play then
-                -- local cardsToRestore = {}
-
-                -- cardsToRestore = cs_utils.save_debuffed_cards(G.hand.cards, cardsToRestore)
-                -- cardsToRestore = cs_utils.save_debuffed_cards(G.jokers.cards, cardsToRestore)
-
-                -- -- save_debuffed_cards(G.hand.cards)
-                -- -- save_debuffed_cards(G.jokers.cards)
-
-                -- if #cardsToRestore > 0 then
-                --     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
-                --         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
-                --             play_sound('cs_create')
-                --         return true end }))
-
-                --         G.E_MANAGER:add_event(Event({trigger = 'before',delay = 0,func = function()
-                --             card.ability.restored = card.ability.restored or {}
-                --             for _, c in ipairs(cardsToRestore) do
-                --                 table.insert(card.ability.restored, c)
-                --                 -- c:cs_undebuff_this()
-
-                --                 if c.ability and c.ability.perishable then
-                --                     c.ability.perish_tally = 3
-                --                 end
-
-                --                 SMODS.debuff_card(c, 'prevent_debuff', 'restoration')
-                --                 c:juice_up(0.3, 0.3)
-                --             end
-
-                --             card.ability.played = 0
-                --         return true end }))
-
-                --         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('cs_restored'), colour = G.C.ORANGE})
-                --     return true end }))
-                -- end
-            -- end
-        end
-
-        if context.end_of_round and not context.game_over and context.cardarea ~= G.hand and #card.ability.restored > 0 then
-            for _, value in ipairs(card.ability.restored) do
-                SMODS.debuff_card(value, 'reset', 'restoration')
-            end
-
-            card.ability.restored = {}
         end
     end,
 
