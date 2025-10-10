@@ -220,7 +220,7 @@ do
     function ease_hands_played(mod, instant)
         original_ease_hands_played(mod, instant)
 
-        if not G.GAME.syncing_hands_and_discards and #SMODS.find_card('j_cs_reaver_merge') > 0 then
+        if not G.GAME.syncing_hands_and_discards and #SMODS.find_card('j_cs_reaver_merge') > 0 and mod < 0 then
             G.GAME.syncing_hands_and_discards = true
             ease_discard(mod)
             G.GAME.syncing_hands_and_discards = false
@@ -231,7 +231,7 @@ do
     function ease_discard(mod, instant, silent)
         original_ease_discard(mod, instant, silent)
 
-        if not G.GAME.syncing_hands_and_discards and #SMODS.find_card('j_cs_reaver_merge') > 0 then
+        if not G.GAME.syncing_hands_and_discards and #SMODS.find_card('j_cs_reaver_merge') > 0 and mod < 0 then
             G.GAME.syncing_hands_and_discards = true
             ease_hands_played(mod)
             G.GAME.syncing_hands_and_discards = false
