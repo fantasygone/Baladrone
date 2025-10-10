@@ -6,8 +6,8 @@ return {
 				text = {
 					"If this Joker is {C:attention}copied{},",
 					"it gains {X:mult,C:white}X0.75{} Mult and",
-					"destroys any Joker attempting",
-					"to {C:attention}copy{} it",
+					"destroys any Joker",
+					"attempting to {C:attention}copy{} it",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 				}
 			},
@@ -314,6 +314,14 @@ return {
                     "and {C:money}Dollars{} that were",
 					"lost after this",
 					"Joker was obtained",
+				}
+			},
+			j_cs_reaver_merge = {
+				name = "Reaver Merge",
+				text = {
+                    "{C:blue}Hands{} and {C:red}Discards{} are",
+                    "always subtracted {C:attention}together{}",
+                    "{X:mult,C:white}X#1#{} Mult",
 				}
 			},
 		},

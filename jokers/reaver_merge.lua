@@ -1,49 +1,45 @@
 SMODS.Joker {
-    key = "broken_drone",
+    key = "reaver_merge",
     config = {
+        alignment = 'reaver',
         extra = {
-            xmult_mod = 0.75,
-            xmult = 1.5,
+            xmult = 2
         }
     },
     -- Sprite settings
     atlas = "Baladrone_atlas",
-    pos = { x = 0, y = 2 },
+    pos = { x = 0, y = 12 },
     soul_pos = nil,
     -- Card info
-    rarity = 2, --Uncommon
-    cost = 6,
+    rarity = 1, --Common
+    cost = 4,
     -- Player data
     unlocked = true,
     discovered = false,
     -- Compatibility
     blueprint_compat = true,    -- FALSE for passive Jokers
-    perishable_compat = false,  -- FALSE for scaling Jokers
+    perishable_compat = true,   -- FALSE for scaling Jokers
     eternal_compat = true,      -- FALSE for Jokers to be sold or that expire by themselves
     rental_compat = true,       -- FALSE for idk??
 
     loc_vars = function(self, info_queue, center)
+        info_queue[#info_queue + 1] = {key = 'cs_reaver_aligned', set = 'Other'}
         return {
-            vars = { 
-                center.ability.extra.xmult_mod,
+            vars = {
                 center.ability.extra.xmult,
             }
         }
     end,
 
-    add_to_deck = function(self, card, from_debuff)
-        cs_utils.broken_drone_interaction(card, 'dupe')
-    end,
-
     calculate = function (self, card, context)
-        if context.after and context.blueprint then
-            cs_utils.broken_drone_interaction(context.blueprint_card, 'copy')
-        end
-
         if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult,
+                xmult = card.ability.extra.xmult
             }
         end
+    end,
+
+    in_pool = function(self, args)
+        return cs_utils.is_alignment(self.config.alignment)
     end
 }

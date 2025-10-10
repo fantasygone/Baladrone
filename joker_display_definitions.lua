@@ -7,7 +7,7 @@ jd_def["j_cs_broken_drone"] = {
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.ability", ref_value = "x_mult", retrigger_type = "exp" }
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
             }
         }
     },
@@ -98,7 +98,7 @@ jd_def["j_cs_flip_right"] = {
         {
             border_nodes = {
                 { text = "X" },
-                { ref_table = "card.joker_display_values", ref_value = "x_mult", retrigger_type = "exp" }
+                { ref_table = "card.joker_display_values", ref_value = "xmult", retrigger_type = "exp" }
             }
         }
     },
@@ -110,7 +110,7 @@ jd_def["j_cs_flip_right"] = {
             end
         end
 
-        card.joker_display_values.x_mult = (flipped == #G.jokers.cards - 1 and #G.jokers.cards > 1) and card.ability.extra.mult or 1
+        card.joker_display_values.xmult = (flipped == #G.jokers.cards - 1 and #G.jokers.cards > 1) and card.ability.extra.xmult or 1
     end,
 }
 
@@ -383,4 +383,17 @@ jd_def["j_cs_dual_hands"] = {
     calc_function = function(card)
         card.joker_display_values.odds = localize { type = 'variable', key = "jdis_odds", vars = { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.odds } }
     end
+}
+
+-- Reaver
+
+jd_def["j_cs_reaver_merge"] = {
+    text = {
+        {
+            border_nodes = {
+                { text = "X" },
+                { ref_table = "card.ability.extra", ref_value = "xmult", retrigger_type = "exp" }
+            }
+        }
+    },
 }

@@ -8,6 +8,7 @@ do
 
         ret.cs_show_call_button = false
         ret.cs_mana_max = 10
+        ret.cs_syncing_hands_and_discards = false
 
         ret.cs_current_alignment = 'none'
         ret.cs_current_alignment_only = false
@@ -214,6 +215,36 @@ do
             return original_create_UIBox_buttons()
         end
     end
+
+    local original_ease_hands_played = ease_hands_played
+    function ease_hands_played(mod, instant)
+        original_ease_hands_played(mod, instant)
+
+        if not G.GAME.syncing_hands_and_discards and #SMODS.find_card('j_cs_reaver_merge') > 0 then
+            G.GAME.syncing_hands_and_discards = true
+            ease_discard(mod)
+            G.GAME.syncing_hands_and_discards = false
+        end
+    end
+
+    local original_ease_discard = ease_discard
+    function ease_discard(mod, instant, silent)
+        original_ease_discard(mod, instant, silent)
+
+        if not G.GAME.syncing_hands_and_discards and #SMODS.find_card('j_cs_reaver_merge') > 0 then
+            G.GAME.syncing_hands_and_discards = true
+            ease_hands_played(mod)
+            G.GAME.syncing_hands_and_discards = false
+
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0,func = function()
+                if G.GAME.current_round.hands_left < 1 then
+                    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 1,func = function()
+                        end_round()
+                    return true end }))
+                end
+            return true end }))
+        end
+    end
 end
 
 --Card hooks
@@ -412,7 +443,6 @@ do
         return G_FUNCS_check_for_buy_space_ref(card)
     end
 end
-
 
 -- HAND 2 AND HAND 3 CARD AREA HOOKS
 do

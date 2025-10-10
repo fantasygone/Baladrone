@@ -225,3 +225,22 @@ if #SMODS.find_card('j_cs_call_the_orb') > 0 and G.GAME.blind:get_type() and G.G
 end
 '''
 match_indent = true
+
+
+
+
+
+# Removing JokerDisplay boxes from Alignments
+[[patches]]
+[patches.pattern]
+target = '''=[SMODS JokerDisplay "src/display_functions.lua"]'''
+pattern = '''
+if self.ability then
+'''
+position = "before"
+payload = '''
+if self.ability and self.ability.set == 'Alignment' then
+    return
+end
+'''
+match_indent = true

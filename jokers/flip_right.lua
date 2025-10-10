@@ -8,7 +8,7 @@ SMODS.Joker {
             mana_cost = 2,
         },
         extra = {
-            mult = 3
+            xmult = 3
         },
     },
     -- Sprite settings
@@ -33,7 +33,7 @@ SMODS.Joker {
             center.ability.spell.mana < 0 and G.GAME.cs_mana_max or center.ability.spell.mana,
             center.ability.spell.mana_cost,
             G.GAME.cs_mana_max,
-            center.ability.extra.mult
+            center.ability.extra.xmult
         }}
     end,
 
@@ -54,7 +54,7 @@ SMODS.Joker {
 
             if #G.jokers.cards > 1 and flipped == (#G.jokers.cards - 1) then
                 return {
-                    xmult = card.ability.extra.mult,
+                    xmult = card.ability.extra.xmult,
                 }
             end
         end

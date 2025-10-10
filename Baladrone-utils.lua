@@ -252,24 +252,28 @@ do
         return impostor_warnings[index]
     end
 
-    function cs_utils.broken_drone_interaction(new_card)
+    function cs_utils.broken_drone_interaction(new_card, type)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
             local cs_broken_drone = SMODS.find_card('j_cs_broken_drone')
+            if type == 'copy' then
+                table.insert(cs_broken_drone, new_card)
+            end
             if #cs_broken_drone >= 2 then
                 for i = 1, #cs_broken_drone - 1 do
                     if not new_card.getting_sliced then
-                        cs_broken_drone[i].ability.x_mult = cs_broken_drone[i].ability.x_mult + cs_broken_drone[i].ability.extra
-                        card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = cs_utils.get_random_warning(), colour = G.C.RED})
-                        card_eval_status_text(new_card, 'extra', nil, nil, nil, {message = localize('cs_false'), colour = G.C.GREEN})
+                        cs_broken_drone[i].ability.extra.xmult = cs_broken_drone[i].ability.extra.xmult + cs_broken_drone[i].ability.extra.xmult_mod
+                        SMODS.calculate_effect({message = cs_utils.get_random_warning(), colour = G.C.RED}, cs_broken_drone[i])
+                        SMODS.calculate_effect({message = localize('cs_false'), colour = G.C.GREEN}, new_card)
+
                         if not new_card.ability.eternal then
                             new_card.getting_sliced = true
                             SMODS.destroy_cards(new_card)
 
-                            card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = 'X' .. cs_broken_drone[i].ability.x_mult .. ' Mult', colour = G.C.RED})
+                            SMODS.calculate_effect({message = 'X' .. cs_broken_drone[i].ability.extra.xmult .. ' Mult', colour = G.C.RED}, cs_broken_drone[i])
                         else
-                            card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = 'X' .. cs_broken_drone[i].ability.x_mult .. ' Mult', colour = G.C.RED})
+                            SMODS.calculate_effect({message = 'X' .. cs_broken_drone[i].ability.extra.xmult .. ' Mult', colour = G.C.RED}, cs_broken_drone[i])
                             delay(0.4)
-                            card_eval_status_text(cs_broken_drone[i], 'extra', nil, nil, nil, {message = localize('cs_smh'), colour = G.C.RED})
+                            SMODS.calculate_effect({message = localize('cs_smh'), colour = G.C.RED}, cs_broken_drone[i])
                         end
                     end
                 end
@@ -355,10 +359,6 @@ end
 do
     function cs_utils.random_alignment(chameleonable, architectable, onlyalignmentable)
         local card_type = pseudorandom(pseudoseed('alignment'))
-
-        -- if onlyalignmentable then
-        --     G.GAME.cs_current_alignment_only = true
-        -- end
 
         if not G.GAME.cs_first_shop_chameleon then
             G.GAME.cs_first_shop_chameleon = true

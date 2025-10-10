@@ -564,7 +564,8 @@ ALIGNMENT_JOKERS = {
     "thief",
     "drifter",
     "spectre",
-    "necromancer"
+    "necromancer",
+    "reaver",
 }
 
 JOKER_FILES = {
@@ -616,7 +617,10 @@ JOKER_FILES = {
     necromancer = {
         "dual_hands",
         "revival_point",
-    }
+    },
+    reaver = {
+        "reaver_merge",
+    },
 }
 
 for _, alignment in ipairs(ALIGNMENT_JOKERS) do
@@ -632,6 +636,7 @@ for _, alignment in ipairs(ALIGNMENT_JOKERS) do
             {key = 'Common'},
             {key = 'Uncommon'},
             {key = 'Rare'},
+            {key = 'cs_Ultimate'},
             {key = 'Legendary'},
         }
     })
